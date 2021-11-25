@@ -33,7 +33,7 @@ namespace Thitrachnghiem.Services
                     claims.Add(new Claim(ClaimTypes.Name, user.Username.ToString()));
                     claims.Add(new Claim(ClaimTypes.Sid, user.Uuid.ToString()));         
 
-                    foreach (var item in new F_Userrole().GetRoleClaimById(user.Id).Role)
+                    foreach (var item in new F_Userrole().GetRoleClaimById(user.Id).Claims)
                     {
                         claims.Add(new Claim(ClaimTypes.Role, item));
                     }

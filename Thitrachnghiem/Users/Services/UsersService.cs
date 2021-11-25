@@ -38,7 +38,7 @@ namespace Thitrachnghiem.Users.Services
 
             F_Userrole f_Userrole = new F_Userrole();
             userGet.Role = f_Userrole.GetUserRoleById(userGet.Id).Role;
-            userGet.RoleUuids = f_Userrole.GetUserRoleById(userGet.Id).RoleUuids;
+            userGet.RoleUuid = f_Userrole.GetUserRoleById(userGet.Id).RoleUuid;
 
 
             return userGet;
@@ -282,26 +282,22 @@ namespace Thitrachnghiem.Users.Services
                 throw new InvalidDataException("Username không tồn tại");
 
             F_Userrole f_Userrole = new F_Userrole();
-            List<Guid> guids = f_Userrole.GetUserRoleById(user.Id).RoleUuids;
-            if (guids != null && guids.Count> 0)
-            {
-                foreach (var item in guids)
-                {
+            Guid guids = f_Userrole.GetUserRoleById(user.Id).RoleUuid;
+            if (guids != null)
+            {               
                     UserRoleCreate userRoleCreate = new UserRoleCreate();
                     userRoleCreate.Useruuid = (Guid)user.Uuid;
-                    userRoleCreate.Roleuuid = item;
+                    userRoleCreate.Roleuuid = guids;
 
-                    DeleteUserRole(userRoleCreate);
-                }
+                    DeleteUserRole(userRoleCreate);              
             }
 
-            if (entity.Roleuuids != null && entity.Roleuuids.Count > 0)
+            if (entity.Roleuuid != null)
             {
-                foreach (var item in entity.Roleuuids)
                 {
                     UserRoleCreate userRoleCreate = new UserRoleCreate();
                     userRoleCreate.Useruuid = (Guid)user.Uuid;
-                    userRoleCreate.Roleuuid = item;
+                    userRoleCreate.Roleuuid = entity.Roleuuid;
 
                     CreateUserRole(userRoleCreate);
                 }
@@ -309,7 +305,5 @@ namespace Thitrachnghiem.Users.Services
 
             return GetUsersByUuid(entity.Useruuid.ToString());
         }
-
-
     }
 }

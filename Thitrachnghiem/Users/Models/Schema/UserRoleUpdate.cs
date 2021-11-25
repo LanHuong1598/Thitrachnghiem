@@ -8,6 +8,6 @@ namespace Thitrachnghiem.Users.Models.Schema
     public class UserRoleUpdate
     {
         public Guid Useruuid { get; set; }
-        public List<Guid> Roleuuids { get; set; }
+        public Guid Roleuuid { get; set; }
     }
 }

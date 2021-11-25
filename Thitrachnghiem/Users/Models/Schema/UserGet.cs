@@ -14,8 +14,10 @@ namespace Thitrachnghiem.Users.Models.Schema
         public string Name { get; set; }
         public Guid Madonvi { get; set; }
         public String Tendonvi { get; set; }
-        public List<String> Role { get; set; }
-        public List<Guid> RoleUuids { get; set; }
+        public String Role { get; set; }
+        public Guid RoleUuid { get; set; }
+        public List<String> Claims { get; set; }
+
 
         public UserGet(User user)
         {

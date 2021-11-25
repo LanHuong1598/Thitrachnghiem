@@ -25,9 +25,6 @@ namespace Thitrachnghiem.Users.Models.Functions
         {
            
             UserGet result = new UserGet();
-            result.Role = new List<string>();
-            result.RoleUuids = new List<Guid>();
-
 
             List<User> users = thitracnghiemContext.Users.ToList();
             List<Userrole> userroles = thitracnghiemContext.Userroles.ToList();
@@ -41,8 +38,8 @@ namespace Thitrachnghiem.Users.Models.Functions
 
             foreach (var u in us)
             {
-                result.Role.Add(u.Ten);
-                result.RoleUuids.Add((Guid)u.Uuid);
+                result.Role = u.Ten;
+                result.RoleUuid = (Guid)u.Uuid;
             }
 
             return result;
@@ -52,7 +49,7 @@ namespace Thitrachnghiem.Users.Models.Functions
         {
 
             UserGet result = new UserGet();
-            result.Role = new List<string>();
+            result.Claims = new List<string>();
 
             List<User> users = thitracnghiemContext.Users.ToList();
             List<Userrole> userroles = thitracnghiemContext.Userroles.ToList();
@@ -65,7 +62,7 @@ namespace Thitrachnghiem.Users.Models.Functions
                      select role;
 
             foreach (var u in us)
-                result.Role.AddRange(u.Dsquyen.Split(','));
+                result.Claims.AddRange(u.Dsquyen.Split(','));
 
             return result;
         }
