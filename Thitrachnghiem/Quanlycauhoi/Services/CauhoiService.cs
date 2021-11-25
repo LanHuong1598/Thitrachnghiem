@@ -46,9 +46,9 @@ namespace Thitrachnghiem.Quanlycauhoi.Services
         }
         public List<CauhoiGet> GetCauhoibyChuyennganh(string he, string chuyennganhuuid, int bac, string keyword)
         {
-            if (he != "")
+            if (he!= null && he != "")
             {
-                if (chuyennganhuuid != "")
+                if (chuyennganhuuid != null && chuyennganhuuid != "")
                 {
                     F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
                     Chuyennganh chuyennganh = f_Chuyennganh.GetChuyennganhsByUuid(new Guid(chuyennganhuuid));

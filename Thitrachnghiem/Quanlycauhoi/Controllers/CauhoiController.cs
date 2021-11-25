@@ -48,9 +48,9 @@ namespace Thitrachnghiem.Quanlycauhoi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "admin,CAUHOI_GET")]
-        public async Task<ActionResult> GetCauhois([FromQuery] Pageing pageing, string He, string chuyennganhuuid, int bacId, string keyword)
+        public async Task<ActionResult> GetCauhois([FromQuery] Pageing pageing, string he, string chuyennganhuuid, int bac, string keyword)
         {
-            List<CauhoiGet> Cauhoi = cauhoiService.GetCauhoibyChuyennganh(He, chuyennganhuuid, bacId, keyword);
+            List<CauhoiGet> Cauhoi = cauhoiService.GetCauhoibyChuyennganh(he, chuyennganhuuid, bac, keyword);
             return Ok(new
             {
                 header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
