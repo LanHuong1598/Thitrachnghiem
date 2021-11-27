@@ -24,14 +24,32 @@ namespace Thitrachnghiem.Users.Services
             userGet.Uuid = user.Uuid;
             userGet.Name = user.Name;
             userGet.Username = user.Username;
+            userGet.Chucvu = user.Chucvu;
+
             if (user.Madonvi != null)
             {
                 F_Donvi f_Donvi = new F_Donvi();
                 Donvi donvi = f_Donvi.GetDonvisById((int)user.Madonvi);
                 if (donvi != null)
                 {
-                    userGet.Madonvi = (Guid)donvi.Uuid;
+                    userGet.Madonvi = donvi.Uuid.ToString();
                     userGet.Tendonvi = donvi.Ten;
+                    if (donvi.Macha != null)
+                    {
+                        try
+                        {
+                            donvi = f_Donvi.GetDonvisById((int)donvi.Macha);
+                            if (donvi != null)
+                            {
+                                userGet.Madonvicha = donvi.Uuid.ToString();
+                                userGet.Tendonvicha = donvi.Ten;
+                            }
+
+                        }
+                        catch
+                        {
+                        }
+                    }
                 }
             
             }
@@ -151,15 +169,26 @@ namespace Thitrachnghiem.Users.Services
                 throw new InvalidDataException("Username đã tồn tại");
 
             user = entity.convert();
-            if (entity.Madonvi != null)
+            if (entity.Madonvi != "null")
             {
                 F_Donvi f_Donvi = new F_Donvi();
-                Donvi donvi = f_Donvi.GetDonvisByUuid(entity.Madonvi);
+                Donvi donvi = f_Donvi.GetDonvisByUuid(new Guid(entity.Madonvi));
                 if (donvi == null)
                     throw new InvalidDataException("Mã đơn vị không đúng");
                 user.Madonvi = donvi.Id;
             }
             user = f_users.Create(user);
+
+            try
+            {
+                UserRoleCreate userrole = new UserRoleCreate();
+                userrole.Roleuuid = new Guid(entity.Roleuuid);
+                userrole.Useruuid = (Guid)user.Uuid;
+                CreateUserRole(userrole);
+            }
+            catch
+            {
+            }
             return convert(user);
         }
         public UserGet Update(UserUpdate entity)
@@ -172,15 +201,27 @@ namespace Thitrachnghiem.Users.Services
                 user.Name = entity.Name;
             if (entity.Password != null && entity.Password != "") 
                 user.Password = entity.Password;
-            if (!entity.Madonvi.Equals(null) && !entity.Madonvi.Equals(new Guid("00000000-0000-0000-0000-000000000000")))
+
+            user.Chucvu = entity.Chucvu;
+            if (entity.Madonvi != "null")
             {
                 F_Donvi f_Donvi = new F_Donvi();
-                var donvi = f_Donvi.GetDonvisByUuid(entity.Madonvi);
+                var donvi = f_Donvi.GetDonvisByUuid(new Guid(entity.Madonvi));
                 if (donvi == null)
                     throw new InvalidDataException("Mã đơn vị không đúng");
                 user.Madonvi = donvi.Id;
             }
             user = f_users.Update(user);
+            try
+            {
+                UserRoleUpdate userrole = new UserRoleUpdate();
+                userrole.Roleuuid = new Guid(entity.Roleuuid);
+                userrole.Useruuid = (Guid)user.Uuid;
+                UpdateUserRole(userrole);
+            }
+            catch
+            {
+            }
             return convert(user);
         }
         public UserGet Delete(string uuid)

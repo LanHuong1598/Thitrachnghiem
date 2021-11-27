@@ -11,7 +11,11 @@ namespace Thitrachnghiem.Users.Models.Schema
         public Guid Uuid { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-        public Guid Madonvi { get; set; }
+        public string Madonvi { get; set; }
+        public string Chucvu { get; set; }
+        public string Roleuuid { get; set; }
+
+
 
 
     }

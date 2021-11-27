@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Thitrachnghiem.Quanlycauhoi.Services;
+using Thitrachnghiem.Quanlykithi.Services;
 using Thitrachnghiem.Users.Services;
 
 namespace Thitrachnghiem
@@ -37,6 +38,8 @@ namespace Thitrachnghiem
             services.AddTransient<IDonviService, DonviService>();
             services.AddTransient<IChuyennganhService, ChuyennganhService>();
             services.AddTransient<ICauhoiService, CauhoiService>();
+            services.AddTransient<IKithiService, KithiService>();
+
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services.AddAuthentication(x =>

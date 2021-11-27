@@ -1,14 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Thitrachnghiem.Quanlycauhoi.Models.Entities;
-using Thitrachnghiem.Quanlykithi.Models.Schemas;
-using Thitrachnghiem.Quanlykithi.Models.Entities;
-using Thitrachnghiem.Users.Models.Entities;
 
 #nullable disable
 
-namespace Thitrachnghiem.Commons
+namespace Thitrachnghiem.Models.Model
 {
     public partial class thitracnghiemContext : DbContext
     {
@@ -25,7 +21,7 @@ namespace Thitrachnghiem.Commons
         public virtual DbSet<Cauhoi> Cauhois { get; set; }
         public virtual DbSet<Cautraloi> Cautralois { get; set; }
         public virtual DbSet<Chuyennganh> Chuyennganhs { get; set; }
-        //public virtual DbSet<Dethi> Dethis { get; set; }
+        public virtual DbSet<Dethi> Dethis { get; set; }
         public virtual DbSet<Donvi> Donvis { get; set; }
         public virtual DbSet<Kithi> Kithis { get; set; }
         public virtual DbSet<Matrandethi> Matrandethis { get; set; }
@@ -38,7 +34,7 @@ namespace Thitrachnghiem.Commons
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=;Database=thitracnghiem;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=;Database=thitracnghiem;Trusted_Connection=True;Persist Security Info=True;user id=sa,password=sa123456");
             }
         }
 
@@ -134,26 +130,26 @@ namespace Thitrachnghiem.Commons
                     .HasDefaultValueSql("(newid())");
             });
 
-            //modelBuilder.Entity<Dethi>(entity =>
-            //{
-            //    entity.ToTable("dethi");
+            modelBuilder.Entity<Dethi>(entity =>
+            {
+                entity.ToTable("dethi");
 
-            //    entity.HasIndex(e => e.Uuid, "UQ__dethi__7F427931521316F9")
-            //        .IsUnique();
+                entity.HasIndex(e => e.Uuid, "UQ__dethi__7F427931521316F9")
+                    .IsUnique();
 
-            //    entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
-            //    entity.Property(e => e.Madethi)
-            //        .HasMaxLength(10)
-            //        .IsUnicode(false)
-            //        .HasColumnName("madethi");
+                entity.Property(e => e.Madethi)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("madethi");
 
-            //    entity.Property(e => e.Matrandethiid).HasColumnName("matrandethiid");
+                entity.Property(e => e.Matrandethiid).HasColumnName("matrandethiid");
 
-            //    entity.Property(e => e.Uuid)
-            //        .HasColumnName("uuid")
-            //        .HasDefaultValueSql("(newid())");
-            ////});
+                entity.Property(e => e.Uuid)
+                    .HasColumnName("uuid")
+                    .HasDefaultValueSql("(newid())");
+            });
 
             modelBuilder.Entity<Donvi>(entity =>
             {
@@ -208,9 +204,6 @@ namespace Thitrachnghiem.Commons
                     .HasColumnName("trinhdodaotao")
                     .IsFixedLength(true);
 
-                entity.Property(e => e.Status).HasColumnName("status");
-
-
                 entity.Property(e => e.Uuid)
                     .HasColumnName("uuid")
                     .HasDefaultValueSql("(newid())");
@@ -229,15 +222,18 @@ namespace Thitrachnghiem.Commons
 
                 entity.Property(e => e.Chuyennganhid).HasColumnName("chuyennganhid");
 
-                entity.Property(e => e.Kithiid).HasColumnName("kithiid");
+                entity.Property(e => e.KithiNganhthiId).HasColumnName("kithi_nganhthi_id");
 
                 entity.Property(e => e.Tile).HasColumnName("tile");
+
+                entity.Property(e => e.Trinhdodaotao)
+                    .HasMaxLength(10)
+                    .HasColumnName("trinhdodaotao")
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.Uuid)
                     .HasColumnName("uuid")
                     .HasDefaultValueSql("(newid())");
-                entity.Property(e => e.Status).HasColumnName("status");
-
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -276,16 +272,13 @@ namespace Thitrachnghiem.Commons
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Chucvu).HasColumnName("chucvu");
+
                 entity.Property(e => e.Madonvi).HasColumnName("madonvi");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(200)
                     .HasColumnName("name");
-
-
-                entity.Property(e => e.Chucvu)
-                 .HasMaxLength(1000)
-                 .HasColumnName("Chucvu");
 
                 entity.Property(e => e.Password)
                     .HasMaxLength(40)
@@ -316,6 +309,15 @@ namespace Thitrachnghiem.Commons
 
                 entity.Property(e => e.Userid).HasColumnName("userid");
 
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.Userroles)
+                    .HasForeignKey(d => d.Roleid)
+                    .HasConstraintName("FK_userrole_role");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Userroles)
+                    .HasForeignKey(d => d.Userid)
+                    .HasConstraintName("FK_userrole_users");
             });
 
             OnModelCreatingPartial(modelBuilder);

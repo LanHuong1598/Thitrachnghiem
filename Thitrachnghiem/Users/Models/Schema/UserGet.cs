@@ -12,11 +12,15 @@ namespace Thitrachnghiem.Users.Models.Schema
         public Guid? Uuid { get; set; }
         public string Username { get; set; }
         public string Name { get; set; }
-        public Guid Madonvi { get; set; }
+        public string Madonvi { get; set; }
         public String Tendonvi { get; set; }
+        public string Madonvicha { get; set; }
+        public String Tendonvicha { get; set; }
         public String Role { get; set; }
         public Guid RoleUuid { get; set; }
         public List<String> Claims { get; set; }
+        public string Chucvu { get; set; }
+
 
 
         public UserGet(User user)
@@ -25,6 +29,7 @@ namespace Thitrachnghiem.Users.Models.Schema
             this.Uuid = user.Uuid;
             this.Name = user.Name;
             this.Username = user.Username;
+            this.Chucvu = user.Chucvu;
         }
 
         public UserGet()
