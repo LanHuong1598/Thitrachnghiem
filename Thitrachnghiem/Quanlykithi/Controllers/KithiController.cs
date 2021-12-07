@@ -136,9 +136,9 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         /// <returns></returns>
         [HttpPost("Phienthi/Mophienthi")]
         [Authorize(Roles = "admin,KITHI_EDIT")]
-        public async Task<ActionResult> OpenKithi([FromBody] Guid uuid)
+        public async Task<ActionResult> OpenKithi([FromBody] MoPhienthi uuid)
         {
-            PhienthiGet phienthi = KithiService.OpenPhienthi(uuid);
+            PhienthiGet phienthi = KithiService.OpenPhienthi(uuid.Uuid);
             return Ok(new
             {
                 header = new Header(1, 0, 1, "true"),
@@ -153,9 +153,9 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         /// <returns></returns>
         [HttpPost("Phienthi/Dongphienthi")]
         [Authorize(Roles = "admin,KITHI_EDIT")]
-        public async Task<ActionResult> CloseKithi([FromBody] Guid uuid)
+        public async Task<ActionResult> CloseKithi([FromBody] MoPhienthi uuid)
         {
-            PhienthiGet phienthi = KithiService.closePhienthi(uuid);
+            PhienthiGet phienthi = KithiService.closePhienthi(uuid.Uuid);
             return Ok(new
             {
                 header = new Header(1, 0, 1, "true"),
