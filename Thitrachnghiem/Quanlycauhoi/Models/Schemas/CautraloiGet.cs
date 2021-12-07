@@ -17,7 +17,6 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Schemas {
         public CautraloiGet() { }
         public CautraloiGet(Cautraloi cautraloi)
         {
-
             this.Id = cautraloi.Id;
             this.Ladapandung = cautraloi.Trangthai;
             this.Neo = cautraloi.Neo;

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Thitrachnghiem.Quanlycauhoi.Models.Functions;
 using Thitrachnghiem.Quanlycauhoi.Models.Entities;
 using Thitrachnghiem.Quanlykithi.Models.Schemas;
+using Thitrachnghiem.Quanlythisinh.Models.Functions;
 
 namespace Thitrachnghiem.Quanlykithi.Services
 {
@@ -44,7 +45,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             result.Uuid = kithi.Uuid;
             result.Bac = kithi.Bac;
             result.Thoigianbatdau = kithi.Thoigianbatdau;
-            result.Thoigiankethuc = kithi.Thoigiankethuc;
+            result.Thoigianketthuc = kithi.Thoigianketthuc;
 
             try
             {
@@ -71,7 +72,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             result.Uuid = kithi.Uuid;
             result.Bac = kithi.Bac;
             result.Thoigianbatdau = kithi.Thoigianbatdau;
-            result.Thoigiankethuc = kithi.Thoigiankethuc;
+            result.Thoigianketthuc = kithi.Thoigianketthuc;
 
             try
             {
@@ -170,6 +171,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             }
 
             kithi.Status = true;
+            kithi.Dangthi = false;
             kithi = new F_Kithi().Create(kithi);
 
             F_Matrandethi f_Matrandethi = new F_Matrandethi();
@@ -205,7 +207,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
 
             kithi.Bac = kithiUpdate.Bac;
             kithi.Thoigianbatdau = kithiUpdate.Thoigianbatdau;
-            kithi.Thoigiankethuc = kithiUpdate.Thoigiankethuc;
+            kithi.Thoigianketthuc = kithiUpdate.Thoigianketthuc;
             try
             {
                 F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
@@ -272,6 +274,87 @@ namespace Thitrachnghiem.Quanlykithi.Services
             }
             else
                 return null;
+        }
+
+        public PhienthiGet convert(Phienthi phienthi)
+        {
+            PhienthiGet phienthiGet = new PhienthiGet();
+            phienthiGet.Id = phienthi.Id;
+            phienthiGet.Thoigianbatdau = phienthi.Thoigianbatdau;
+            phienthiGet.Thoigianketthuc = phienthi.Thoigianketthuc;
+            phienthiGet.Uuid = phienthi.Uuid;
+            F_Kithi F_Kithi = new F_Kithi();
+            Kithi kithi = F_Kithi.GetKithisById((int)phienthi.Kithiid);
+            if (kithi != null)
+            {
+                phienthiGet.Kithiuuid = (Guid)kithi.Uuid;
+                phienthiGet.Bac = kithi.Bac;
+                try
+                {
+                    F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
+                    var chuyennganh = f_Chuyennganh.GetChuyennganhsById((int)kithi.Chuyennganhid);
+                    phienthiGet.ChuyennganhGuid = (Guid)chuyennganh.Uuid;
+                    phienthiGet.Chuyennganh = chuyennganh.Ten;
+                    phienthiGet.Trinhdodaotao = chuyennganh.Trinhdodaotao;
+                }
+                catch
+                {
+                }
+            }
+            return phienthiGet;
+        }
+
+        public PhienthiGet OpenPhienthi(Guid Kithiuuid)
+        {
+            F_Kithi F_Kithi = new F_Kithi();
+            Kithi kithi = F_Kithi.GetKithisByUuid(Kithiuuid);
+
+            Phienthi phienthi = new Phienthi();
+            phienthi.Kithiid = kithi.Id;
+            phienthi.Thoigianbatdau = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss");
+            phienthi.Thoigianbatdau = DateTime.Now.AddMinutes(30).ToString("yyyy/MM/dd hh:mm:ss");
+
+            kithi.Dangthi = true;
+            F_Kithi.Update(kithi);
+
+            return convert(new F_Phienthi().Create(phienthi));
+        }
+
+        public PhienthiGet closePhienthi(Guid Kithiuuid)
+        {
+            F_Kithi F_Kithi = new F_Kithi();
+            Kithi kithi = F_Kithi.GetKithisByUuid(Kithiuuid);
+
+            F_Phienthi f_Phienthi = new F_Phienthi();
+            Phienthi phienthi = f_Phienthi.GetPhienthiDangMoByKithi(kithi.Id);
+            phienthi.Kithiid = kithi.Id;
+            phienthi.Thoigianbatdau = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss");
+
+            kithi.Dangthi = false;
+            F_Kithi.Update(kithi);
+            f_Phienthi.Update(phienthi);
+
+            return convert(phienthi);
+        }
+
+
+        public List<PhienthiGet> GetPhienthiGetsisOpen()
+        {
+            F_Phienthi f_Phienthi = new F_Phienthi();
+            var pt = f_Phienthi.GetPhienthisIsOpen();
+
+            return pt.ConvertAll(x => convert(x));
+
+
+        }
+        public List<PhienthiGet> GetPhienthis()
+        {
+            F_Phienthi f_Phienthi = new F_Phienthi();
+            var pt = f_Phienthi.GetPhienthis();
+
+            return pt.ConvertAll(x => convert(x));
+
+
         }
     }
 }

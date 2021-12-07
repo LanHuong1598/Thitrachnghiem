@@ -11,7 +11,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Schemas
     {
         public Guid Uuid { get; set; }
         public string Thoigianbatdau { get; set; }
-        public string Thoigiankethuc { get; set; }
+        public string Thoigianketthuc { get; set; }
         public int? Bac { get; set; }
         public Guid ChuyennganhGuid { get; set; }
         public string Trinhdodaotao { get; set; }

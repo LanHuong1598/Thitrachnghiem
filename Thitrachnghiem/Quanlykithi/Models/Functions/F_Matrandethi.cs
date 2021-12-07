@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Thitrachnghiem.Quanlycauhoi.Models.Entities;
 using Thitrachnghiem.Quanlykithi.Models.Entities;
 
-namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
+namespace Thitrachnghiem.Quanlykithi.Models.Functions
 {
     public class F_Matrandethi
     {

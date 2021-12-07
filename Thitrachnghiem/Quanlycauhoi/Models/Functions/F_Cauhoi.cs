@@ -21,6 +21,11 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
             return thitracnghiemContext.Cauhois.Where(x => x.Uuid == uuid).FirstOrDefault();
 
         }
+        public Cauhoi GetCauhoiByidWithFalse(int? id)
+        {
+            return thitracnghiemContext.Cauhois.Where(x => x.Id == id).FirstOrDefault();
+
+        }
         public List<Cauhoi> GetCauhois(string keyword)
         {
             if (keyword == null || keyword =="")

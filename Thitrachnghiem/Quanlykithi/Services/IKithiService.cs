@@ -22,5 +22,12 @@ namespace Thitrachnghiem.Quanlykithi.Services
         public KithiGet Deletekithi(Guid guid);
 
         public List<KithiGet> Getall();
+        public PhienthiGet OpenPhienthi(Guid Kithiuuid);
+        public PhienthiGet closePhienthi(Guid Kithiuuid);
+
+        public List<PhienthiGet> GetPhienthiGetsisOpen();
+        public List<PhienthiGet> GetPhienthis();
+
+
     }
 }

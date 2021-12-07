@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Thitrachnghiem.Quanlykithi.Models.Schemas
 {
-    public partial class KithiGet
+    public partial class PhienthiGet
     {
         public int Id { get; set; }
         public Guid? Uuid { get; set; }
@@ -15,6 +15,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Schemas
         public Guid ChuyennganhGuid { get; set; }
         public string Chuyennganh { get; set; }
         public string Trinhdodaotao { get; set; }
+        public Guid Kithiuuid { get; set; }
 
     }
 }

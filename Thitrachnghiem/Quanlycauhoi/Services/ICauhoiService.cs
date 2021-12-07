@@ -21,6 +21,7 @@ namespace Thitrachnghiem.Quanlycauhoi.Services
         public List<CauhoiGet> Getall();
         public CauhoiGet GetCauhoiByUuid(Guid guid);
         public CauhoiGet CreateCauhoi(CauhoiCreate cauhoiCreate);
+        public List<CauhoiGet> CreateDanhsachCauhoi(ListCauhoiCreate listCauhoiCreate);
         public CauhoiGet UpdateCauhoi(CauhoiUpdate cauhoiUpdate);
         public CauhoiGet DeleteCauhoi(Guid guid);
 

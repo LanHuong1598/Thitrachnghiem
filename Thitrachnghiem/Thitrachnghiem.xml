@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Thitrachnghiem</name>
+    </assembly>
+    <members>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.GetCauhois(Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            Get all Cauhoi chi cho admin
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.GetCauhois(Thitrachnghiem.Commons.Pageing,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Get  Cauhoi  theo yeu cau
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.GetCauhoi(System.Guid)">
+            <summary>
+            get Cauhoi by uuid cua Cauhoi
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.AddCauhoi(Thitrachnghiem.Quanlycauhoi.Models.Schemas.CauhoiCreate)">
+            <summary>
+            them 1 Cauhoi
+            </summary>
+            <param name="cauhoiCreate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.AddDanhsachCauhoi(Thitrachnghiem.Quanlycauhoi.Models.Schemas.ListCauhoiCreate)">
+            <summary>
+            them ds Cauhoi
+            </summary>
+            <param name="cauhoiCreate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.UpdateCauhoi(Thitrachnghiem.Quanlycauhoi.Models.Schemas.CauhoiUpdate)">
+            <summary>
+            sua 1 cauhoi
+            </summary>
+            <param name="cauhoiUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.DeleteCauhoi(System.Guid)">
+            <summary>
+            xoa 1 cauhoi
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.UploadFile(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            upload file Cauhoi
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.ChuyennganhController.GetChuyennganhs(Thitrachnghiem.Commons.Pageing,System.String)">
+            <summary>
+            Get all Chuyennganh
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.ChuyennganhController.GetChuyennganh(System.Guid)">
+            <summary>
+            get Chuyennganh by uuid cua Chuyennganh
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.ChuyennganhController.AddChuyennganh(Thitrachnghiem.Quanlycauhoi.Models.Schemas.ChuyennganhCreate)">
+            <summary>
+            them 1 Chuyennganh
+            </summary>
+            <param name="chuyennganhCreate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.ChuyennganhController.UpdateChuyennganh(Thitrachnghiem.Quanlycauhoi.Models.Schemas.ChuyennganhUpdate)">
+            <summary>
+            sua 1 chuyennganh
+            </summary>
+            <param name="chuyennganhUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.ChuyennganhController.DeleteChuyennganh(System.Guid)">
+            <summary>
+            xoa 1 chuyennganh
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithis(Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            Get all Kithi chi cho admin
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithis(Thitrachnghiem.Commons.Pageing,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Get  Kithi  theo yeu cau
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithi(System.Guid)">
+            <summary>
+            get Kithi by uuid cua Kithi
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.AddKithi(Thitrachnghiem.Quanlykithi.Models.Schemas.KithiCreate)">
+            <summary>
+            them 1 Kithi
+            </summary>
+            <param name="KithiCreate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.UpdateKithi(Thitrachnghiem.Quanlykithi.Models.Schemas.KithiUpdate)">
+            <summary>
+            sua 1 Kithi
+            </summary>
+            <param name="KithiUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.DeleteKithi(System.Guid)">
+            <summary>
+            xoa 1 Kithi
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.OpenKithi(System.Guid)">
+            <summary>
+            mo 1 Kithi
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.CloseKithi(System.Guid)">
+            <summary>
+            dong phien thi bang  Kithiuuid
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.Getphienthis(Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            Get all Phienthi dang mo
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetAllphienthis(Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            Get all Phienthi 
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.ThiController.getdethi">
+            <summary>
+            get Dethi by uuid cua Dethi
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.ThiController.getdanhsachcauhoi(System.Guid)">
+            <summary>
+            get danh sach cau hoi by uuid cua Dethi
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.GetThisinhs(Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            Get all Thisinh chi cho admin
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.GetThisinhs(Thitrachnghiem.Commons.Pageing,System.String)">
+            <summary>
+            Get  Thisinh  theo yeu cau
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.GetThisinh(System.Guid)">
+            <summary>
+            get Thisinh by uuid cua Thisinh
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.AddThisinh(Thitrachnghiem.Quanlythisinh.Models.Schemas.ThisinhCreate)">
+            <summary>
+            them 1 Thisinh
+            </summary>
+            <param name="ThisinhCreate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.AddThisinh(Thitrachnghiem.Quanlythisinh.Models.Schemas.ListThisinhCreate)">
+            <summary>
+            them 1 mang Thisinh
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.UpdateThisinh(Thitrachnghiem.Quanlythisinh.Models.Schemas.ThisinhUpdate)">
+            <summary>
+            sua 1 Thisinh
+            </summary>
+            <param name="ThisinhUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.DeleteThisinh(System.Guid)">
+            <summary>
+            xoa 1 Thisinh
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.DonviController.GetDonvis(Thitrachnghiem.Commons.Pageing,System.String)">
+            <summary>
+            Get all donvi
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.DonviController.GetDonvi(System.Guid)">
+            <summary>
+            get donvi by uuid cua don vi
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.DonviController.AddDonvi(Thitrachnghiem.Users.Models.Schema.DonviCreate)">
+            <summary>
+            them 1 don vi
+            </summary>
+            <param name="donviCreate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.DonviController.UpdateDonvi(Thitrachnghiem.Users.Models.Schema.DonviUpdate)">
+            <summary>
+            sua 1 donvi
+            </summary>
+            <param name="donviUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.DonviController.DeleteDonvi(System.Guid)">
+            <summary>
+            xoa 1 donvi
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.DonviController.GetTree(Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            lay tree don vi dang A-- b,c
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.GetUsers(Thitrachnghiem.Commons.Pageing,System.String)">
+            <summary>
+            get all users 
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.GetUser(System.String)">
+            <summary>
+            get a user by uuid
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.ThemUser(Thitrachnghiem.Users.Models.Schema.UserCreate)">
+            <summary>
+            them 1 user 
+            </summary>
+            <param name="userCreate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.SuaUser(Thitrachnghiem.Users.Models.Schema.UserUpdate)">
+            <summary>
+            sua 1 user 
+            </summary>
+            <param name="userUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.XoaUser(System.String)">
+            <summary>
+            xóa 1 user 
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.GetRoles(Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            lay danh sach nhom quyen
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.GetAuthority(Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            lay danh sach cac quyen trong 1 nhom quyen
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.GetRoleByUUId(System.Guid)">
+            <summary>
+            lay 1 quyen bang uuid
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.AddRole(Thitrachnghiem.Users.Models.Schema.RoleCreate)">
+            <summary>
+            Them 1 nhom quyen
+            </summary>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.UpdateRole(Thitrachnghiem.Users.Models.Schema.RoleUpdate)">
+            <summary>
+            sua 1 nhom quyen
+            </summary>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.DeleteRole(System.Guid)">
+            <summary>
+            xoa 1 nhomquyen
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.UpdateUserRole(Thitrachnghiem.Users.Models.Schema.UserRoleUpdate)">
+            <summary>
+            SƯA DANH SÁCH QUYỀN CỦA USER
+            </summary>
+            <param name="u"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

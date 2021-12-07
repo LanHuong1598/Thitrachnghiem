@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Thitrachnghiem.Models.Model
+namespace Thitrachnghiem.Quanlykithi.Models.Entities
 {
     public partial class Dethi
     {
@@ -12,5 +12,7 @@ namespace Thitrachnghiem.Models.Model
         public int? Kithiid { get; set; }
         public bool? Status { get; set; }
         public string Madethi { get; set; }
+        public int? Thisinhid { get; set; }
+
     }
 }

@@ -20,12 +20,15 @@ namespace Thitrachnghiem.Models.Model
         public virtual DbSet<Authority> Authorities { get; set; }
         public virtual DbSet<Cauhoi> Cauhois { get; set; }
         public virtual DbSet<Cautraloi> Cautralois { get; set; }
+        public virtual DbSet<Chitietdethi> Chitietdethis { get; set; }
         public virtual DbSet<Chuyennganh> Chuyennganhs { get; set; }
         public virtual DbSet<Dethi> Dethis { get; set; }
         public virtual DbSet<Donvi> Donvis { get; set; }
         public virtual DbSet<Kithi> Kithis { get; set; }
         public virtual DbSet<Matrandethi> Matrandethis { get; set; }
+        public virtual DbSet<Phienthi> Phienthis { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Thisinh> Thisinhs { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
 
@@ -34,7 +37,7 @@ namespace Thitrachnghiem.Models.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=;Database=thitracnghiem;Trusted_Connection=True;Persist Security Info=True;user id=sa,password=sa123456");
+                optionsBuilder.UseSqlServer("Server=;Database=thitracnghiem;Trusted_Connection=True;");
             }
         }
 
@@ -50,6 +53,14 @@ namespace Thitrachnghiem.Models.Model
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("name");
+
+                entity.Property(e => e.Mota)
+                    .HasMaxLength(50)
+                    .HasColumnName("mota");
+
+                entity.Property(e => e.Tenhienthi)
+                    .HasMaxLength(50)
+                    .HasColumnName("tenhienthi");
             });
 
             modelBuilder.Entity<Cauhoi>(entity =>
@@ -103,6 +114,24 @@ namespace Thitrachnghiem.Models.Model
                     .HasDefaultValueSql("(newid())");
             });
 
+            modelBuilder.Entity<Chitietdethi>(entity =>
+            {
+                entity.ToTable("chitietdethi");
+
+                entity.HasIndex(e => e.Uuid, "UQ__chitietd__7F427931EAF5234D")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Cauhoiid).HasColumnName("cauhoiid");
+
+                entity.Property(e => e.Dethiid).HasColumnName("dethiid");
+
+                entity.Property(e => e.Uuid)
+                    .HasColumnName("uuid")
+                    .HasDefaultValueSql("(newid())");
+            });
+
             modelBuilder.Entity<Chuyennganh>(entity =>
             {
                 entity.ToTable("chuyennganh");
@@ -139,12 +168,14 @@ namespace Thitrachnghiem.Models.Model
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Kithiid).HasColumnName("kithiid");
+
                 entity.Property(e => e.Madethi)
-                    .HasMaxLength(10)
+                    .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("madethi");
 
-                entity.Property(e => e.Matrandethiid).HasColumnName("matrandethiid");
+                entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.Uuid)
                     .HasColumnName("uuid")
@@ -191,13 +222,13 @@ namespace Thitrachnghiem.Models.Model
 
                 entity.Property(e => e.Chuyennganhid).HasColumnName("chuyennganhid");
 
-                entity.Property(e => e.Thoigianbatdau)
-                    .HasMaxLength(50)
-                    .HasColumnName("thoigianbatdau");
+                entity.Property(e => e.Dangthi).HasColumnName("dangthi");
 
-                entity.Property(e => e.Thoigiankethuc)
-                    .HasMaxLength(50)
-                    .HasColumnName("thoigiankethuc");
+                entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.Thoigianbatdau).HasColumnName("thoigianbatdau");
+
+                entity.Property(e => e.Thoigianketthuc).HasColumnName("thoigianketthuc");
 
                 entity.Property(e => e.Trinhdodaotao)
                     .HasMaxLength(10)
@@ -222,14 +253,35 @@ namespace Thitrachnghiem.Models.Model
 
                 entity.Property(e => e.Chuyennganhid).HasColumnName("chuyennganhid");
 
-                entity.Property(e => e.KithiNganhthiId).HasColumnName("kithi_nganhthi_id");
+                entity.Property(e => e.Kithiid).HasColumnName("kithiid");
+
+                entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.Tile).HasColumnName("tile");
 
-                entity.Property(e => e.Trinhdodaotao)
-                    .HasMaxLength(10)
-                    .HasColumnName("trinhdodaotao")
-                    .IsFixedLength(true);
+                entity.Property(e => e.Uuid)
+                    .HasColumnName("uuid")
+                    .HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<Phienthi>(entity =>
+            {
+                entity.ToTable("phienthi");
+
+                entity.HasIndex(e => e.Uuid, "UQ__phienthi__7F427931F3CA65CE")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Kithiid).HasColumnName("kithiid");
+
+                entity.Property(e => e.Thoigianbatdau)
+                    .HasMaxLength(100)
+                    .HasColumnName("thoigianbatdau");
+
+                entity.Property(e => e.Thoigianketthuc)
+                    .HasMaxLength(100)
+                    .HasColumnName("thoigianketthuc");
 
                 entity.Property(e => e.Uuid)
                     .HasColumnName("uuid")
@@ -257,6 +309,65 @@ namespace Thitrachnghiem.Models.Model
                 entity.Property(e => e.Ten)
                     .HasMaxLength(50)
                     .HasColumnName("ten");
+
+                entity.Property(e => e.Uuid)
+                    .HasColumnName("uuid")
+                    .HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<Thisinh>(entity =>
+            {
+                entity.ToTable("thisinh");
+
+                entity.HasIndex(e => e.Uuid, "UQ__thisinh__7F4279314CA60FFF")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Bacdanggiu).HasColumnName("bacdanggiu");
+
+                entity.Property(e => e.Bacluong)
+                    .HasMaxLength(50)
+                    .HasColumnName("bacluong");
+
+                entity.Property(e => e.Bacthi).HasColumnName("bacthi");
+
+                entity.Property(e => e.Capbac)
+                    .HasMaxLength(50)
+                    .HasColumnName("capbac");
+
+                entity.Property(e => e.Chucvu)
+                    .HasMaxLength(50)
+                    .HasColumnName("chucvu");
+
+                entity.Property(e => e.Chuyennganhhoc).HasColumnName("chuyennganhhoc");
+
+                entity.Property(e => e.Chuyennganhthiid).HasColumnName("chuyennganhthiid");
+
+                entity.Property(e => e.Donvi).HasColumnName("donvi");
+
+                entity.Property(e => e.Email)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.Kithiid).HasColumnName("kithiid");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Namsinh)
+                    .HasMaxLength(50)
+                    .HasColumnName("namsinh");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.Trinhdo)
+                    .HasMaxLength(50)
+                    .HasColumnName("trinhdo");
+
+                entity.Property(e => e.Trinhdodaotao)
+                    .HasMaxLength(10)
+                    .HasColumnName("trinhdodaotao")
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.Uuid)
                     .HasColumnName("uuid")

@@ -130,7 +130,18 @@ namespace Thitrachnghiem.Quanlycauhoi.Services
             return convert(cauhoi);
         }
 
-        public CauhoiGet UpdateCauhoi(CauhoiUpdate cauhoiUpdate)
+        public List<CauhoiGet> CreateDanhsachCauhoi(ListCauhoiCreate listCauhoiCreate)
+        {
+            List<CauhoiGet> rs = new List<CauhoiGet>();
+            foreach (var u in listCauhoiCreate.Danhsachcauhoi)
+                rs.Add(CreateCauhoi(u));
+
+            return rs;
+        }
+
+
+
+            public CauhoiGet UpdateCauhoi(CauhoiUpdate cauhoiUpdate)
         {
             F_Cauhoi f_Cauhoi = new F_Cauhoi();
             Cauhoi cauhoi = f_Cauhoi.GetCauhoisByUuid(cauhoiUpdate.Uuid);

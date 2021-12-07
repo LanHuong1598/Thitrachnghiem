@@ -10,7 +10,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Schemas
     public partial class KithiCreate
     {
         public string Thoigianbatdau { get; set; }
-        public string Thoigiankethuc { get; set; }
+        public string Thoigianketthuc { get; set; }
         public int? Bac { get; set; }
         public Guid ChuyennganhGuid { get; set; }
         public string Trinhdodaotao { get; set; }
@@ -20,7 +20,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Schemas
             Kithi kithi = new Kithi();
             kithi.Bac = this.Bac;
             kithi.Thoigianbatdau = this.Thoigianbatdau;
-            kithi.Thoigiankethuc = this.Thoigiankethuc;
+            kithi.Thoigianketthuc = this.Thoigianketthuc;
             kithi.Status = true;
             return kithi;
         }

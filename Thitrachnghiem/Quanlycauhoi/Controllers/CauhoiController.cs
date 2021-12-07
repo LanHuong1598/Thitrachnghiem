@@ -94,6 +94,23 @@ namespace Thitrachnghiem.Quanlycauhoi.Controllers
         }
 
         /// <summary>
+        /// them ds Cauhoi
+        /// </summary>
+        /// <param name="cauhoiCreate"></param>
+        /// <returns></returns>
+        [HttpPost("Danhsach")]
+        [Authorize(Roles = "admin,CAUHOI_ADD")]
+        public async Task<ActionResult> AddDanhsachCauhoi([FromBody] ListCauhoiCreate cauhoiCreate)
+        {
+            List<CauhoiGet> cauhoi = cauhoiService.CreateDanhsachCauhoi(cauhoiCreate);
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = cauhoi
+            });
+        }
+
+        /// <summary>
         /// sua 1 cauhoi
         /// </summary>
         /// <param name="cauhoiUpdate"></param>

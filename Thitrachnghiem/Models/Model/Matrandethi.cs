@@ -12,7 +12,7 @@ namespace Thitrachnghiem.Models.Model
         public int? Chuyennganhid { get; set; }
         public int? Bac { get; set; }
         public int? Tile { get; set; }
-        public int? KithiNganhthiId { get; set; }
-        public string Trinhdodaotao { get; set; }
+        public int? Kithiid { get; set; }
+        public bool? Status { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Thitrachnghiem.Quanlykithi.Services;
 using Thitrachnghiem.Quanlykithi.Models.Schemas;
 using Microsoft.AspNetCore.Http;
+using Thitrachnghiem.Quanlykithi.Models.Entities;
 
 namespace Thitrachnghiem.Quanlykithi.Controllers
 {
@@ -127,6 +128,75 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
             });
         }
 
-     
+
+        /// <summary>
+        /// mo 1 Kithi
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        [HttpPost("Phienthi/Mophienthi")]
+        [Authorize(Roles = "admin,KITHI_EDIT")]
+        public async Task<ActionResult> OpenKithi([FromBody] Guid uuid)
+        {
+            PhienthiGet phienthi = KithiService.OpenPhienthi(uuid);
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = phienthi
+            });
+        }
+
+        /// <summary>
+        /// dong phien thi bang  Kithiuuid
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        [HttpPost("Phienthi/Dongphienthi")]
+        [Authorize(Roles = "admin,KITHI_EDIT")]
+        public async Task<ActionResult> CloseKithi([FromBody] Guid uuid)
+        {
+            PhienthiGet phienthi = KithiService.closePhienthi(uuid);
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = phienthi
+            });
+        }
+
+        // GET: api/Phienthi 
+        /// <summary>
+        /// Get all Phienthi dang mo
+        /// </summary>
+        /// <param name="pageing"></param>
+        /// <returns></returns>
+        [HttpGet("Phienthi/Dangmo")]
+        [Authorize(Roles = "admin,KITHI_GET")]
+        public async Task<ActionResult> Getphienthis([FromQuery] Pageing pageing)
+        {
+            List<PhienthiGet> Kithi = KithiService.GetPhienthiGetsisOpen();
+            return Ok(new
+            {
+                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
+                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+            });
+        }
+
+        // GET: api/Phienthi 
+        /// <summary>
+        /// Get all Phienthi 
+        /// </summary>
+        /// <param name="pageing"></param>
+        /// <returns></returns>
+        [HttpGet("Phienthi")]
+        [Authorize(Roles = "admin,KITHI_GET")]
+        public async Task<ActionResult> GetAllphienthis([FromQuery] Pageing pageing)
+        {
+            List<PhienthiGet> Kithi = KithiService.GetPhienthis();
+            return Ok(new
+            {
+                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
+                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+            });
+        }
     }
 }

@@ -7,21 +7,34 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Thitrachnghiem.Quanlycauhoi.Services;
 using Thitrachnghiem.Quanlykithi.Services;
+using Thitrachnghiem.Quanlythisinh.Services;
 using Thitrachnghiem.Users.Services;
 
 namespace Thitrachnghiem
 {
     public class Startup
     {
+        static string XmlCommentsFilePath
+        {
+            get
+            {
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
+                return Path.Combine(basePath, fileName);
+            }
+        }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -39,6 +52,9 @@ namespace Thitrachnghiem
             services.AddTransient<IChuyennganhService, ChuyennganhService>();
             services.AddTransient<ICauhoiService, CauhoiService>();
             services.AddTransient<IKithiService, KithiService>();
+            services.AddTransient<IThisinhService, ThisinhService>();
+
+            
 
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
@@ -62,9 +78,12 @@ namespace Thitrachnghiem
             });
 
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Thitrachnghiem", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Thitracnghiem", Version = "v1" });
+                c.IncludeXmlComments(XmlCommentsFilePath);
+
             });
         }
 

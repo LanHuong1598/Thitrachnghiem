@@ -19,7 +19,8 @@ namespace Thitrachnghiem.Users.Models.Functions
 
         public User Login(string username, string password)
         {
-            User user = thitracnghiemContext.Users.Where(x => x.Username == username && x.Password == password && x.Status == true).FirstOrDefault();
+            User user = thitracnghiemContext.Users.Where(
+                x => x.Username == username && x.Password == password && x.Status == true).FirstOrDefault();
             if (user != null)
             {
                 return user;
