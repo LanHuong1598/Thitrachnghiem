@@ -128,7 +128,7 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
             });
         }
 
-        [HttpGet]
+        [HttpGet("Layketqua")]
         [Authorize]
         public async Task<ActionResult> Layketqua()
         {
