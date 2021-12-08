@@ -128,7 +128,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             Phienthi phienthi = thitracnghiemContext.Phienthis.Where(x => x.Kithiid == thisinh.Kithiid &
              (x.Thoigianketthuc.CompareTo(now) > 0)).FirstOrDefault();
 
-            if (phienthi == null)
+            if (phienthi != null)
                 return phienthi.Id;
             else return null;
 
