@@ -312,7 +312,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             Phienthi phienthi = new Phienthi();
             phienthi.Kithiid = kithi.Id;
             phienthi.Thoigianbatdau = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            phienthi.Thoigianbatdau = DateTime.Now.AddMinutes(30).ToString("yyyy/MM/dd HH:mm:ss");
+            phienthi.Thoigianketthuc = DateTime.Now.AddMinutes(30).ToString("yyyy/MM/dd HH:mm:ss");
 
             kithi.Dangthi = true;
             F_Kithi.Update(kithi);
