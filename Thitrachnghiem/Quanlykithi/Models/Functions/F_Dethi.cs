@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Thitrachnghiem.Quanlycauhoi.Models.Entities;
 using Thitrachnghiem.Quanlykithi.Models.Entities;
+using Thitrachnghiem.Quanlythisinh.Models.Entities;
 
 namespace Thitrachnghiem.Quanlykithi.Models.Functions
 {
@@ -35,7 +36,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
         {
             return thitracnghiemContext.Dethis.Where(x => x.Id == id && x.Status == true).FirstOrDefault();
         }
-       
+
         public Dethi Update(Dethi user)
         {
             Dethi dethi = thitracnghiemContext.Dethis.Where(x => x.Uuid == user.Uuid && x.Status == true).FirstOrDefault();
@@ -48,12 +49,12 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             thitracnghiemContext.Dethis.Add(user);
             thitracnghiemContext.SaveChanges();
             return user;
-        }      
+        }
 
         public Dethi Delete(Guid uuid)
         {
             Dethi dethi = thitracnghiemContext.Dethis.Where(x => x.Uuid == uuid && x.Status == true).FirstOrDefault();
-            dethi.Status = false;           
+            dethi.Status = false;
             thitracnghiemContext.SaveChanges();
             return dethi;
         }
@@ -70,12 +71,12 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
                 Where(x => x.Id == id && x.Status == true).FirstOrDefault();
 
             var list = thitracnghiemContext.Matrandethis
-                .Where(x => x.Status == true && x.Kithiid == kithi.Id).ToList();           
+                .Where(x => x.Status == true && x.Kithiid == kithi.Id).ToList();
 
             // tao de thi
             Dethi dethi = new Dethi();
             dethi.Kithiid = kithi.Id;
-            var count =GetDethiWithKithiid(kithi.Id);
+            var count = GetDethiWithKithiid(kithi.Id);
             if (count == null)
                 dethi.Madethi = "001";
             else
@@ -91,7 +92,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             var socauhoi = 0;
             foreach (var i in list)
             {
-                int soluong = (int)(kithi.Socauhoi * i.Tile / 100 );
+                int soluong = (int)(kithi.Socauhoi * i.Tile / 100);
                 if (socauhoi + soluong > kithi.Socauhoi)
                 {
                     soluong = (int)(kithi.Socauhoi - socauhoi);
@@ -118,5 +119,19 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             return dethi;
         }
 
+        public bool Kiemtradamochua(int thisinhid)
+        {
+            Thisinh thisinh = thitracnghiemContext.Thisinhs.
+                Where(x => x.Id == thisinhid && x.Status == true).FirstOrDefault();
+            string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
+            Phienthi phienthi = thitracnghiemContext.Phienthis.Where(x => x.Kithiid == thisinh.Kithiid &
+             (x.Thoigianketthuc.CompareTo(now) > 0)).FirstOrDefault();
+
+            if (phienthi == null)
+                return false;
+            else return true;
+
+        }
     }
-}
+    }

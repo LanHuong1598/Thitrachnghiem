@@ -141,17 +141,19 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
             });
         }
 
-        //[HttpGet("Layketqua")]
-        //[Authorize]
-        //public async Task<ActionResult> d()
-        //{
+        [HttpGet("Kiemtraphienthidamo")]
+        [Authorize]
+        public async Task<ActionResult> Kiemtraphienthidamohaychua()
+        {
+            int user = extractUser();
 
-        //    float diem = 25;
-        //    return Ok(new
-        //    {
-        //        header = new Header(1, 0, 1, "true"),
-        //        body = 25
-        //    });
-        //}
+            DethiService dethiService = new DethiService();
+            var ok = dethiService.Kiemtraphienthidamohaychua(user);
+                return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = ok
+            });
+        }
     }
 }

@@ -168,6 +168,12 @@ namespace Thitrachnghiem.Quanlykithi.Services
             return convertDethi(f_Dethi.CreateDethiForThisinh((int)ts.Kithiid, ts.Id));
         }
 
+        public bool Kiemtraphienthidamohaychua(int id)
+        {           
+            F_Dethi f_Dethi = new F_Dethi();
+            return f_Dethi.Kiemtradamochua(id);
+        }
+
 
     }
 }
