@@ -136,14 +136,14 @@
             <param name="uuid"></param>
             <returns></returns>
         </member>
-        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.OpenKithi(System.Guid)">
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.OpenKithi(Thitrachnghiem.Quanlykithi.Models.Schemas.MoPhienthi)">
             <summary>
             mo 1 Kithi
             </summary>
             <param name="uuid"></param>
             <returns></returns>
         </member>
-        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.CloseKithi(System.Guid)">
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.CloseKithi(Thitrachnghiem.Quanlykithi.Models.Schemas.MoPhienthi)">
             <summary>
             dong phien thi bang  Kithiuuid
             </summary>

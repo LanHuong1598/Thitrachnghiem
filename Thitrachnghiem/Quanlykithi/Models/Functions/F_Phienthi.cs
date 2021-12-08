@@ -23,7 +23,8 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
         }
         public List<Phienthi> GetPhienthisIsOpen()
         {
-            return thitracnghiemContext.Phienthis.Where( x=> x.Thoigianketthuc.CompareTo(DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss")) > 0).ToList();
+            string now = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss");
+            return thitracnghiemContext.Phienthis.Where( x=> x.Thoigianketthuc.CompareTo(now) > 0).ToList();
         }
 
         public Phienthi GetPhienthisByUuid(Guid uuid)
