@@ -64,7 +64,6 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             return thitracnghiemContext.Dethis.Where(x => x.Status == true && x.Kithiid == id).ToList();
         }
 
-
         public Dethi CreateDethiForThisinh(int id, int thisinhid)
         {
             Kithi kithi = thitracnghiemContext.Kithis.
@@ -83,6 +82,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
                 dethi.Madethi = count.Count.ToString().PadLeft(3, '0');
             dethi.Status = true;
             dethi.Thisinhid = thisinhid;
+            dethi.Thoigian = DateTime.Now.ToString("yyyy");
 
             dethi = Create(dethi);
             thitracnghiemContext.SaveChanges();
@@ -133,5 +133,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             else return null;
 
         }
+
+
     }
     }

@@ -10,10 +10,11 @@ using Thitrachnghiem.Quanlykithi.Models.Schemas;
 using Thitrachnghiem.Quanlykithi.Models.Functions;
 using Thitrachnghiem.Quanlythisinh.Models.Functions;
 using Thitrachnghiem.Users.Models.Functions;
+using System.Linq;
 
 namespace Thitrachnghiem.Quanlykithi.Services
 {
-    public class DethiService
+    public class DethiService : IDethiService
     {
         public CautraloiGet convertCautraloi(Cautraloi cautraloi)
         {
@@ -95,7 +96,28 @@ namespace Thitrachnghiem.Quanlykithi.Services
             result.Id = dethi.Id;
             result.Uuid = dethi.Uuid;
             result.Madethi = dethi.Madethi;
-            
+            F_Kithi f_Kithi = new F_Kithi();
+            try
+            {
+                Kithi kithi = f_Kithi.GetKithisById((int)dethi.Kithiid);
+                result.Kithiuuid = kithi.Uuid.ToString();
+                result.Trinhdodaotao = kithi.Trinhdodaotao;
+                result.Bac = kithi.Bac;
+                try
+                {
+                    F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
+                    var chuyennganh = f_Chuyennganh.GetChuyennganhsById((int)kithi.Chuyennganhid);
+                    result.Chuyennganh = chuyennganh.Ten;
+                    result.Trinhdodaotao = chuyennganh.Trinhdodaotao;
+                }
+                catch
+                {
+                }
+            }
+            catch
+            {
+            }
+
             return result;
         }
         public DethiGet GetDethiByUuid(Guid guid)
@@ -194,6 +216,45 @@ namespace Thitrachnghiem.Quanlykithi.Services
             else return true;
         }
 
+        public List<DethiGet> getDethiByKithiuuid(Guid kithiuuid)
+        {
+            F_Dethi f_Dethi = new F_Dethi();
+            F_Kithi f_Kithi = new F_Kithi();
+            var kithi = f_Kithi.GetKithiByUuidWithFalse(kithiuuid);
+
+            var list = f_Dethi.GetDethiWithKithiid(kithi.Id);
+            return list.ConvertAll(x => convert(x));
+        }
+
+
+        public List<DethiGet> getDethiByChuyennganh(string he, string chuyennganhuuid, int bac, string keyword)
+        {
+            var list = Getall();
+            try
+            {
+                F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
+                var chuyennganh = f_Chuyennganh.GetChuyennganhsByUuid(new Guid(chuyennganhuuid));
+                chuyennganhuuid = chuyennganh.Ten;
+            }
+            catch
+            {
+                chuyennganhuuid = "";
+            }
+            if (he == "")
+                return list;
+            if (chuyennganhuuid == "")
+                return list.Where(i => i.Trinhdodaotao.Contains(he)).ToList();        
+            if (bac == 0)
+                return list.Where(x => x.Trinhdodaotao.Contains(he) && x.Chuyennganh.Contains(chuyennganhuuid)).ToList();
+            if (keyword == "")
+                return list.Where(x => x.Trinhdodaotao.Contains(he) && x.Chuyennganh.Contains(chuyennganhuuid)
+           && x.Bac == bac).ToList();
+
+            return list.Where(x => x.Trinhdodaotao.Contains(he) && x.Chuyennganh.Contains(chuyennganhuuid)
+            && x.Bac == bac && x.Thoigian == keyword).ToList();
+
+
+        }
 
     }
 }

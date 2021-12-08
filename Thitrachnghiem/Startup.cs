@@ -53,8 +53,9 @@ namespace Thitrachnghiem
             services.AddTransient<ICauhoiService, CauhoiService>();
             services.AddTransient<IKithiService, KithiService>();
             services.AddTransient<IThisinhService, ThisinhService>();
+            services.AddTransient<IDethiService, DethiService>();
 
-            
+
 
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);

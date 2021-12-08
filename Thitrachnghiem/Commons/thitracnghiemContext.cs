@@ -78,6 +78,7 @@ namespace Thitrachnghiem.Commons
                     .HasMaxLength(100)
                     .HasColumnName("made");
 
+
                 entity.Property(e => e.Thoigianketthuc)
                     .HasMaxLength(100)
                     .HasColumnName("thoigianketthuc");
@@ -477,6 +478,10 @@ namespace Thitrachnghiem.Commons
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("madethi");
+
+                entity.Property(e => e.Thoigian)
+                    .HasMaxLength(4)
+                    .HasColumnName("thoigian");
 
                 entity.Property(e => e.Status).HasColumnName("status");
 

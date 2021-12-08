@@ -94,6 +94,27 @@
             <param name="uuid"></param>
             <returns></returns>
         </member>
+        <member name="M:Thitrachnghiem.QuanlyDethi.Controllers.DethiController.GetDethis(Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            Get all Dethi chi cho admin
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.QuanlyDethi.Controllers.DethiController.GetDethis(Thitrachnghiem.Commons.Pageing,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Get  Dethi  theo yeu cau
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.QuanlyDethi.Controllers.DethiController.GetDethi(System.Guid)">
+            <summary>
+            get Dethi by uuid cua Dethi
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
         <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithis(Thitrachnghiem.Commons.Pageing)">
             <summary>
             Get all Kithi chi cho admin
