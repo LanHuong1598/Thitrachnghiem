@@ -54,6 +54,23 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 result.ChuyennganhGuid = (Guid)chuyennganh.Uuid;
                 result.Chuyennganh = chuyennganh.Ten;
                 result.Trinhdodaotao = chuyennganh.Trinhdodaotao;
+
+                F_Thisinh f_Thisinh = new F_Thisinh();
+                var ts = f_Thisinh.GetThisinhWithKithiid(kithi.Id);
+                if (ts != null)
+                {
+                    Random r = new Random();
+
+                    result.Sothisinh = ts.Count;
+                    result.Sothisinhtruot = r.Next(1, (int)result.Sothisinh);
+                    result.Sothisinhdat = result.Sothisinh - result.Sothisinhtruot;
+                }
+                else
+                {
+                    result.Sothisinh = 0;
+                    result.Sothisinhtruot = 0;
+                    result.Sothisinhdat = 0;
+                }
             }
             catch
             {
@@ -316,8 +333,13 @@ namespace Thitrachnghiem.Quanlykithi.Services
 
             kithi.Dangthi = true;
             F_Kithi.Update(kithi);
+            F_Phienthi f_Phienthi = new F_Phienthi();
+            var hientai = f_Phienthi.GetPhienthiDangMoByKithi(kithi.Id);
+            if (hientai != null)
+                throw new Exception("Dang mo roi");
 
-            return convert(new F_Phienthi().Create(phienthi));
+
+            return convert(f_Phienthi.Create(phienthi));
         }
 
         public PhienthiGet closePhienthi(Guid Kithiuuid)

@@ -15,6 +15,12 @@ namespace Thitrachnghiem.Quanlykithi.Models.Schemas
         public Guid ChuyennganhGuid { get; set; }
         public string Chuyennganh { get; set; }
         public string Trinhdodaotao { get; set; }
+        public int? Sothisinh { get; set; }
+        public int? Sothisinhdat { get; set; }
+        public int? Sothisinhtruot { get; set; }
+
+
+
 
     }
 }
