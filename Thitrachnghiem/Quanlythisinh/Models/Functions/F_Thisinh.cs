@@ -40,7 +40,11 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Functions
         {
             return thitracnghiemContext.Thisinhs.Where(x => x.Id == id && x.Status == true).FirstOrDefault();
         }
-       
+        public Thisinh GetThisinhswithFalseById(int id)
+        {
+            return thitracnghiemContext.Thisinhs.Where(x => x.Id == id).FirstOrDefault();
+        }
+
         public Thisinh Update(Thisinh user)
         {
             Thisinh user1 = thitracnghiemContext.Thisinhs.Where(x => x.Uuid == user.Uuid && x.Status == true).FirstOrDefault();

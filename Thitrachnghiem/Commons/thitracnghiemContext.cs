@@ -38,6 +38,8 @@ namespace Thitrachnghiem.Commons
         public virtual DbSet<Dethi> Dethis { get; set; }
         public virtual DbSet<Chitietdethi> Chitietdethis { get; set; }
         public virtual DbSet<Phienthi> Phienthis { get; set; }
+        public virtual DbSet<PhienthiThisinh> PhienthiThisinhs { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -51,6 +53,35 @@ namespace Thitrachnghiem.Commons
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PhienthiThisinh>(entity =>
+            {
+                entity.ToTable("phienthi_thisinh");
+
+                entity.HasIndex(e => e.Uuid, "UQ__phienthi__7F42793179CB5DCF")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Phienthiid).HasColumnName("phienthiid");
+
+                entity.Property(e => e.Thisinhid).HasColumnName("thisinhid");
+
+                entity.Property(e => e.Uuid)
+                    .HasColumnName("uuid")
+                    .HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.Thoigianbatdau)
+                    .HasMaxLength(100)
+                    .HasColumnName("thoigianbatdau");
+
+                entity.Property(e => e.Made)
+                    .HasMaxLength(100)
+                    .HasColumnName("made");
+
+                entity.Property(e => e.Thoigianketthuc)
+                    .HasMaxLength(100)
+                    .HasColumnName("thoigianketthuc");
+            });
             modelBuilder.Entity<Phienthi>(entity =>
             {
                 entity.ToTable("phienthi");

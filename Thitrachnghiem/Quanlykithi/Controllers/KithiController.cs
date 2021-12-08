@@ -198,5 +198,23 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
                 body = Kithi.ToPagedList(pageing.offset, pageing.limit)
             });
         }
+
+        // GET: api/Get thi sinh cua phien thi 
+        /// <summary>
+        /// Get all thi sinh cua phien thi  
+        /// </summary>
+        /// <param name="pageing"></param>
+        /// <returns></returns>
+        [HttpGet("Phienthi/{uuid}/Thisinh")]
+        [Authorize(Roles = "admin,KITHI_GET")]
+        public async Task<ActionResult> GetAllthisinhphienthis(Guid uuid, [FromQuery] Pageing pageing)
+        {
+            var Kithi = KithiService.GetPhienthiThisinhs(uuid);
+            return Ok(new
+            {
+                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
+                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+            });
+        }
     }
 }

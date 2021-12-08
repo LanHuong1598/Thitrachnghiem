@@ -356,5 +356,36 @@ namespace Thitrachnghiem.Quanlykithi.Services
 
 
         }
+
+        public PhienthiThisinhGet convertphienthiThisinhGet(PhienthiThisinh phienthiThisinh)
+        {
+            PhienthiThisinhGet rs = new PhienthiThisinhGet();
+            rs.Made = phienthiThisinh.Made;
+            rs.Thoigianbatdau = phienthiThisinh.Thoigianbatdau;
+            rs.Thoigianketthuc = phienthiThisinh.Thoigianketthuc;
+            try
+            {
+                F_Thisinh f_Thisinh = new F_Thisinh();
+                var ts = f_Thisinh.GetThisinhsById((int)phienthiThisinh.Thisinhid);
+                rs.Tenthisinh = ts.Name;
+                rs.Email = ts.Email;
+            }catch
+            {
+
+            }
+            return rs;
+
+
+        }
+
+        public List<PhienthiThisinhGet> GetPhienthiThisinhs(Guid Phienthiuuid)
+        {
+            F_Phienthi f_Phienthi = new F_Phienthi();
+            var pt = f_Phienthi.GetPhienthisByUuid(Phienthiuuid);
+
+            var ts = f_Phienthi.GetThisinhsByPhienthiid(pt.Id);
+
+            return ts.ConvertAll(x => convertphienthiThisinhGet(x));
+        }
     }
 }

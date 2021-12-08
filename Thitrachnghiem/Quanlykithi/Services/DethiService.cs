@@ -163,15 +163,35 @@ namespace Thitrachnghiem.Quanlykithi.Services
             var ts = f_Thisinh.GetThisinhsByGmail(user.Username);
             if (ts == null)
                 throw new Exception("Khong co thi sinh");
-
             F_Dethi f_Dethi = new F_Dethi();
-            return convertDethi(f_Dethi.CreateDethiForThisinh((int)ts.Kithiid, ts.Id));
+
+            var phienthiid = f_Dethi.Kiemtradamochua(ts.Email);
+            if (phienthiid == null)
+                throw new Exception("Chua mo phien thi");
+
+            Dethi dethi = f_Dethi.CreateDethiForThisinh((int)ts.Kithiid, ts.Id);
+
+            PhienthiThisinh phienthiThisinh = new PhienthiThisinh();
+            phienthiThisinh.Phienthiid = phienthiid;
+            phienthiThisinh.Thisinhid = ts.Id;
+            string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            phienthiThisinh.Thoigianbatdau = now;
+            now = DateTime.Now.AddMinutes(30).ToString("yyyy/MM/dd HH:mm:ss");
+            phienthiThisinh.Thoigianketthuc = now;
+            phienthiThisinh.Made = dethi.Madethi;
+
+            F_Phienthi f_Phienthi = new F_Phienthi();
+            f_Phienthi.CreateThisinhphienthi(phienthiThisinh);
+
+            return convertDethi(dethi);
         }
 
         public bool Kiemtraphienthidamohaychua(string user)
         {           
             F_Dethi f_Dethi = new F_Dethi();
-            return f_Dethi.Kiemtradamochua(user);
+            var u = f_Dethi.Kiemtradamochua(user);
+            if (u == null) return false;
+            else return true;
         }
 
 

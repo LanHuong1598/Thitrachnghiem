@@ -61,5 +61,18 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             return thitracnghiemContext.Phienthis.Where(x =>x.Kithiid == id).ToList();
         }
 
+        public PhienthiThisinh CreateThisinhphienthi(PhienthiThisinh phienthiThisinh)
+        {
+            thitracnghiemContext.PhienthiThisinhs.Add(phienthiThisinh);
+            thitracnghiemContext.SaveChanges();
+            return phienthiThisinh;
+        }
+
+        public List<PhienthiThisinh> GetThisinhsByPhienthiid(int? id)
+        {
+            return thitracnghiemContext.PhienthiThisinhs.Where(x => x.Phienthiid == id).ToList();
+        }
+
+
     }
 }

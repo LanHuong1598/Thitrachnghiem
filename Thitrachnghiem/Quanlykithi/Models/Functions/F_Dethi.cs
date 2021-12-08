@@ -119,7 +119,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             return dethi;
         }
 
-        public bool Kiemtradamochua(string thisinhid)
+        public int? Kiemtradamochua(string thisinhid)
         {
             Thisinh thisinh = thitracnghiemContext.Thisinhs.
                 Where(x => x.Email == thisinhid && x.Status == true).FirstOrDefault();
@@ -129,8 +129,8 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
              (x.Thoigianketthuc.CompareTo(now) > 0)).FirstOrDefault();
 
             if (phienthi == null)
-                return false;
-            else return true;
+                return phienthi.Id;
+            else return null;
 
         }
     }
