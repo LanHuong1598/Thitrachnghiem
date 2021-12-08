@@ -112,6 +112,21 @@ namespace Thitrachnghiem.Users.Services
             return null;
         }
 
+        public UserGet LoginThisinh(UserLogin userLogin)
+        {
+
+            F_Users f_users = new F_Users();
+
+
+            User user = f_users.Login(userLogin.Username, userLogin.Password);
+            if (user != null)
+            {
+                return GetRoleForUser(user);
+            }
+
+            return null;
+        }
+
         public Pair<List<UserGet>, int> GetUsers(string keyword, Pageing pageing)
         {
             F_Users f_users = new F_Users();

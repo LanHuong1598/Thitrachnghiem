@@ -127,17 +127,31 @@ namespace Thitrachnghiem.Quanlykithi.Services
             else
                 return null;
         }
-        public float Guicautraloi(Dapandethi cautraloi)
+        //public float Guicautraloi(Dapandethi cautraloi)
+        //{
+        //    F_Cautraloi f_Cautraloi = new F_Cautraloi();
+        //    F_Cauhoi f_Cauhoi = new F_Cauhoi();
+
+        //    foreach (var i in cautraloi.Cautralois)
+        //    {
+        //        f_Cautraloi.GetCautraloiByUuidWithFalse(new Guid(i.Cauhoiuuid));
+
+
+        //    }
+        //    return 100;
+        //}
+
+        public float Guicautraloi(CautraloiThisinh cautraloi)
         {
             F_Cautraloi f_Cautraloi = new F_Cautraloi();
             F_Cauhoi f_Cauhoi = new F_Cauhoi();
 
-            foreach (var i in cautraloi.Cautralois)
-            {
-                f_Cautraloi.GetCautraloiByUuidWithFalse(new Guid(i.Cauhoiuuid));
+            //foreach (var i in cautraloi.Cautralois)
+            //{
+            //    f_Cautraloi.GetCautraloiByUuidWithFalse(new Guid(i.Cauhoiuuid));
 
 
-            }
+            //}
             return 100;
         }
 

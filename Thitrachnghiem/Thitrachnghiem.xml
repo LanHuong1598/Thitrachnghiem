@@ -164,6 +164,12 @@
             <param name="pageing"></param>
             <returns></returns>
         </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.ThiController.Getthongtinthisinh">
+            <summary>
+            get Dethi by uuid cua Dethi
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Thitrachnghiem.Quanlykithi.Controllers.ThiController.getdethi">
             <summary>
             get Dethi by uuid cua Dethi

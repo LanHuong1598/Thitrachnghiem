@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Thitrachnghiem.Users.Models.Schema;
 using Thitrachnghiem.Users.Services;
+using Thitrachnghiem.Services;
 
 namespace Thitrachnghiem.Quanlykithi.Controllers
 {
@@ -30,6 +31,51 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
             }
             return 0;
         }
+
+        // GET: api/Dethi/5
+        /// <summary>
+        /// get Dethi by uuid cua Dethi
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Me")]
+        [Authorize]
+        public async Task<ActionResult> Getthongtinthisinh()
+        {
+            int user = extractUser();
+            ThiService tsinhservice = new ThiService();
+            var  ts = tsinhservice.Getthongtinthisinh(user);
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = ts
+            });
+        }
+
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        public async Task<ActionResult<dynamic>> Authenticatethisinh([FromBody] UserLogin userlogin)
+        {
+            try
+            {
+                UsersService usersService = new UsersService();
+                var user = usersService.LoginThisinh(userlogin);
+
+                if (user == null)
+                    return NotFound(new { message = "User or password invalid" });
+
+                var token = TokenService.CreateToken(user);
+                return new
+                {
+                    user = user,
+                    token = token
+                };
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
         // GET: api/Dethi/5
         /// <summary>
         /// get Dethi by uuid cua Dethi
@@ -71,14 +117,14 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> Guidapan([FromBody] Dapandethi cautraloi)
+        public async Task<ActionResult> Guidapan([FromBody] CautraloiThisinh cautraloi)
         {
             DethiService dethiService = new DethiService();
             float diem = dethiService.Guicautraloi(cautraloi);
             return Ok(new
             {
                 header = new Header(1, 0, 1, "true"),
-                body = diem
+                body = "Ok"
             });
         }
 
