@@ -140,5 +140,18 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
                 body = 25
             });
         }
+
+        //[HttpGet("Layketqua")]
+        //[Authorize]
+        //public async Task<ActionResult> d()
+        //{
+
+        //    float diem = 25;
+        //    return Ok(new
+        //    {
+        //        header = new Header(1, 0, 1, "true"),
+        //        body = 25
+        //    });
+        //}
     }
 }

@@ -23,7 +23,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
         }
         public List<Phienthi> GetPhienthisIsOpen()
         {
-            string now = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss");
+            string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             return thitracnghiemContext.Phienthis.Where( x=> x.Thoigianketthuc.CompareTo(now) > 0).ToList();
         }
 
@@ -33,7 +33,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
         }
         public Phienthi GetPhienthiDangMoByKithi(int id)
         {
-            string now = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss");
+            string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             return thitracnghiemContext.Phienthis.Where(x => x.Kithiid == id & 
             (x.Thoigianketthuc.CompareTo(now) > 0)).FirstOrDefault();
         }
