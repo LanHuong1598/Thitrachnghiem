@@ -31,6 +31,17 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
             }
             return 0;
         }
+        private string extractUserstring()
+        {
+            if (HttpContext.User.Identity is ClaimsIdentity identity)
+            {
+                string uuid = identity.FindFirst(ClaimTypes.Sid).Value;
+                UsersService usersService = new UsersService();
+                UserGet user = usersService.GetUsersByUuid(uuid);
+                return user.Username;
+            }
+            return "";
+        }
 
         // GET: api/Dethi/5
         /// <summary>
@@ -145,7 +156,7 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         [Authorize]
         public async Task<ActionResult> Kiemtraphienthidamohaychua()
         {
-            int user = extractUser();
+            string user = extractUserstring();
 
             DethiService dethiService = new DethiService();
             var ok = dethiService.Kiemtraphienthidamohaychua(user);

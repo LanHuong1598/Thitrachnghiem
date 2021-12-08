@@ -119,10 +119,10 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             return dethi;
         }
 
-        public bool Kiemtradamochua(int thisinhid)
+        public bool Kiemtradamochua(string thisinhid)
         {
             Thisinh thisinh = thitracnghiemContext.Thisinhs.
-                Where(x => x.Id == thisinhid && x.Status == true).FirstOrDefault();
+                Where(x => x.Email == thisinhid && x.Status == true).FirstOrDefault();
             string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 
             Phienthi phienthi = thitracnghiemContext.Phienthis.Where(x => x.Kithiid == thisinh.Kithiid &
