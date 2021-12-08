@@ -57,7 +57,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
 
                 F_Thisinh f_Thisinh = new F_Thisinh();
                 var ts = f_Thisinh.GetThisinhWithKithiid(kithi.Id);
-                if (ts != null)
+                if (ts != null || ts.Count == 0)
                 {
                     Random r = new Random();
 
