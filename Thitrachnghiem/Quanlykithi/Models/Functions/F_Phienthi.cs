@@ -33,7 +33,9 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
         }
         public Phienthi GetPhienthiDangMoByKithi(int id)
         {
-            return thitracnghiemContext.Phienthis.Where(x => x.Kithiid == id & (x.Thoigianketthuc.CompareTo(DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss")) > 0)).FirstOrDefault();
+            string now = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss");
+            return thitracnghiemContext.Phienthis.Where(x => x.Kithiid == id & 
+            (x.Thoigianketthuc.CompareTo(now) > 0)).FirstOrDefault();
         }
         public Phienthi GetPhienthisById(int id)
         {
