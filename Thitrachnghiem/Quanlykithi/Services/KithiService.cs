@@ -386,6 +386,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             rs.Made = phienthiThisinh.Made;
             rs.Thoigianbatdau = phienthiThisinh.Thoigianbatdau;
             rs.Thoigianketthuc = phienthiThisinh.Thoigianketthuc;
+            rs.Dethiuuid = phienthiThisinh.Dethiuuid;
             try
             {
                 F_Thisinh f_Thisinh = new F_Thisinh();

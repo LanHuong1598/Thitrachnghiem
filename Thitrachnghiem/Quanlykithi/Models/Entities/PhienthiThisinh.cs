@@ -12,6 +12,8 @@ namespace Thitrachnghiem.Quanlykithi.Models.Entities
         public int? Phienthiid { get; set; }
         public int? Thisinhid { get; set; }
         public string Made { get; set; }
+        public string Dethiuuid { get; set; }
+
         public string Thoigianbatdau { get; set; }
         public string Thoigianketthuc { get; set; }
     }

@@ -224,6 +224,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             now = DateTime.Now.AddMinutes(30).ToString("yyyy/MM/dd HH:mm:ss");
             phienthiThisinh.Thoigianketthuc = now;
             phienthiThisinh.Made = dethi.Madethi;
+            phienthiThisinh.Dethiuuid = dethi.Uuid.ToString();
 
             F_Phienthi f_Phienthi = new F_Phienthi();
             f_Phienthi.CreateThisinhphienthi(phienthiThisinh);

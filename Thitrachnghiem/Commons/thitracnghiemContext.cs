@@ -290,6 +290,7 @@ namespace Thitrachnghiem.Commons
 
                 entity.Property(e => e.Kithiid).HasColumnName("kithiid");
 
+
                 entity.Property(e => e.Thoigianbatdau)
                     .HasMaxLength(100)
                     .HasColumnName("thoigianbatdau");
@@ -315,6 +316,10 @@ namespace Thitrachnghiem.Commons
                 entity.Property(e => e.Made)
                     .IsUnicode(false)
                     .HasColumnName("made");
+
+                entity.Property(e => e.Dethiuuid)
+                    .IsUnicode(false)
+                    .HasColumnName("dethiuuid");
 
                 entity.Property(e => e.Phienthiid).HasColumnName("phienthiid");
 
