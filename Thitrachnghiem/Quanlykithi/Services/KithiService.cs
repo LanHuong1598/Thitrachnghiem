@@ -459,7 +459,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 if (cauhoi != null)
                 {
                     var cautl =  f_Phienthi.GetThisinhTraloiWithDethiidandCauhoiidandThisinhid(cauhoi.Id, dethi.Id, (int)dethi.Thisinhid);
-                    if (cautl == null)
+                    if (cautl != null)
                         rs.Add(convertThisinhTraloi(cautl));
                     else
                     {
