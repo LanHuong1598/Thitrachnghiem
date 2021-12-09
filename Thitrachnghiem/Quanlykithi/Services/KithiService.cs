@@ -449,6 +449,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             F_Chitietdethi f_Chitietdethi = new F_Chitietdethi();
             var listcauhoi = f_Chitietdethi.GetChitietdethiWithDethiid(dethi.Id);
             F_ThisinhTraloi f_Phienthi = new F_ThisinhTraloi();
+            F_Cautraloi f_Cautraloi = new F_Cautraloi();
 
             List<ThisinhTraloiGet> rs = new List<ThisinhTraloiGet>();
             foreach (var i in listcauhoi)
@@ -470,10 +471,11 @@ namespace Thitrachnghiem.Quanlykithi.Services
                         thisinhTraloiGet.Cautraloi = "";
                         try
                         {
-                            F_Cautraloi f_Cautraloi = new F_Cautraloi();
                             thisinhTraloiGet.Cautralois = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id).ConvertAll(x => new CautraloiGet(x));
                         }
                         catch { }
+
+                        rs.Add(thisinhTraloiGet);
                     }
 
                 }
