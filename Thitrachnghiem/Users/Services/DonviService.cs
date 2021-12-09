@@ -90,6 +90,7 @@ namespace Thitrachnghiem.Users.Services
 
             if (donviUpdate.Ten != null)
                 donvi.Ten = donviUpdate.Ten;
+            donvi.Ma = donviUpdate.Ma;
                     
             return convert(f_Donvi.Update(donvi));
         }
