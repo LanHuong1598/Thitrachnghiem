@@ -59,7 +59,7 @@ namespace Thitrachnghiem.Quanlycauhoi.Services
                 throw new InvalidDataException("Mã uuid không tồn tại");
 
             chuyennganh.Ten = chuyennganhUpdate.Ten;
-            chuyennganh.Sobac = chuyennganhUpdate.Sobac;
+            chuyennganh.Sobac = (int)chuyennganhUpdate.Sobac;
             chuyennganh.Trinhdodaotao = chuyennganhUpdate.Trinhdodaotao;            
                     
             return convert(f_Chuyennganh.Update(chuyennganh));

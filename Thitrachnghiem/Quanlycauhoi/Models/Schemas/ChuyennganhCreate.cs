@@ -16,7 +16,7 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Schemas
         public Chuyennganh convert()
         {
             Chuyennganh result = new Chuyennganh();
-            result.Sobac = this.Sobac;
+            result.Sobac = (int)this.Sobac;
             result.Ten = this.Ten;
             result.Trinhdodaotao = this.Trinhdodaotao;
             return result;
