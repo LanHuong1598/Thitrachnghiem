@@ -190,6 +190,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
 
             kithi.Status = true;
             kithi.Dangthi = false;
+            kithi.Socauhoi = 25;
             kithi = new F_Kithi().Create(kithi);
 
             F_Matrandethi f_Matrandethi = new F_Matrandethi();
@@ -420,7 +421,6 @@ namespace Thitrachnghiem.Quanlykithi.Services
             F_Cautraloi f_Cautraloi = new F_Cautraloi();
             var tl = f_Cautraloi.GetCautraloisById((int)thisinhTraloi.Cautraloiid);
 
-            rs.Noidung = tl.Noidung;
             if (tl.Trangthai == true)
                 rs.IsTrue = true;
             else rs.IsTrue = false;
@@ -433,7 +433,20 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 rs.Cauhoi = cauhoi.Noidung;
             try
             {
-                rs.Cautralois = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id).ConvertAll(x => new CautraloiGet(x));
+                rs.Cautralois = new List<CautraloiluachonGet>();
+                var list = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id);
+                foreach(var i in list)
+                {
+                    CautraloiluachonGet u = new CautraloiluachonGet();
+                    u.Ladapandung = i.Trangthai;
+                    u.Noidung = i.Noidung;
+                    if (tl.Id == i.Id)
+                        u.Duocchon = true;
+                    else
+                        u.Duocchon = false;
+                    rs.Cautralois.Add(u);                                    
+
+                }
             }
             catch { }
 
@@ -468,10 +481,23 @@ namespace Thitrachnghiem.Quanlykithi.Services
                         thisinhTraloiGet.IsTrue = false;
                         thisinhTraloiGet.Cauhoi = cauhoi.Noidung;
                         thisinhTraloiGet.Thoigiantraloi = "";
-                        thisinhTraloiGet.Cautraloi = "";
                         try
                         {
-                            thisinhTraloiGet.Cautralois = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id).ConvertAll(x => new CautraloiGet(x));
+                            try
+                            {
+                                thisinhTraloiGet.Cautralois = new List<CautraloiluachonGet>();
+                                var list = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id);
+                                foreach (var ii in list)
+                                {
+                                    CautraloiluachonGet u = new CautraloiluachonGet();
+                                    u.Ladapandung = ii.Trangthai;
+                                    u.Noidung = ii.Noidung;
+                                    u.Duocchon = false;
+                                    thisinhTraloiGet.Cautralois.Add(u);
+
+                                }
+                            }
+                            catch { }
                         }
                         catch { }
 
