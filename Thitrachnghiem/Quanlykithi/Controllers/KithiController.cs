@@ -216,5 +216,24 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
                 body = Kithi.ToPagedList(pageing.offset, pageing.limit)
             });
         }
+
+
+        // GET: api/Get chi tiet bai lam thi sinh cua phien thi 
+        /// <summary>
+        /// Get chi tiet bai lam thi sinh, uuid la uuid cua de thi
+        /// </summary>
+        /// <param name="pageing"></param>
+        /// <returns></returns>
+        [HttpGet("Phienthi/Bailam/{uuid}")]
+        [Authorize(Roles = "admin,KITHI_GET")]
+        public async Task<ActionResult> getbailam(Guid uuid, [FromQuery] Pageing pageing)
+        {
+            var Kithi = KithiService.Getcautraloidethi(uuid);
+            return Ok(new
+            {
+                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
+                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+            });
+        }
     }
 }

@@ -8,6 +8,7 @@ using Thitrachnghiem.Quanlycauhoi.Models.Functions;
 using Thitrachnghiem.Quanlycauhoi.Models.Entities;
 using Thitrachnghiem.Quanlykithi.Models.Schemas;
 using Thitrachnghiem.Quanlythisinh.Models.Functions;
+using Thitrachnghiem.Quanlycauhoi.Models.Schemas;
 
 namespace Thitrachnghiem.Quanlykithi.Services
 {
@@ -408,6 +409,75 @@ namespace Thitrachnghiem.Quanlykithi.Services
             var ts = f_Phienthi.GetThisinhsByPhienthiid(pt.Id);
 
             return ts.ConvertAll(x => convertphienthiThisinhGet(x));
+        }
+
+        public  ThisinhTraloiGet convertThisinhTraloi(ThisinhTraloi thisinhTraloi)
+        {
+            ThisinhTraloiGet rs = new ThisinhTraloiGet();
+            rs.Id = thisinhTraloi.Id;
+
+            F_Cautraloi f_Cautraloi = new F_Cautraloi();
+            var tl = f_Cautraloi.GetCautraloisById((int)thisinhTraloi.Cautraloiid);
+
+            rs.Noidung = tl.Noidung;
+            if (tl.Trangthai == true)
+                rs.IsTrue = true;
+            else rs.IsTrue = false;
+
+            rs.Thoigiantraloi = thisinhTraloi.Thoigiantraloi;
+
+            F_Cauhoi f_Cauhoi = new F_Cauhoi();
+            var cauhoi = f_Cauhoi.GetCauhoiByidWithFalse(thisinhTraloi.Cauhoiid);
+            if (cauhoi != null)
+                rs.Cauhoi = cauhoi.Noidung;
+            try
+            {
+                rs.Cautralois = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id).ConvertAll(x => new CautraloiGet(x));
+            }
+            catch { }
+
+            return rs;
+
+        }
+
+        public List<ThisinhTraloiGet> Getcautraloidethi(Guid Dethiuuid)
+        {
+            F_Dethi f_Dethi = new F_Dethi();
+            var dethi = f_Dethi.GetDethiByUuidWithFalse(Dethiuuid);
+
+            F_Chitietdethi f_Chitietdethi = new F_Chitietdethi();
+            var listcauhoi = f_Chitietdethi.GetChitietdethiWithDethiid(dethi.Id);
+            F_ThisinhTraloi f_Phienthi = new F_ThisinhTraloi();
+
+            List<ThisinhTraloiGet> rs = new List<ThisinhTraloiGet>();
+            foreach (var i in listcauhoi)
+            {
+                F_Cauhoi f_Cauhoi = new F_Cauhoi();
+                var cauhoi = f_Cauhoi.GetCauhoiByidWithFalse(i.Cauhoiid);
+                if (cauhoi != null)
+                {
+                    var cautl =  f_Phienthi.GetThisinhTraloiWithDethiidandCauhoiidandThisinhid(cauhoi.Id, dethi.Id, (int)dethi.Thisinhid);
+                    if (cautl == null)
+                        rs.Add(convertThisinhTraloi(cautl));
+                    else
+                    {
+                        ThisinhTraloiGet thisinhTraloiGet = new ThisinhTraloiGet();
+                        thisinhTraloiGet.Id = 1;
+                        thisinhTraloiGet.IsTrue = false;
+                        thisinhTraloiGet.Cauhoi = cauhoi.Noidung;
+                        thisinhTraloiGet.Thoigiantraloi = "";
+                        thisinhTraloiGet.Cautraloi = "";
+                        try
+                        {
+                            F_Cautraloi f_Cautraloi = new F_Cautraloi();
+                            thisinhTraloiGet.Cautralois = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id).ConvertAll(x => new CautraloiGet(x));
+                        }
+                        catch { }
+                    }
+
+                }
+            }
+            return rs;
         }
     }
 }

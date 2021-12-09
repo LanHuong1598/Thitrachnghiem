@@ -192,6 +192,13 @@
             <param name="pageing"></param>
             <returns></returns>
         </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.getbailam(System.Guid,Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            Get chi tiet bai lam thi sinh, uuid la uuid cua de thi
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
         <member name="M:Thitrachnghiem.Quanlykithi.Controllers.ThiController.Getthongtinthisinh">
             <summary>
             get Dethi by uuid cua Dethi

@@ -8,7 +8,9 @@ namespace Thitrachnghiem.Quanlykithi.Models.Schemas
 {
     public partial class CautraloiThisinh
     {
-        public string Cauhoiuuid { get; set; }        
-        public string Cautraloiuuid { get; set; }
+        public Guid Cauhoiuuid { get; set; }        
+        public Guid Cautraloiuuid { get; set; }
+        public Guid Dethiuuid { get; set; }
+
     }
 }

@@ -130,8 +130,10 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         [Authorize]
         public async Task<ActionResult> Guidapan([FromBody] CautraloiThisinh cautraloi)
         {
+            int user = extractUser();
+
             DethiService dethiService = new DethiService();
-            float diem = dethiService.Guicautraloi(cautraloi);
+            float diem = dethiService.Guicautraloi(user, cautraloi);
             return Ok(new
             {
                 header = new Header(1, 0, 1, "true"),

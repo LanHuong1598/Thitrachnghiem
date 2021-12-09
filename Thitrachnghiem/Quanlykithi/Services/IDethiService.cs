@@ -19,7 +19,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
         public DethiGet GetDethiByUuid(Guid guid);
         public List<Guid> GetDanhsachCauhoiDethiByUuid(Guid guid);
         public List<DethiGet> Getall();
-        public float Guicautraloi(CautraloiThisinh cautraloi);
+        public float Guicautraloi(int id, CautraloiThisinh cautraloi);
         public DethiGet MakeDethi(int id);
         public bool Kiemtraphienthidamohaychua(string user);
         public List<DethiGet> getDethiByKithiuuid(Guid kithiuuid);

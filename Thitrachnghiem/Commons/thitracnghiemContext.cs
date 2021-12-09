@@ -23,6 +23,7 @@ namespace Thitrachnghiem.Commons
         {
         }
 
+        public virtual DbSet<ThisinhTraloi> ThisinhTralois { get; set; }
         public virtual DbSet<Authority> Authorities { get; set; }
         public virtual DbSet<Cauhoi> Cauhois { get; set; }
         public virtual DbSet<Cautraloi> Cautralois { get; set; }
@@ -489,6 +490,30 @@ namespace Thitrachnghiem.Commons
                     .HasColumnName("uuid")
                     .HasDefaultValueSql("(newid())");
             });
+            modelBuilder.Entity<ThisinhTraloi>(entity =>
+            {
+                entity.ToTable("thisinh_traloi");
+
+                entity.HasIndex(e => e.Uuid, "UQ__thisinh___7F42793148175114")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Cauhoiid).HasColumnName("cauhoiid");
+                entity.Property(e => e.Cautraloiid).HasColumnName("cautraloiid");
+                entity.Property(e => e.Dethiid).HasColumnName("dethiid");
+
+
+                entity.Property(e => e.Thoigiantraloi)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("thoigiantraloi");
+
+                entity.Property(e => e.Uuid)
+                    .HasColumnName("uuid")
+                    .HasDefaultValueSql("(newid())");
+            });
+
 
             OnModelCreatingPartial(modelBuilder);
         }

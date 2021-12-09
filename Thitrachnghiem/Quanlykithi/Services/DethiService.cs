@@ -163,17 +163,40 @@ namespace Thitrachnghiem.Quanlykithi.Services
         //    return 100;
         //}
 
-        public float Guicautraloi(CautraloiThisinh cautraloi)
+        public float Guicautraloi(int id, CautraloiThisinh cautraloi)
         {
+            F_Thisinh f_Thisinh = new F_Thisinh();
+            F_Users f_Users = new F_Users();
+            var user = f_Users.GetUsersById(id);
+            var ts = f_Thisinh.GetThisinhsByGmail(user.Username);
+            if (ts == null)
+                throw new Exception("Khong co thi sinh");
+
             F_Cautraloi f_Cautraloi = new F_Cautraloi();
             F_Cauhoi f_Cauhoi = new F_Cauhoi();
+            F_Dethi f_Dethi = new F_Dethi();
+            F_ThisinhTraloi f_ThisinhTraloi = new F_ThisinhTraloi();
 
-            //foreach (var i in cautraloi.Cautralois)
-            //{
-            //    f_Cautraloi.GetCautraloiByUuidWithFalse(new Guid(i.Cauhoiuuid));
+            try
+            {
+                var dethi = f_Dethi.GetDethiByUuidWithFalse(cautraloi.Dethiuuid);
+                var cauhoi = f_Cauhoi.GetCauhoiByUuidWithFalse(cautraloi.Cauhoiuuid);
+                var ctl = f_Cautraloi.GetCautraloiByUuidWithFalse(cautraloi.Cautraloiuuid);
+                var ctl_old = f_ThisinhTraloi.GetThisinhTraloiWithDethiidandCauhoiidandThisinhid(
+                    dethi.Id, cauhoi.Id, ts.Id);
+                if (ctl_old != null) {
+                    f_ThisinhTraloi.Delete((Guid)ctl_old.Uuid);
+                }
+                ThisinhTraloi thisinhTraloi = new ThisinhTraloi();
+                thisinhTraloi.Thisinhid = ts.Id;
+                thisinhTraloi.Thoigiantraloi = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                thisinhTraloi.Cauhoiid = cauhoi.Id;
+                thisinhTraloi.Cautraloiid = ctl.Id;
+                thisinhTraloi.Dethiid = dethi.Id;
+                f_ThisinhTraloi.Create(thisinhTraloi);
 
-
-            //}
+            }
+            catch { }
             return 100;
         }
 
