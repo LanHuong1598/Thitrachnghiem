@@ -138,7 +138,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
         public int? Kiemtradamochua(string thisinhid)
         {
             Thisinh thisinh = thitracnghiemContext.Thisinhs.
-                Where(x => x.Email == thisinhid && x.Status == true).FirstOrDefault();
+                Where(x => x.Email == thisinhid && x.Status == true).OrderByDescending( x=> x.Id).FirstOrDefault();
             string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 
             Phienthi phienthi = thitracnghiemContext.Phienthis.Where(x => x.Kithiid == thisinh.Kithiid &

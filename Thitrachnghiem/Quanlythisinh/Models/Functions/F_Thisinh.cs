@@ -34,7 +34,8 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Functions
         }
         public Thisinh GetThisinhsByGmail(string gmail)
         {
-            return thitracnghiemContext.Thisinhs.Where(x => x.Email == gmail && x.Status == true).FirstOrDefault();
+            return thitracnghiemContext.Thisinhs.Where(x => x.Email == gmail && x.Status == true)
+                .OrderByDescending(x=> x.Id).FirstOrDefault();
         }
         public Thisinh GetThisinhsById(int id)
         {
