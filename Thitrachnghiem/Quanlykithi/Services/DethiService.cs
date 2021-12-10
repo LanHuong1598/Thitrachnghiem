@@ -96,6 +96,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             result.Id = dethi.Id;
             result.Uuid = dethi.Uuid;
             result.Madethi = dethi.Madethi;
+            result.Thoigian = dethi.Thoigian;
             F_Kithi f_Kithi = new F_Kithi();
             try
             {
