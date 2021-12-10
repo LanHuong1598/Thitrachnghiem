@@ -42,7 +42,7 @@ namespace Thitrachnghiem.Admin.Functions
 
             var kithi = thitracnghiemContext.Kithis.Where(x => x.Status == true);
             if (kithi != null)
-                thongkeGet.Kithi = ts.Count();
+                thongkeGet.Kithi = kithi.Count();
 
             string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             var pt =  thitracnghiemContext.Phienthis.Where(x => x.Thoigianketthuc.CompareTo(now) > 0);
