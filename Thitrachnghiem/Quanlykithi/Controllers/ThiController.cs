@@ -141,12 +141,13 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
             });
         }
 
-        [HttpGet("Layketqua/{uuid}")]
+        [HttpGet("Layketqua")]
         [Authorize]
         public async Task<ActionResult> Layketqua(Guid uuid)
         {
 
-            float diem = 25;
+            int user = extractUser();
+
             return Ok(new
             {
                 header = new Header(1, 0, 1, "true"),

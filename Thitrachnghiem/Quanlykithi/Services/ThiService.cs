@@ -86,15 +86,23 @@ namespace Thitrachnghiem.Quanlykithi.Services
 
         }
 
-        public int Layketqua(Guid uuid)
+        public int Layketqua(int id)
         {
             thitracnghiemContext thitracnghiemContext = new thitracnghiemContext();
+            var user = thitracnghiemContext.Users.Where(x => x.Id == id && x.Status == true).FirstOrDefault();
+            var ts = thitracnghiemContext.Thisinhs.Where(x => x.Email == user.Username && x.Status == true)
+                .OrderByDescending(x => x.Id).FirstOrDefault();
+
+            var phienthi_thisinh = thitracnghiemContext.PhienthiThisinhs.
+                Where(x => x.Thisinhid == ts.Id).OrderByDescending(x => x.Thoigianketthuc).FirstOrDefault();
+
+            Guid uuid = new Guid(phienthi_thisinh.Dethiuuid);
             var dethi = thitracnghiemContext.Dethis.Where(x => x.Uuid == uuid).FirstOrDefault();
+
             var listcauhoi = thitracnghiemContext.Chitietdethis.Where(x => x.Dethiid == dethi.Id).ToList();
             int diem = 0;
             foreach (var i in listcauhoi)
             {
-                F_Cauhoi f_Cauhoi = new F_Cauhoi();
                 var cauhoi = thitracnghiemContext.Cauhois.Where(x => x.Id == i.Id).FirstOrDefault();
                 if (cauhoi != null)
                 {
