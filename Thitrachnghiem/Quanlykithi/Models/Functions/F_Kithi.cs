@@ -98,7 +98,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
                 KithiThisinhGet kithiThisinhGet = new KithiThisinhGet();
                 kithiThisinhGet.Tenthisinh = i.Name;
                 kithiThisinhGet.Email = i.Email;
-                var u = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Thisinhid == kithi.Id).ToList().Where(u => phienthis.Contains((int)u.Phienthiid)).OrderBy(x=>x.Thoigianketthuc).First();
+                var u = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Thisinhid == kithi.Id).ToList().Where(u => phienthis.Contains((int)u.Phienthiid)).OrderByDescending(x=>x.Thoigianketthuc).First();
                 if (u != null)
                 {
                     kithiThisinhGet.Diem = u.Diem;
