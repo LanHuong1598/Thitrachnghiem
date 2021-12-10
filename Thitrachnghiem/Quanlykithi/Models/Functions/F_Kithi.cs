@@ -99,15 +99,17 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
                 kithiThisinhGet.Tenthisinh = i.Name;
                 kithiThisinhGet.Email = i.Email;
                 var u = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Thisinhid == i.Id).ToList();
-                if (u != null)
+                if (u != null && u.Count() != 0)
                 {
                     var v = u.Where(u => phienthis.Contains((int)u.Phienthiid)).OrderByDescending(x => x.Thoigianketthuc).First();
-
-                    kithiThisinhGet.Diem = v.Diem;
-                    kithiThisinhGet.Thoigianbatdau = v.Thoigianbatdau;
-                    kithiThisinhGet.Thoigianketthuc = v.Thoigianketthuc;
-                    kithiThisinhGet.Made = v.Made;
-                    kithiThisinhGet.Dethiuuid = v.Dethiuuid;
+                    if (v != null)
+                    {
+                        kithiThisinhGet.Diem = v.Diem;
+                        kithiThisinhGet.Thoigianbatdau = v.Thoigianbatdau;
+                        kithiThisinhGet.Thoigianketthuc = v.Thoigianketthuc;
+                        kithiThisinhGet.Made = v.Made;
+                        kithiThisinhGet.Dethiuuid = v.Dethiuuid;
+                    }
 
                 }
                 rs.Add(kithiThisinhGet);
