@@ -141,9 +141,9 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
             });
         }
 
-        [HttpGet("Layketqua")]
+        [HttpGet("Layketqua/{uuid}")]
         [Authorize]
-        public async Task<ActionResult> Layketqua()
+        public async Task<ActionResult> Layketqua(Guid uuid)
         {
 
             float diem = 25;

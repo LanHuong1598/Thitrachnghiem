@@ -332,6 +332,8 @@ namespace Thitrachnghiem.Commons
                 entity.Property(e => e.Thoigianketthuc)
                     .IsUnicode(false)
                     .HasColumnName("thoigianketthuc");
+                entity.Property(e => e.Diem).HasColumnName("diem");
+
 
                 entity.Property(e => e.Uuid)
                     .HasColumnName("uuid")

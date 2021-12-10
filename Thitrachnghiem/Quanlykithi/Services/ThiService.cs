@@ -12,6 +12,8 @@ using Thitrachnghiem.Quanlythisinh.Models.Functions;
 using Thitrachnghiem.Users.Models.Functions;
 using Thitrachnghiem.Quanlythisinh.Models.Schemas;
 using Thitrachnghiem.Quanlythisinh.Models.Entities;
+using Thitrachnghiem.Commons;
+using System.Linq;
 
 namespace Thitrachnghiem.Quanlykithi.Services
 {
@@ -84,6 +86,37 @@ namespace Thitrachnghiem.Quanlykithi.Services
 
         }
 
+        public int Layketqua(Guid uuid)
+        {
+            thitracnghiemContext thitracnghiemContext = new thitracnghiemContext();
+            var dethi = thitracnghiemContext.Dethis.Where(x => x.Uuid == uuid).FirstOrDefault();
+            var listcauhoi = thitracnghiemContext.Chitietdethis.Where(x => x.Dethiid == dethi.Id).ToList();
+            int diem = 0;
+            foreach (var i in listcauhoi)
+            {
+                F_Cauhoi f_Cauhoi = new F_Cauhoi();
+                var cauhoi = thitracnghiemContext.Cauhois.Where(x => x.Id == i.Id).FirstOrDefault();
+                if (cauhoi != null)
+                {
+                    var cautl = thitracnghiemContext.ThisinhTralois.Where(x =>
+            x.Cauhoiid == cauhoi.Id && x.Dethiid == dethi.Id && x.Thisinhid == dethi.Thisinhid).FirstOrDefault();
 
+                    if (cautl != null)
+                    {
+                        var u = thitracnghiemContext.Cautralois.Where(x => x.Id == cautl.Cautraloiid && x.Status == true).FirstOrDefault();
+                        if (u.Trangthai == true)
+                            diem = diem + 1;
+                    }
+                }
+            }
+
+            var ptts = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Dethiuuid == uuid.ToString()).FirstOrDefault();
+            if (ptts != null)
+                ptts.Diem = diem;
+            thitracnghiemContext.SaveChanges();
+
+
+            return diem;
+        }
     }
 }

@@ -16,5 +16,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Entities
 
         public string Thoigianbatdau { get; set; }
         public string Thoigianketthuc { get; set; }
+        public int? Diem { get; set; }
+
     }
 }

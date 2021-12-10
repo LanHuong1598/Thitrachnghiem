@@ -20,16 +20,13 @@ namespace Thitrachnghiem.Quanlykithi.Services
         public KithiDetail Updatekithi(KithiUpdate kithiUpdate);
 
         public KithiGet Deletekithi(Guid guid);
-
         public List<KithiGet> Getall();
         public PhienthiGet OpenPhienthi(Guid Kithiuuid);
         public PhienthiGet closePhienthi(Guid Kithiuuid);
-
         public List<PhienthiGet> GetPhienthiGetsisOpen();
         public List<PhienthiGet> GetPhienthis();
         public List<PhienthiThisinhGet> GetPhienthiThisinhs(Guid Phienthiuuid);
         public List<ThisinhTraloiGet> Getcautraloidethi(Guid Dethiuuid);
-
-
+        public List<KithiThisinhGet> GetKithiThisinhs(Guid Kithiuuid);
     }
 }

@@ -508,5 +508,11 @@ namespace Thitrachnghiem.Quanlykithi.Services
             }
             return rs;
         }
+
+        public List<KithiThisinhGet> GetKithiThisinhs(Guid Kithiuuid)
+        {
+            F_Kithi f_Kithi = new F_Kithi();
+            return f_Kithi.GetKithiThisinhs(Kithiuuid);
+        }
     }
 }

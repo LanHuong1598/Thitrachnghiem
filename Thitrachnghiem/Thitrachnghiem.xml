@@ -4,6 +4,13 @@
         <name>Thitrachnghiem</name>
     </assembly>
     <members>
+        <member name="M:Thitrachnghiem.Admin.Controllers.AdminController.thongke">
+            <summary>
+            Get all Cauhoi chi cho admin
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
         <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.GetCauhois(Thitrachnghiem.Commons.Pageing)">
             <summary>
             Get all Cauhoi chi cho admin
@@ -195,6 +202,13 @@
         <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.getbailam(System.Guid,Thitrachnghiem.Commons.Pageing)">
             <summary>
             Get chi tiet bai lam thi sinh, uuid la uuid cua de thi
+            </summary>
+            <param name="pageing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetAllthisinhKithis(System.Guid,Thitrachnghiem.Commons.Pageing)">
+            <summary>
+            Get all thi sinh cua phien thi  
             </summary>
             <param name="pageing"></param>
             <returns></returns>

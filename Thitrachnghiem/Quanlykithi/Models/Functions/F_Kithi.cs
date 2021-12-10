@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Thitrachnghiem.Quanlykithi.Models.Entities;
+using Thitrachnghiem.Quanlykithi.Models.Schemas;
 
 namespace Thitrachnghiem.Quanlykithi.Models.Functions
 {
@@ -80,6 +81,37 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             kithi1.Status = false;           
             thitracnghiemContext.SaveChanges();
             return kithi1;
+        }
+        public List<KithiThisinhGet> GetKithiThisinhs(Guid Kithiuuid)
+        {
+            List<KithiThisinhGet> rs = new List<KithiThisinhGet>();
+            var kithi = GetKithiByUuidWithFalse(Kithiuuid);
+            if (kithi == null)
+                throw new Exception("Khong co ki thi");
+
+            var ts = thitracnghiemContext.Thisinhs.Where(x => x.Status == true && x.Kithiid == kithi.Id).ToList();
+
+            var phienthis = thitracnghiemContext.Phienthis.Where(x => x.Kithiid == kithi.Id).Select(p=> p.Id).ToList();
+
+            foreach (var i in ts)
+            {
+                KithiThisinhGet kithiThisinhGet = new KithiThisinhGet();
+                kithiThisinhGet.Tenthisinh = i.Name;
+                kithiThisinhGet.Email = i.Email;
+                var u = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Thisinhid == kithi.Id).ToList().Where(u => phienthis.Contains((int)u.Phienthiid)).OrderBy(x=>x.Thoigianketthuc).First();
+                if (u != null)
+                {
+                    kithiThisinhGet.Diem = u.Diem;
+                    kithiThisinhGet.Thoigianbatdau = u.Thoigianbatdau;
+                    kithiThisinhGet.Thoigianketthuc = u.Thoigianketthuc;
+                    kithiThisinhGet.Made = u.Made;
+                    kithiThisinhGet.Dethiuuid = u.Dethiuuid;
+
+                }
+
+
+            }
+            return rs;
         }
     }
 }
