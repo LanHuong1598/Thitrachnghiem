@@ -147,11 +147,12 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         {
 
             int user = extractUser();
-
+            ThiService thiService = new ThiService();
+            var u = thiService.Layketqua(user);
             return Ok(new
             {
                 header = new Header(1, 0, 1, "true"),
-                body = 25
+                body = u
             });
         }
 
