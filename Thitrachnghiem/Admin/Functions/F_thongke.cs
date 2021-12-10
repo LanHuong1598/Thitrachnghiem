@@ -39,6 +39,11 @@ namespace Thitrachnghiem.Admin.Functions
             if (ts != null)
                 thongkeGet.Thisinh = ts.Count();
 
+
+            var kithi = thitracnghiemContext.Kithis.Where(x => x.Status == true);
+            if (kithi != null)
+                thongkeGet.Kithi = ts.Count();
+
             string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             var pt =  thitracnghiemContext.Phienthis.Where(x => x.Thoigianketthuc.CompareTo(now) > 0);
             if (pt != null)
