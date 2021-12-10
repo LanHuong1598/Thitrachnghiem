@@ -63,8 +63,8 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 {
                     var u = GetKithiThisinhs((Guid)kithi.Uuid);
                     result.Sothisinh = u.Count;
-                    result.Sothisinhtruot = u.Where(x => x.Diem != null && x.Diem >= 15).Count();
-                    result.Sothisinhdat = result.Sothisinh - result.Sothisinhtruot;
+                    result.Sothisinhdat = u.Where(x => x.Diem != null && x.Diem >= 15).Count();
+                    result.Sothisinhtruot = result.Sothisinh - result.Sothisinhdat;
                 }
                 else
                 {
