@@ -103,7 +103,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             int diem = 0;
             foreach (var i in listcauhoi)
             {
-                var cauhoi = thitracnghiemContext.Cauhois.Where(x => x.Id == i.Id).FirstOrDefault();
+                var cauhoi = thitracnghiemContext.Cauhois.Where(x => x.Id == i.Cauhoiid).FirstOrDefault();
                 if (cauhoi != null)
                 {
                     var cautl = thitracnghiemContext.ThisinhTralois.Where(x =>
