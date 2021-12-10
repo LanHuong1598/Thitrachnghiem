@@ -108,6 +108,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
                     kithiThisinhGet.Dethiuuid = u.Dethiuuid;
 
                 }
+                rs.Add(kithiThisinhGet);
 
 
             }
