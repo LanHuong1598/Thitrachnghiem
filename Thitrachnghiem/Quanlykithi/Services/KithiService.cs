@@ -9,6 +9,7 @@ using Thitrachnghiem.Quanlycauhoi.Models.Entities;
 using Thitrachnghiem.Quanlykithi.Models.Schemas;
 using Thitrachnghiem.Quanlythisinh.Models.Functions;
 using Thitrachnghiem.Quanlycauhoi.Models.Schemas;
+using System.Linq;
 
 namespace Thitrachnghiem.Quanlykithi.Services
 {
@@ -60,10 +61,9 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 var ts = f_Thisinh.GetThisinhWithKithiid(kithi.Id);
                 if (ts != null && ts.Count != 0)
                 {
-                    Random r = new Random();
-
-                    result.Sothisinh = ts.Count;
-                    result.Sothisinhtruot = r.Next(1, (int)result.Sothisinh);
+                    var u = GetKithiThisinhs((Guid)kithi.Uuid);
+                    result.Sothisinh = u.Count;
+                    result.Sothisinhtruot = u.Where(x => x.Diem != null && x.Diem >= 15).Count();
                     result.Sothisinhdat = result.Sothisinh - result.Sothisinhtruot;
                 }
                 else
@@ -76,6 +76,8 @@ namespace Thitrachnghiem.Quanlykithi.Services
             catch
             {
             }
+
+
 
             return result;
         }

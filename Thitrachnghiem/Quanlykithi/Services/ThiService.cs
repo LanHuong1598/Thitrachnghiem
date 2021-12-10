@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Thitrachnghiem.Quanlycauhoi.Models.Entities;
 using Thitrachnghiem.Quanlycauhoi.Models.Functions;
-using Thitrachnghiem.Quanlycauhoi.Models.Schemas;
-using Microsoft.AspNetCore.Http;
-using Thitrachnghiem.Quanlykithi.Models.Entities;
-using Thitrachnghiem.Quanlykithi.Models.Schemas;
 using Thitrachnghiem.Quanlykithi.Models.Functions;
 using Thitrachnghiem.Quanlythisinh.Models.Functions;
 using Thitrachnghiem.Users.Models.Functions;
