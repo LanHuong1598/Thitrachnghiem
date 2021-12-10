@@ -242,7 +242,7 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         /// </summary>
         /// <param name="pageing"></param>
         /// <returns></returns>
-        [HttpGet("Kithi/{uuid}/Thisinh")]
+        [HttpGet("{uuid}/Thisinh")]
         [Authorize(Roles = "admin,KITHI_GET")]
         public async Task<ActionResult> GetAllthisinhKithis(Guid uuid, [FromQuery] Pageing pageing)
         {
