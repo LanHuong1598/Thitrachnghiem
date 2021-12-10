@@ -103,7 +103,14 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
                     socauhoi += soluong;
                 }
 
-                var listcauhoi = thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Idchuyennganh == i.Chuyennganhid
+                if (i == list.Last())
+                    if (socauhoi < kithi.Socauhoi)
+                    {
+                        soluong = (int)(soluong + kithi.Socauhoi - socauhoi);
+                        socauhoi = (int)kithi.Socauhoi;
+                    }
+
+                        var listcauhoi = thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Idchuyennganh == i.Chuyennganhid
             && x.Bac == i.Bac).OrderBy(c => Guid.NewGuid()).Take(soluong);
 
                 foreach (var u in listcauhoi)
@@ -115,23 +122,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
                 }
                 thitracnghiemContext.SaveChanges();
             }
-            if (socauhoi < kithi.Socauhoi)
-            {
-                int soluong = (int)(kithi.Socauhoi - socauhoi);               
-
-                var listcauhoi = thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Idchuyennganh == list.First().Chuyennganhid
-            && x.Bac == list.First().Bac).OrderBy(c => Guid.NewGuid()).Take(soluong);
-
-                foreach (var u in listcauhoi)
-                {
-                    Chitietdethi chitietdethi = new Chitietdethi();
-                    chitietdethi.Cauhoiid = u.Id;
-                    chitietdethi.Dethiid = dethi.Id;
-                    thitracnghiemContext.Chitietdethis.Add(chitietdethi);
-                }
-                thitracnghiemContext.SaveChanges();
-            }
-
+           
             return dethi;
         }
 
