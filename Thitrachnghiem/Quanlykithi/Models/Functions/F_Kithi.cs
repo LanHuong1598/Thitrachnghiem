@@ -91,21 +91,23 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
 
             var ts = thitracnghiemContext.Thisinhs.Where(x => x.Status == true && x.Kithiid == kithi.Id).ToList();
 
-            var phienthis = thitracnghiemContext.Phienthis.Where(x => x.Kithiid == kithi.Id).Select(p=> p.Id).ToList();
+            var phienthis = thitracnghiemContext.Phienthis.Where(x => x.Kithiid == kithi.Id).Select(p => p.Id).ToList();
 
             foreach (var i in ts)
             {
                 KithiThisinhGet kithiThisinhGet = new KithiThisinhGet();
                 kithiThisinhGet.Tenthisinh = i.Name;
                 kithiThisinhGet.Email = i.Email;
-                var u = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Thisinhid == i.Id).ToList().Where(u => phienthis.Contains((int)u.Phienthiid)).OrderByDescending(x=>x.Thoigianketthuc).First();
+                var u = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Thisinhid == i.Id).ToList();
                 if (u != null)
                 {
-                    kithiThisinhGet.Diem = u.Diem;
-                    kithiThisinhGet.Thoigianbatdau = u.Thoigianbatdau;
-                    kithiThisinhGet.Thoigianketthuc = u.Thoigianketthuc;
-                    kithiThisinhGet.Made = u.Made;
-                    kithiThisinhGet.Dethiuuid = u.Dethiuuid;
+                    var v = u.Where(u => phienthis.Contains((int)u.Phienthiid)).OrderByDescending(x => x.Thoigianketthuc).First();
+
+                    kithiThisinhGet.Diem = v.Diem;
+                    kithiThisinhGet.Thoigianbatdau = v.Thoigianbatdau;
+                    kithiThisinhGet.Thoigianketthuc = v.Thoigianketthuc;
+                    kithiThisinhGet.Made = v.Made;
+                    kithiThisinhGet.Dethiuuid = v.Dethiuuid;
 
                 }
                 rs.Add(kithiThisinhGet);
