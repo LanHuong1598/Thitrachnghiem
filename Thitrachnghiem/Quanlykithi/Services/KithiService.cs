@@ -494,7 +494,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
                         thisinhTraloiGet.Cautralois.Add(u);
                     }
 
-                    if (listcautlcuathisinh != null || listcautlcuathisinh.Count != 0)
+                    if (listcautlcuathisinh != null && listcautlcuathisinh.Count != 0)
                     {
                         thisinhTraloiGet.Id = listcautlcuathisinh[0].Id;
 
