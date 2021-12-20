@@ -17,7 +17,7 @@ namespace Thitrachnghiem.Users.Models.Functions
 
         public int getDVidbyuuid(Guid? uuid)
         {
-            var res = thitracnghiemContext.Donvis.Where(x => x.Uuid == uuid).ToList();
+            var res = thitracnghiemContext.Donvis.Where(x => x.Uuid == uuid).OrderByDescending(x => x.Id).ToList();
             if (res.Count == 0)
             {
                 return 0;
@@ -32,9 +32,9 @@ namespace Thitrachnghiem.Users.Models.Functions
         public List<Donvi> GetDonvis(string keyword)
         {
             if (keyword == null || keyword =="")
-            return thitracnghiemContext.Donvis.Where(x => x.Status == true).ToList();
+            return thitracnghiemContext.Donvis.Where(x => x.Status == true).OrderByDescending(x => x.Id).ToList();
             else
-                return thitracnghiemContext.Donvis.Where(x => x.Status == true && x.Ten.Contains(keyword)).ToList();
+                return thitracnghiemContext.Donvis.Where(x => x.Status == true && x.Ten.Contains(keyword)).OrderByDescending(x => x.Id).ToList();
         }
 
         public Donvi GetDonvisByUuid(Guid uuid)
@@ -74,7 +74,7 @@ namespace Thitrachnghiem.Users.Models.Functions
 
         public List<Donvi> GetDonviWithCon(int? id)
         {
-            return thitracnghiemContext.Donvis.Where(x => x.Status == true && x.Macha == id).ToList();
+            return thitracnghiemContext.Donvis.Where(x => x.Status == true && x.Macha == id).OrderByDescending(x => x.Id).ToList();
         }
 
     }

@@ -12,5 +12,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Schemas
         public Guid Cautraloiuuid { get; set; }
         public Guid Dethiuuid { get; set; }
 
+        public bool Status { get; set; }
+
     }
 }

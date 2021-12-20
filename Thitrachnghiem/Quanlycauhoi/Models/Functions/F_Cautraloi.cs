@@ -24,9 +24,9 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
         public List<Cautraloi> GetCautralois(string keyword)
         {
             if (keyword == null || keyword =="")
-            return thitracnghiemContext.Cautralois.Where(x => x.Status == true).ToList();
+            return thitracnghiemContext.Cautralois.Where(x => x.Status == true).OrderByDescending(x => x.Id).ToList();
             else
-                return thitracnghiemContext.Cautralois.Where(x => x.Status == true && x.Noidung.Contains(keyword)).ToList();
+                return thitracnghiemContext.Cautralois.Where(x => x.Status == true && x.Noidung.Contains(keyword)).OrderByDescending(x => x.Id).ToList();
         }
 
         public Cautraloi GetCautraloisByUuid(Guid uuid)
@@ -62,7 +62,7 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
 
         public List<Cautraloi> GetCautraloiWithCauhoiid(int? id)
         {
-            return thitracnghiemContext.Cautralois.Where(x => x.Status == true && x.Cauhoiid == id).ToList();
+            return thitracnghiemContext.Cautralois.Where(x => x.Status == true && x.Cauhoiid == id).OrderByDescending(x => x.Id).ToList();
         }
 
     }

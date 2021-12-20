@@ -226,13 +226,13 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         /// <returns></returns>
         [HttpGet("Phienthi/Bailam/{uuid}")]
         [Authorize(Roles = "admin,KITHI_GET")]
-        public async Task<ActionResult> getbailam(Guid uuid, [FromQuery] Pageing pageing)
+        public async Task<ActionResult> getbailam(Guid uuid)
         {
             var Kithi = KithiService.Getcautraloidethi(uuid);
             return Ok(new
             {
-                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
-                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(1, 1, 100, "true"),
+                body = Kithi
             });
         }
 

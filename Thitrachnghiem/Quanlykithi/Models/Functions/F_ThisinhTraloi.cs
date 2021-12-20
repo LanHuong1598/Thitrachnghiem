@@ -69,5 +69,17 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             x.Cauhoiid == cauhoiid && x.Dethiid == dethiid && x.Thisinhid == thisinhid).FirstOrDefault();
         }
 
+        public ThisinhTraloi GetThisinhTraloiWithDethiidandCauhoiidandThisinhidandCautlid(
+           int cauhoiid, int? dethiid, int thisinhid, int cautlid)
+        {
+            return thitracnghiemContext.ThisinhTralois.Where(x =>
+            x.Cauhoiid == cauhoiid && x.Dethiid == dethiid && x.Thisinhid == thisinhid && x.Cautraloiid == cautlid).FirstOrDefault();
+        }
+        public List<ThisinhTraloi> GetListThisinhTraloiWithDethiidandCauhoiidandThisinhid(
+         int cauhoiid, int? dethiid, int thisinhid)
+        {
+            return thitracnghiemContext.ThisinhTralois.Where(x =>
+            x.Cauhoiid == cauhoiid && x.Dethiid == dethiid && x.Thisinhid == thisinhid).ToList();
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
         }
         public List<Chuyennganh> GetChuyennganhs()
         {
-            return thitracnghiemContext.Chuyennganhs.Where(x => x.Status == true).ToList();
+            return thitracnghiemContext.Chuyennganhs.Where(x => x.Status == true).OrderByDescending(x => x.Id).ToList();
         }
         public Chuyennganh GetChuyennganhsByUuid(Guid uuid)
         {
@@ -58,7 +58,7 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
 
         public List<Chuyennganh> GetChuyennganhWithTrinhdodaotao(String trinhdo)
         {
-            return thitracnghiemContext.Chuyennganhs.Where(x => x.Status == true && x.Trinhdodaotao.Equals(trinhdo)).ToList();
+            return thitracnghiemContext.Chuyennganhs.Where(x => x.Status == true && x.Trinhdodaotao.Equals(trinhdo)).OrderByDescending(x => x.Id).ToList();
         }
 
     }

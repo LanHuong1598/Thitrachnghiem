@@ -456,8 +456,11 @@ namespace Thitrachnghiem.Quanlykithi.Services
 
         }
 
-        public List<ThisinhTraloiGet> Getcautraloidethi(Guid Dethiuuid)
+        public Bailamthisinh Getcautraloidethi(Guid Dethiuuid)
         {
+            Bailamthisinh bailamthisinh = new Bailamthisinh();
+            bailamthisinh.Diem = 0;
+
             F_Dethi f_Dethi = new F_Dethi();
             var dethi = f_Dethi.GetDethiByUuidWithFalse(Dethiuuid);
 
@@ -473,42 +476,54 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 var cauhoi = f_Cauhoi.GetCauhoiByidWithFalse(i.Cauhoiid);
                 if (cauhoi != null)
                 {
-                    var cautl =  f_Phienthi.GetThisinhTraloiWithDethiidandCauhoiidandThisinhid(cauhoi.Id, dethi.Id, (int)dethi.Thisinhid);
-                    if (cautl != null)
-                        rs.Add(convertThisinhTraloi(cautl));
-                    else
-                    {
-                        ThisinhTraloiGet thisinhTraloiGet = new ThisinhTraloiGet();
-                        thisinhTraloiGet.Id = 1;
-                        thisinhTraloiGet.IsTrue = false;
+                    var listcautlcuathisinh = f_Phienthi.GetListThisinhTraloiWithDethiidandCauhoiidandThisinhid(cauhoi.Id, dethi.Id, (int)dethi.Thisinhid);
+                    var listcautl = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id);
+                    ThisinhTraloiGet thisinhTraloiGet = new ThisinhTraloiGet();
+
+                    if (cauhoi != null)
                         thisinhTraloiGet.Cauhoi = cauhoi.Noidung;
-                        thisinhTraloiGet.Thoigiantraloi = "";
-                        try
+                    thisinhTraloiGet.Cautralois = new List<CautraloiluachonGet>();
+
+                    foreach (var ii in listcautl)
+                    {
+                        CautraloiluachonGet u = new CautraloiluachonGet();
+                        u.Uuid = ii.Uuid;
+                        u.Ladapandung = ii.Trangthai;
+                        u.Noidung = ii.Noidung;
+                        u.Duocchon = false;
+                        thisinhTraloiGet.Cautralois.Add(u);
+                    }
+
+                    if (listcautlcuathisinh != null || listcautlcuathisinh.Count != 0)
+                    {
+                        thisinhTraloiGet.Id = listcautlcuathisinh[0].Id;
+
+                        foreach (var thisinhTraloi in listcautlcuathisinh)
                         {
+                            var tl = f_Cautraloi.GetCautraloisById((int)thisinhTraloi.Cautraloiid);
+                            thisinhTraloiGet.Thoigiantraloi = thisinhTraloi.Thoigiantraloi;
                             try
                             {
-                                thisinhTraloiGet.Cautralois = new List<CautraloiluachonGet>();
-                                var list = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id);
-                                foreach (var ii in list)
-                                {
-                                    CautraloiluachonGet u = new CautraloiluachonGet();
-                                    u.Ladapandung = ii.Trangthai;
-                                    u.Noidung = ii.Noidung;
-                                    u.Duocchon = false;
-                                    thisinhTraloiGet.Cautralois.Add(u);
-
-                                }
+                                var u = thisinhTraloiGet.Cautralois.Where(x => x.Uuid == tl.Uuid).FirstOrDefault();
+                                u.Duocchon = true;
                             }
                             catch { }
                         }
-                        catch { }
-
-                        rs.Add(thisinhTraloiGet);
                     }
 
+                    int soluong = thisinhTraloiGet.Cautralois.Where(x => x.Duocchon == x.Ladapandung).Count();
+                    try
+                    {
+                        if (soluong == listcautl.Count()) bailamthisinh.Diem = bailamthisinh.Diem + 1;
+
+                            }
+                    catch { }
+                        
                 }
             }
-            return rs;
+
+            bailamthisinh.Cauhois = rs;
+            return bailamthisinh;
         }
 
         public List<KithiThisinhGet> GetKithiThisinhs(Guid Kithiuuid)

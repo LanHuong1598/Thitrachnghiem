@@ -29,31 +29,31 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
         public List<Cauhoi> GetCauhois(string keyword)
         {
             if (keyword == null || keyword =="")
-            return thitracnghiemContext.Cauhois.Where(x => x.Status == true).ToList();
+            return thitracnghiemContext.Cauhois.Where(x => x.Status == true).OrderByDescending(x=> x.Id).ToList();
             else
-                return thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Noidung.Contains(keyword)).ToList();
+                return thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Noidung.Contains(keyword)).OrderByDescending(x => x.Id).ToList();
         }
 
         public List<Cauhoi> GetCauhois(string he, string keyword)
         {
             if (keyword == null || keyword == "")
-                return thitracnghiemContext.Cauhois.Where(x => x.Trinhdodaotao == he && x.Status == true).ToList();
+                return thitracnghiemContext.Cauhois.Where(x => x.Trinhdodaotao == he && x.Status == true).OrderByDescending(x => x.Id).ToList();
             else
-                return thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Trinhdodaotao == he&& x.Noidung.Contains(keyword)).ToList();
+                return thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Trinhdodaotao == he&& x.Noidung.Contains(keyword)).OrderByDescending(x => x.Id).ToList();
         }
         public List<Cauhoi> GetCauhois(string he, int chuyennganhid, string keyword)
         {
             if (keyword == null || keyword == "")
-                return thitracnghiemContext.Cauhois.Where(x => x.Idchuyennganh == chuyennganhid && x.Trinhdodaotao == he && x.Status == true).ToList();
+                return thitracnghiemContext.Cauhois.Where(x => x.Idchuyennganh == chuyennganhid && x.Trinhdodaotao == he && x.Status == true).OrderByDescending(x => x.Id).ToList();
             else
-                return thitracnghiemContext.Cauhois.Where(x => x.Idchuyennganh == chuyennganhid &&  x.Status == true && x.Trinhdodaotao == he && x.Noidung.Contains(keyword)).ToList();
+                return thitracnghiemContext.Cauhois.Where(x => x.Idchuyennganh == chuyennganhid &&  x.Status == true && x.Trinhdodaotao == he && x.Noidung.Contains(keyword)).OrderByDescending(x => x.Id).ToList();
         }
         public List<Cauhoi> GetCauhois(string he, int chuyennganhid, int bac, string keyword)
         {
             if (keyword == null || keyword == "")
-                return thitracnghiemContext.Cauhois.Where(x => x.Bac == bac && x.Idchuyennganh == chuyennganhid && x.Trinhdodaotao == he && x.Status == true).ToList();
+                return thitracnghiemContext.Cauhois.Where(x => x.Bac == bac && x.Idchuyennganh == chuyennganhid && x.Trinhdodaotao == he && x.Status == true).OrderByDescending(x => x.Id).ToList();
             else
-                return thitracnghiemContext.Cauhois.Where(x => x.Bac == bac && x.Idchuyennganh == chuyennganhid && x.Status == true && x.Trinhdodaotao == he && x.Noidung.Contains(keyword)).ToList();
+                return thitracnghiemContext.Cauhois.Where(x => x.Bac == bac && x.Idchuyennganh == chuyennganhid && x.Status == true && x.Trinhdodaotao == he && x.Noidung.Contains(keyword)).OrderByDescending(x => x.Id).ToList();
         }
 
         public Cauhoi GetCauhoisByUuid(Guid uuid)
@@ -89,12 +89,12 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
 
         public List<Cauhoi> GetCauhoiWithChuyennganhid(int? id)
         {
-            return thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Idchuyennganh == id).ToList();
+            return thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Idchuyennganh == id).OrderByDescending(x => x.Id).ToList();
         }
         public List<Cauhoi> GetCauhoiWithChuyennganhidAndBac(int? id, int bac)
         {
             return thitracnghiemContext.Cauhois.Where(x => x.Status == true && x.Idchuyennganh == id
-            && x.Bac == bac).ToList();
+            && x.Bac == bac).OrderByDescending(x => x.Id).ToList();
         }
 
     }

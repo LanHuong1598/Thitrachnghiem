@@ -99,15 +99,29 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 var cauhoi = thitracnghiemContext.Cauhois.Where(x => x.Id == i.Cauhoiid).FirstOrDefault();
                 if (cauhoi != null)
                 {
+                    int cauhoinhieudapan = 0;
                     var cautl = thitracnghiemContext.ThisinhTralois.Where(x =>
-            x.Cauhoiid == cauhoi.Id && x.Dethiid == dethi.Id && x.Thisinhid == dethi.Thisinhid).FirstOrDefault();
+            x.Cauhoiid == cauhoi.Id && x.Dethiid == dethi.Id && x.Thisinhid == dethi.Thisinhid);
+
+                    var listctl = thitracnghiemContext.Cautralois.Where(x => x.Cauhoiid == cauhoi.Id && x.Status == true);
+                    if (listctl != null)
+                    {
+                        var l = listctl.Where(x => x.Trangthai == true);
+                        if (l != null)
+                        cauhoinhieudapan = l.Count();
+                    }
+                    var cautraloithisinh = 0;
 
                     if (cautl != null)
-                    {
-                        var u = thitracnghiemContext.Cautralois.Where(x => x.Id == cautl.Cautraloiid && x.Status == true).FirstOrDefault();
-                        if (u.Trangthai == true)
-                            diem = diem + 1;
-                    }
+                        foreach (var uu in cautl)
+                        {
+                            var u = listctl.Where(x => x.Id == uu.Cautraloiid && x.Status == true).FirstOrDefault();
+                            if (u.Trangthai == true)
+                                cautraloithisinh = cautraloithisinh + 1;
+                        }
+
+                    if (cautraloithisinh == cauhoinhieudapan)
+                        diem = diem + 1;
                 }
             }
 

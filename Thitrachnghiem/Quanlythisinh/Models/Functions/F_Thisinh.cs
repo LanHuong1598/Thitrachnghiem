@@ -25,7 +25,7 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Functions
         }
         public List<Thisinh> GetThisinhs()
         {
-            return thitracnghiemContext.Thisinhs.Where(x => x.Status == true).ToList();
+            return thitracnghiemContext.Thisinhs.Where(x => x.Status == true).OrderByDescending(x => x.Id).ToList();
         }
 
         public Thisinh GetThisinhsByUuid(Guid uuid)
@@ -70,7 +70,7 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Functions
 
         public List<Thisinh> GetThisinhWithKithiid(int? id)
         {
-            return thitracnghiemContext.Thisinhs.Where(x => x.Status == true && x.Kithiid == id).ToList();
+            return thitracnghiemContext.Thisinhs.Where(x => x.Status == true && x.Kithiid == id).OrderByDescending(x => x.Id).ToList();
         }
 
     }

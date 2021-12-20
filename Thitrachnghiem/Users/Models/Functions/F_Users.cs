@@ -32,9 +32,9 @@ namespace Thitrachnghiem.Users.Models.Functions
         public List<User> GetUsers(string keyword, Pageing pageing)
         {
             if (keyword == null)
-                return thitracnghiemContext.Users.Where(x => x.Status == true).ToList();
+                return thitracnghiemContext.Users.Where(x => x.Status == true).OrderByDescending(x => x.Id).ToList();
             else
-                return thitracnghiemContext.Users.Where(x => x.Status == true && x.Name.Contains(keyword)).ToList();
+                return thitracnghiemContext.Users.Where(x => x.Status == true && x.Name.Contains(keyword)).OrderByDescending(x => x.Id).ToList();
         }
 
         public User GetUsersByUuid(Guid uuid)
@@ -91,7 +91,7 @@ namespace Thitrachnghiem.Users.Models.Functions
         }
         public int getUserIdbyUuid(Guid uuid)
         {
-            var res = thitracnghiemContext.Users.Where(x => x.Uuid == uuid).ToList();
+            var res = thitracnghiemContext.Users.Where(x => x.Uuid == uuid).OrderByDescending(x => x.Id).ToList();
             if (res.Count == 0)
             {
                 return 0;
@@ -103,7 +103,7 @@ namespace Thitrachnghiem.Users.Models.Functions
         }
         public string getNamebyUuid(Guid uuid)
         {
-            var res = thitracnghiemContext.Users.Where(x => x.Uuid == uuid).ToList();
+            var res = thitracnghiemContext.Users.Where(x => x.Uuid == uuid).OrderByDescending(x => x.Id).ToList();
             if (res.Count <= 0)
             {
                 return null;

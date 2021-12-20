@@ -26,7 +26,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
         public List<PhienthiGet> GetPhienthiGetsisOpen();
         public List<PhienthiGet> GetPhienthis();
         public List<PhienthiThisinhGet> GetPhienthiThisinhs(Guid Phienthiuuid);
-        public List<ThisinhTraloiGet> Getcautraloidethi(Guid Dethiuuid);
+        public Bailamthisinh Getcautraloidethi(Guid Dethiuuid);
         public List<KithiThisinhGet> GetKithiThisinhs(Guid Kithiuuid);
     }
 }

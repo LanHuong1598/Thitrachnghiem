@@ -183,18 +183,23 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 var dethi = f_Dethi.GetDethiByUuidWithFalse(cautraloi.Dethiuuid);
                 var cauhoi = f_Cauhoi.GetCauhoiByUuidWithFalse(cautraloi.Cauhoiuuid);
                 var ctl = f_Cautraloi.GetCautraloiByUuidWithFalse(cautraloi.Cautraloiuuid);
-                var ctl_old = f_ThisinhTraloi.GetThisinhTraloiWithDethiidandCauhoiidandThisinhid(
-                    dethi.Id, cauhoi.Id, ts.Id);
-                if (ctl_old != null) {
+
+                var ctl_old = f_ThisinhTraloi.GetThisinhTraloiWithDethiidandCauhoiidandThisinhidandCautlid(
+                    dethi.Id, cauhoi.Id, ts.Id, ctl.Id);
+                if (ctl_old != null && cautraloi.Status == false)
+                {
                     f_ThisinhTraloi.Delete((Guid)ctl_old.Uuid);
                 }
-                ThisinhTraloi thisinhTraloi = new ThisinhTraloi();
-                thisinhTraloi.Thisinhid = ts.Id;
-                thisinhTraloi.Thoigiantraloi = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-                thisinhTraloi.Cauhoiid = cauhoi.Id;
-                thisinhTraloi.Cautraloiid = ctl.Id;
-                thisinhTraloi.Dethiid = dethi.Id;
-                f_ThisinhTraloi.Create(thisinhTraloi);
+                else
+                {
+                    ThisinhTraloi thisinhTraloi = new ThisinhTraloi();
+                    thisinhTraloi.Thisinhid = ts.Id;
+                    thisinhTraloi.Thoigiantraloi = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                    thisinhTraloi.Cauhoiid = cauhoi.Id;
+                    thisinhTraloi.Cautraloiid = ctl.Id;
+                    thisinhTraloi.Dethiid = dethi.Id;
+                    f_ThisinhTraloi.Create(thisinhTraloi);
+                }
 
             }
             catch { }

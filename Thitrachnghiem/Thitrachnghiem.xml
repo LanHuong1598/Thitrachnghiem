@@ -199,7 +199,7 @@
             <param name="pageing"></param>
             <returns></returns>
         </member>
-        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.getbailam(System.Guid,Thitrachnghiem.Commons.Pageing)">
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.getbailam(System.Guid)">
             <summary>
             Get chi tiet bai lam thi sinh, uuid la uuid cua de thi
             </summary>
