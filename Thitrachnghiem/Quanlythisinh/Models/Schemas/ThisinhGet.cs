@@ -18,7 +18,7 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Schemas
         public string Trinhdodaotao { get; set; }
         public string Capbac { get; set; }
         public string Chucvu { get; set; }
-        public int? Bacdanggiu { get; set; }
+        public string Bacdanggiu { get; set; }
         public int? Bacthi { get; set; }
         public string Thoigianthi { get; set; }
         public string Kithiuuid { get; set; }

@@ -12,7 +12,7 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Schemas
         public string Name { get; set; }
         public string Email { get; set; }
         public string Chuyennganhuuid { get; set; }
-        public int? Bacdanggiu { get; set; }
+        public string Bacdanggiu { get; set; }
         public int? Bacthi { get; set; }
         public string Kithiuuid { get; set; }
         public string Trinhdodaotao { get; set; }

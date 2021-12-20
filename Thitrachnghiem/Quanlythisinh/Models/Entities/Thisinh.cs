@@ -15,7 +15,7 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Entities
         public string Email { get; set; }
         public int? Chuyennganhthiid { get; set; }
         public string Trinhdodaotao { get; set; }
-        public int? Bacdanggiu { get; set; }
+        public string Bacdanggiu { get; set; }
         public int? Bacthi { get; set; }
         public int? Kithiid { get; set; }
         public string Capbac { get; set; }
