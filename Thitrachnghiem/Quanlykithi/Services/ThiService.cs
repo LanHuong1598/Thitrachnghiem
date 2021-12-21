@@ -7,6 +7,7 @@ using Thitrachnghiem.Quanlythisinh.Models.Schemas;
 using Thitrachnghiem.Quanlythisinh.Models.Entities;
 using Thitrachnghiem.Commons;
 using System.Linq;
+using Thitrachnghiem.Quanlycauhoi.Models.Entities;
 
 namespace Thitrachnghiem.Quanlykithi.Services
 {
@@ -101,12 +102,12 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 {
                     int cauhoinhieudapan = 0;
                     var cautl = thitracnghiemContext.ThisinhTralois.Where(x =>
-            x.Cauhoiid == cauhoi.Id && x.Dethiid == dethi.Id && x.Thisinhid == dethi.Thisinhid);
+            x.Cauhoiid == cauhoi.Id && x.Dethiid == dethi.Id && x.Thisinhid == dethi.Thisinhid).ToList();
 
-                    var listctl = thitracnghiemContext.Cautralois.Where(x => x.Cauhoiid == cauhoi.Id && x.Status == true);
+                    var listctl = thitracnghiemContext.Cautralois.Where(x => x.Cauhoiid == cauhoi.Id && x.Status == true).ToList();
                     if (listctl != null)
                     {
-                        var l = listctl.Where(x => x.Trangthai == true);
+                        var l = listctl.Where(x => x.Trangthai == true).ToList();
                         if (l != null)
                         cauhoinhieudapan = l.Count();
                     }
@@ -115,7 +116,12 @@ namespace Thitrachnghiem.Quanlykithi.Services
                     if (cautl != null)
                         foreach (var uu in cautl)
                         {
-                            var u = listctl.Where(x => x.Id == uu.Cautraloiid && x.Status == true).FirstOrDefault();
+                            //var u = new Cautraloi();
+                            //foreach (var item in listctl)
+                            //{
+                            //    if (item.)
+                            //}
+                            var u = thitracnghiemContext.Cautralois.Where(x => x.Cauhoiid == cauhoi.Id && x.Id == uu.Cautraloiid && x.Status == true).FirstOrDefault();
                             if (u.Trangthai == true)
                                 cautraloithisinh = cautraloithisinh + 1;
                         }
@@ -124,6 +130,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
                         diem = diem + 1;
                 }
             }
+
 
             var ptts = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Dethiuuid == uuid.ToString()).FirstOrDefault();
             if (ptts != null)

@@ -460,6 +460,8 @@ namespace Thitrachnghiem.Quanlykithi.Services
         {
             Bailamthisinh bailamthisinh = new Bailamthisinh();
             bailamthisinh.Diem = 0;
+            bailamthisinh.Cauhois = new List<ThisinhTraloiGet>();
+
 
             F_Dethi f_Dethi = new F_Dethi();
             var dethi = f_Dethi.GetDethiByUuidWithFalse(Dethiuuid);
@@ -514,15 +516,17 @@ namespace Thitrachnghiem.Quanlykithi.Services
                     int soluong = thisinhTraloiGet.Cautralois.Where(x => x.Duocchon == x.Ladapandung).Count();
                     try
                     {
-                        if (soluong == listcautl.Count()) bailamthisinh.Diem = bailamthisinh.Diem + 1;
+                        if (soluong == listcautl.Count()) { bailamthisinh.Diem = bailamthisinh.Diem + 1;
+                            thisinhTraloiGet.IsTrue = true;
+                        }
 
                             }
                     catch { }
-                        
+                    bailamthisinh.Cauhois.Add(thisinhTraloiGet);
+
                 }
             }
 
-            bailamthisinh.Cauhois = rs;
             return bailamthisinh;
         }
 
