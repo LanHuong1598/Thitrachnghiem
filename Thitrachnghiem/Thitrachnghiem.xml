@@ -280,6 +280,13 @@
             <param name="uuid"></param>
             <returns></returns>
         </member>
+        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.DeleteDsThisinh(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            Xoa danh sach
+            </summary>
+            <param name="Danhsachuuid"></param>
+            <returns></returns>
+        </member>
         <member name="M:Thitrachnghiem.Users.Controllers.DonviController.GetDonvis(Thitrachnghiem.Commons.Pageing,System.String)">
             <summary>
             Get all donvi

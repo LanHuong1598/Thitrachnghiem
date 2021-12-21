@@ -145,6 +145,23 @@ namespace Thitrachnghiem.Quanlythisinh.Controllers
             });
         }
 
-     
+        /// <summary>
+        /// Xoa danh sach
+        /// </summary>
+        /// <param name="Danhsachuuid"></param>
+        /// <returns></returns>
+        [HttpPost("Xoadanhsachthisinh")]
+        [Authorize(Roles = "admin,THISINH_DELETE")]
+        public async Task<ActionResult> DeleteDsThisinh([FromBody] List<Guid> Danhsachuuid)
+        {
+            bool Thisinh = thisinhService.DeleteThisinh(Danhsachuuid);
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = Thisinh
+            });
+        }
+
+
     }
 }

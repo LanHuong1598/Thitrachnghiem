@@ -25,6 +25,7 @@ namespace Thitrachnghiem.Quanlythisinh.Services
         public ThisinhGet UpdateThisinh(ThisinhUpdate thisinhUpdate);
 
         public ThisinhGet DeleteThisinh(Guid guid);
+        public bool DeleteThisinh(List<Guid> Danhsachuuid);
         public List<ThisinhGet> UploadFile(IFormFile file);
         public List<ThisinhGet> Getall();
     }

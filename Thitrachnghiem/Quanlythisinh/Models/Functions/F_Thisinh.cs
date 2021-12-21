@@ -68,6 +68,25 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Functions
             return user1;
         }
 
+        public bool Delete(List<Guid> uuids)
+        {
+            try
+            {
+                foreach (var uuid in uuids)
+                {
+                    Thisinh user1 = thitracnghiemContext.Thisinhs.Where(x => x.Uuid == uuid && x.Status == true).FirstOrDefault();
+                    user1.Status = false;
+                }
+                thitracnghiemContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
         public List<Thisinh> GetThisinhWithKithiid(int? id)
         {
             return thitracnghiemContext.Thisinhs.Where(x => x.Status == true && x.Kithiid == id).OrderByDescending(x => x.Id).ToList();

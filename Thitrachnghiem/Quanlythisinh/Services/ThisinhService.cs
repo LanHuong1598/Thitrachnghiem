@@ -268,5 +268,12 @@ namespace Thitrachnghiem.Quanlythisinh.Services
             else
                 return null;
         }
+
+        public bool DeleteThisinh(List<Guid> Danhsachuuid)
+        {
+            F_Thisinh f_Thisinh = new F_Thisinh();
+            return f_Thisinh.Delete(Danhsachuuid);
+        }
+
     }
 }
