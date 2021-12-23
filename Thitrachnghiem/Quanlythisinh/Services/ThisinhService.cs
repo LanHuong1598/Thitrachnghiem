@@ -83,7 +83,7 @@ namespace Thitrachnghiem.Quanlythisinh.Services
 
             if (keyword == null || keyword == "null") keyword = "";
            
-            List<Thisinh> thisinhs = new F_Thisinh().GetThisinhWithKithiid(kithi.Id).Where(x=> x.Name.Contains(keyword);
+            List<Thisinh> thisinhs = new F_Thisinh().GetThisinhWithKithiid(kithi.Id).Where(x=> x.Name.Contains(keyword)).ToList();
             if (thisinhs != null)
             {
                 return thisinhs.ConvertAll(x => convert(x));
