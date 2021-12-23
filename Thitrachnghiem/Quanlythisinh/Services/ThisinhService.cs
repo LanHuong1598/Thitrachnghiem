@@ -11,6 +11,7 @@ using Thitrachnghiem.Quanlycauhoi.Models.Functions;
 using Thitrachnghiem.Quanlycauhoi.Models.Entities;
 using Thitrachnghiem.Quanlykithi.Models.Functions;
 using Thitrachnghiem.Quanlykithi.Models.Entities;
+using System.Linq;
 
 namespace Thitrachnghiem.Quanlythisinh.Services
 {
@@ -73,15 +74,16 @@ namespace Thitrachnghiem.Quanlythisinh.Services
 
             return result;
         }
-        public List<ThisinhGet> GetThisinhbyKithiid(string kithiuuid)
+        public List<ThisinhGet> GetThisinhbyKithiid(string kithiuuid, string keyword)
         {
             F_Kithi f_Kithi = new F_Kithi();
             Kithi kithi = f_Kithi.GetKithisByUuid(new Guid(kithiuuid));
             if (kithi == null)
                 throw new Exception("Sai ma ki thi");
 
-
-            List<Thisinh> thisinhs = new F_Thisinh().GetThisinhWithKithiid(kithi.Id);
+            if (keyword == null || keyword == "null") keyword = "";
+           
+            List<Thisinh> thisinhs = new F_Thisinh().GetThisinhWithKithiid(kithi.Id).Where(x=> x.Name.Contains(keyword);
             if (thisinhs != null)
             {
                 return thisinhs.ConvertAll(x => convert(x));

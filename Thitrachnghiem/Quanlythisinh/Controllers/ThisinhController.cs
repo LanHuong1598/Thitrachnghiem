@@ -50,9 +50,9 @@ namespace Thitrachnghiem.Quanlythisinh.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "admin,THISINH_GET")]
-        public async Task<ActionResult> GetThisinhs([FromQuery] Pageing pageing, string kithiuuid)
+        public async Task<ActionResult> GetThisinhs([FromQuery] Pageing pageing, string kithiuuid, string keyword)
         {
-            List<ThisinhGet> Thisinh = thisinhService.GetThisinhbyKithiid(kithiuuid);
+            List<ThisinhGet> Thisinh = thisinhService.GetThisinhbyKithiid(kithiuuid, keyword);
             return Ok(new
             {
                 header = new Header(Thisinh.Count, pageing.offset, pageing.limit, "true"),

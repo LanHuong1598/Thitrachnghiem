@@ -282,6 +282,13 @@ namespace Thitrachnghiem.Quanlykithi.Services
             {
                 f_Matrandethi.Delete((Guid)i.Uuid);
             }
+
+            F_Thisinh f_Thisinh = new F_Thisinh();
+            var listts = f_Thisinh.GetThisinhWithKithiid(kithi.Id);
+            foreach(var i in listts)
+            {
+                f_Thisinh.Delete((Guid)i.Uuid);
+            }
             return convert(F_Kithi.Delete(guid));
         }
 

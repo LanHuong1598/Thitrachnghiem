@@ -17,7 +17,7 @@ namespace Thitrachnghiem.Quanlythisinh.Services
     public interface IThisinhService
     {
 
-        public List<ThisinhGet> GetThisinhbyKithiid(string kithiuuid);
+        public List<ThisinhGet> GetThisinhbyKithiid(string kithiuuid, string keyword);
         public List<ThisinhGet> CreateListThisinh(ListThisinhCreate listThisinhCreate);
 
         public ThisinhGet GetThisinhByUuid(Guid guid);
