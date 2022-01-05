@@ -37,7 +37,26 @@ namespace Thitrachnghiem.Quanlykithi.Services
             result.Noidung = cauhoi.Noidung;
 
             F_Cautraloi f_Cautraloi = new F_Cautraloi();
-            result.Cautralois = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id).ConvertAll(x => convertCautraloi(x));
+            var listctl = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id).ConvertAll(x => convertCautraloi(x)).ToList();
+            var listkhongneo = listctl.Where(x => x.Neo == false).ToList();
+
+            List<CautraloiGet> list = new List<CautraloiGet>();
+            foreach (var i in listctl)
+            {
+                if (i.Neo == true)
+                {
+                    list.Add(i);
+                }
+                else
+                {
+                    var u = listkhongneo.OrderBy(c => Guid.NewGuid()).First() ;
+                    list.Add(u);
+                    listkhongneo.Remove(u);
+                }
+            }
+
+            result.Cautralois = list;
+
 
             return result;
         }
@@ -77,13 +96,19 @@ namespace Thitrachnghiem.Quanlykithi.Services
                     var chuyennganh = f_Chuyennganh.GetChuyennganhsById((int)kithi.Chuyennganhid);
                     result.Chuyennganh = chuyennganh.Ten;
                     result.Trinhdodaotao = chuyennganh.Trinhdodaotao;
+                    result.Thoigian = kithi.Thoigianbatdau + " - " + kithi.Thoigianketthuc;
+
                 }
                 catch
-                {
+                {                   
+                    result.Chuyennganh = "";
                 }
             }
             catch
             {
+                result.Bac = 0;
+                result.Chuyennganh = "";
+                result.Trinhdodaotao = "";
             }
             return result;
         }
@@ -104,6 +129,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 result.Kithiuuid = kithi.Uuid.ToString();
                 result.Trinhdodaotao = kithi.Trinhdodaotao;
                 result.Bac = kithi.Bac;
+                result.Thoigian = kithi.Thoigianbatdau + " - " + kithi.Thoigianketthuc;
                 try
                 {
                     F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
@@ -113,10 +139,16 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 }
                 catch
                 {
+                    result.Chuyennganh = "";
+
                 }
             }
             catch
             {
+
+                result.Bac = 0;
+                result.Chuyennganh = "";
+                result.Trinhdodaotao = "";
             }
 
             return result;
@@ -125,6 +157,19 @@ namespace Thitrachnghiem.Quanlykithi.Services
         {
             return convertDethi(new F_Dethi().GetDethisByUuid(guid));
         }
+
+        public bool DeleteDethiByUuid(Guid guid) {
+
+            F_Dethi f_Dethi = new F_Dethi();
+            var dethi =  f_Dethi.GetDethisByUuid(guid);
+            if (dethi == null)
+                throw new Exception("Sai ma de thi");
+            
+            f_Dethi.Delete(guid);
+            return true;
+        }
+
+
         public List<Guid> GetDanhsachCauhoiDethiByUuid(Guid guid)
         {
             List<Guid> result = new List<Guid>();
@@ -270,6 +315,9 @@ namespace Thitrachnghiem.Quanlykithi.Services
             {
                 chuyennganhuuid = "";
             }
+
+            if (keyword == "null" || keyword == null)
+                keyword = "";
             if (he == "")
                 return list;
             if (chuyennganhuuid == "")
@@ -281,7 +329,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
            && x.Bac == bac).ToList();
 
             return list.Where(x => x.Trinhdodaotao.Contains(he) && x.Chuyennganh.Contains(chuyennganhuuid)
-            && x.Bac == bac && x.Thoigian == keyword).ToList();
+            && x.Bac == bac && x.Thoigian.Contains(keyword)).ToList();
 
 
         }

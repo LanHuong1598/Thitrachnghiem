@@ -48,6 +48,12 @@ namespace Thitrachnghiem.Quanlykithi.Services
             result.Bac = kithi.Bac;
             result.Thoigianbatdau = kithi.Thoigianbatdau;
             result.Thoigianketthuc = kithi.Thoigianketthuc;
+            try
+            {               
+                result.Namthi = kithi.Thoigianbatdau[kithi.Thoigianbatdau.Length - 4].ToString() + kithi.Thoigianbatdau[kithi.Thoigianbatdau.Length - 3].ToString()
+                    + kithi.Thoigianbatdau[kithi.Thoigianbatdau.Length - 2].ToString() + kithi.Thoigianbatdau[kithi.Thoigianbatdau.Length-1].ToString();
+                    }
+            catch { }
 
             try
             {
@@ -115,7 +121,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             return result;
 
         }
-        public List<KithiGet> GetkithibyChuyennganh(string he, string chuyennganhuuid, int bac, string keyword)
+        public List<KithiGet> GetkithibyChuyennganh(string he, string chuyennganhuuid, int? bac, string keyword)
         {
             if (he != null && he != "")
             {
@@ -125,9 +131,9 @@ namespace Thitrachnghiem.Quanlykithi.Services
                     Chuyennganh chuyennganh = f_Chuyennganh.GetChuyennganhsByUuid(new Guid(chuyennganhuuid));
                     if (chuyennganh == null)
                         throw new Exception("uuid chuyen nganh khong hop le");
-                    if (bac != 0)
+                    if (bac != null && bac != 0)
                     {
-                        List<Kithi> kithis = new F_Kithi().GetKithis(he, chuyennganh.Id, bac, keyword);
+                        List<Kithi> kithis = new F_Kithi().GetKithis(he, chuyennganh.Id, (int)bac, keyword);
                         if (kithis != null)
                         {
                             return kithis.ConvertAll(x => convert(x));
@@ -149,6 +155,16 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 }
                 else
                 {
+                    if (bac != null && bac != 0)
+                    {
+                        List<Kithi> kithiss = new F_Kithi().GetKithiWithHeAndBacs(he, (int)bac, keyword);
+                        if (kithiss != null)
+                        {
+                            return kithiss.ConvertAll(x => convert(x));
+                        }
+                        else
+                            return null;
+                    }
                     List<Kithi> kithis = new F_Kithi().GetKithis(he, keyword);
                     if (kithis != null)
                     {
@@ -289,6 +305,21 @@ namespace Thitrachnghiem.Quanlykithi.Services
             {
                 f_Thisinh.Delete((Guid)i.Uuid);
             }
+
+            F_Phienthi f_Phienthi = new F_Phienthi();
+            var listpt = f_Phienthi.GetPhienthiWithKithiid(kithi.Id);
+            foreach (var i in listpt)
+            {
+                f_Phienthi.Delete((Guid)i.Uuid);
+            }
+
+            F_Dethi f_Dethi = new F_Dethi();
+            var listdethi = f_Dethi.GetDethiWithKithiid(kithi.Id);
+            foreach (var i in listdethi)
+            {
+                f_Dethi.Delete((Guid)i.Uuid);
+            }
+
             return convert(F_Kithi.Delete(guid));
         }
 
@@ -340,7 +371,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             Phienthi phienthi = new Phienthi();
             phienthi.Kithiid = kithi.Id;
             phienthi.Thoigianbatdau = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            phienthi.Thoigianketthuc = DateTime.Now.AddMinutes(30).ToString("yyyy/MM/dd HH:mm:ss");
+            phienthi.Thoigianketthuc = DateTime.Now.AddMinutes(120).ToString("yyyy/MM/dd HH:mm:ss");
 
             kithi.Dangthi = true;
             F_Kithi.Update(kithi);
@@ -492,6 +523,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
                     if (cauhoi != null)
                         thisinhTraloiGet.Cauhoi = cauhoi.Noidung;
                     thisinhTraloiGet.Cautralois = new List<CautraloiluachonGet>();
+                    thisinhTraloiGet.IsTrue = false;
 
                     foreach (var ii in listcautl)
                     {
@@ -518,17 +550,21 @@ namespace Thitrachnghiem.Quanlykithi.Services
                             }
                             catch { }
                         }
-                    }
 
-                    int soluong = thisinhTraloiGet.Cautralois.Where(x => x.Duocchon == x.Ladapandung).Count();
-                    try
-                    {
-                        if (soluong == listcautl.Count()) { bailamthisinh.Diem = bailamthisinh.Diem + 1;
-                            thisinhTraloiGet.IsTrue = true;
-                        }
 
+
+                        int soluong = thisinhTraloiGet.Cautralois.Where(x => x.Duocchon == x.Ladapandung).Count();
+                        try
+                        {
+                            if (soluong == listcautl.Count())
+                            {
+                                bailamthisinh.Diem = bailamthisinh.Diem + 1;
+                                thisinhTraloiGet.IsTrue = true;
                             }
-                    catch { }
+
+                        }
+                        catch { }
+                    }
                     bailamthisinh.Cauhois.Add(thisinhTraloiGet);
 
                 }

@@ -33,10 +33,16 @@ namespace Thitrachnghiem.Quanlycauhoi.Controllers
         public async Task<ActionResult> GetCauhois([FromQuery] Pageing pageing)
         {
             List<CauhoiGet> Cauhoi = cauhoiService.Getall();
+            if (Cauhoi != null)
             return Ok(new
             {
                 header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
                 body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+            });
+            return Ok(new
+            {
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 
@@ -51,10 +57,36 @@ namespace Thitrachnghiem.Quanlycauhoi.Controllers
         public async Task<ActionResult> GetCauhois([FromQuery] Pageing pageing, string he, string chuyennganhuuid, int bac, string keyword)
         {
             List<CauhoiGet> Cauhoi = cauhoiService.GetCauhoibyChuyennganh(he, chuyennganhuuid, bac, keyword);
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
-                body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
+            });
+        }
+
+
+
+        /// <summary>
+        /// Xoa danh sach cau hoi bang chuyennganh va bac
+        /// </summary>
+        /// <param name="chuyennganhuuid"></param>
+        /// <param name="bac"></param>
+        /// <returns></returns>
+        [HttpDelete("Xoatheochuyennganhvabac")]
+        [Authorize(Roles = "admin,CAUHOI_DELETE")]
+        public async Task<ActionResult> DeleteCauhois(string chuyennganhuuid, int bac)
+        {
+            bool Cauhoi = cauhoiService.DeleteCauhoisbyChuyennganh(chuyennganhuuid, bac);
+            return Ok(new
+            {
+                header = new Header(1,1,1, "true"),
+                body = Cauhoi
             });
         }
 

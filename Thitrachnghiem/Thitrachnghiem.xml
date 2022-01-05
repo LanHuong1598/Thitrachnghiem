@@ -25,6 +25,14 @@
             <param name="pageing"></param>
             <returns></returns>
         </member>
+        <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.DeleteCauhois(System.String,System.Int32)">
+            <summary>
+            Xoa danh sach cau hoi bang chuyennganh va bac
+            </summary>
+            <param name="chuyennganhuuid"></param>
+            <param name="bac"></param>
+            <returns></returns>
+        </member>
         <member name="M:Thitrachnghiem.Quanlycauhoi.Controllers.CauhoiController.GetCauhoi(System.Guid)">
             <summary>
             get Cauhoi by uuid cua Cauhoi
@@ -122,6 +130,13 @@
             <param name="uuid"></param>
             <returns></returns>
         </member>
+        <member name="M:Thitrachnghiem.QuanlyDethi.Controllers.DethiController.XoaDethi(System.Guid)">
+            <summary>
+            Xoa de thi by uuid
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
         <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithis(Thitrachnghiem.Commons.Pageing)">
             <summary>
             Get all Kithi chi cho admin
@@ -129,11 +144,15 @@
             <param name="pageing"></param>
             <returns></returns>
         </member>
-        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithis(Thitrachnghiem.Commons.Pageing,System.String,System.String,System.Int32,System.String)">
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithis(Thitrachnghiem.Commons.Pageing,System.String,System.String,System.Nullable{System.Int32},System.String)">
             <summary>
-            Get  Kithi  theo yeu cau
+            Get ki thi theo yeu cau 
             </summary>
             <param name="pageing"></param>
+            <param name="he"></param>
+            <param name="chuyennganhuuid"></param>
+            <param name="bac"></param>
+            <param name="keyword"></param>
             <returns></returns>
         </member>
         <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithi(System.Guid)">
@@ -239,7 +258,7 @@
             <param name="pageing"></param>
             <returns></returns>
         </member>
-        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.GetThisinhs(Thitrachnghiem.Commons.Pageing,System.String)">
+        <member name="M:Thitrachnghiem.Quanlythisinh.Controllers.ThisinhController.GetThisinhs(Thitrachnghiem.Commons.Pageing,System.String,System.String)">
             <summary>
             Get  Thisinh  theo yeu cau
             </summary>

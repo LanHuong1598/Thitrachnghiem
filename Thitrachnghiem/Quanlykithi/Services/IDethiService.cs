@@ -17,6 +17,8 @@ namespace Thitrachnghiem.Quanlykithi.Services
     {
 
         public DethiGet GetDethiByUuid(Guid guid);
+        public bool DeleteDethiByUuid(Guid guid);
+
         public List<Guid> GetDanhsachCauhoiDethiByUuid(Guid guid);
         public List<DethiGet> Getall();
         public float Guicautraloi(int id, CautraloiThisinh cautraloi);

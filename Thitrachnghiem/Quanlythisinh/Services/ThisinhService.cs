@@ -82,14 +82,19 @@ namespace Thitrachnghiem.Quanlythisinh.Services
                 throw new Exception("Sai ma ki thi");
 
             if (keyword == null || keyword == "null") keyword = "";
-           
-            List<Thisinh> thisinhs = new F_Thisinh().GetThisinhWithKithiid(kithi.Id).Where(x=> x.Name.Contains(keyword)).ToList();
-            if (thisinhs != null)
-            {
-                return thisinhs.ConvertAll(x => convert(x));
+
+            var listu = new F_Thisinh().GetThisinhWithKithiid(kithi.Id).ToList();
+            if (listu != null && listu.Count != 0) {
+                List<Thisinh> thisinhs = listu.Where(x => (x.Name == null && keyword == "") || ( x.Name != null && x.Name.Contains(keyword))).ToList();
+                if (thisinhs != null)
+                {
+                    return thisinhs.ConvertAll(x => convert(x));
+                }
+                else
+                    return null;
             }
-            else
-                return null;
+            return null;
+
         }
  
 
@@ -136,9 +141,10 @@ namespace Thitrachnghiem.Quanlythisinh.Services
             }
 
             thisinh.Donvi = thisinhCreate.Donvi;
-      
 
-            thisinh = new F_Thisinh().Create(thisinh);
+            F_Thisinh f_Thisinh = new F_Thisinh();      
+
+            thisinh = f_Thisinh.Create(thisinh);
 
             return convert(thisinh);
         }

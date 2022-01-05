@@ -52,6 +52,15 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
                 && x.Thoigianbatdau.Contains(keyword)).ToList();
         }
 
+        public List<Kithi> GetKithiWithHeAndBacs(string he, int bac, string keyword)
+        {
+            if (keyword == null || keyword == "")
+                return thitracnghiemContext.Kithis.Where(x => x.Bac == bac && x.Trinhdodaotao == he && x.Status == true).ToList();
+            else
+                return thitracnghiemContext.Kithis.Where(x => x.Bac == bac && x.Status == true && x.Trinhdodaotao == he
+                && x.Thoigianbatdau.Contains(keyword)).ToList();
+        }
+
         public Kithi GetKithisByUuid(Guid uuid)
         {
             return thitracnghiemContext.Kithis.Where(x => x.Uuid == uuid && x.Status == true).FirstOrDefault();

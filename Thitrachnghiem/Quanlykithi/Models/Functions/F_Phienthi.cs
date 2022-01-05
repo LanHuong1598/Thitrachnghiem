@@ -55,6 +55,13 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             thitracnghiemContext.SaveChanges();
             return phienthi1;
         }
+        public Phienthi Delete(Guid uuid)
+        {
+            Phienthi dethi = thitracnghiemContext.Phienthis.Where(x => x.Uuid == uuid).FirstOrDefault();
+            thitracnghiemContext.Phienthis.Remove(dethi);
+            thitracnghiemContext.SaveChanges();
+            return dethi;
+        }
 
         public List<Phienthi> GetPhienthiWithKithiid(int? id)
         {

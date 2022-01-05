@@ -34,11 +34,17 @@ namespace Thitrachnghiem.Quanlythisinh.Controllers
         [Authorize(Roles = "admin")]
         public async Task<ActionResult> GetThisinhs([FromQuery] Pageing pageing)
         {
-            List<ThisinhGet> Thisinh = thisinhService.Getall();
+            List<ThisinhGet> Cauhoi = thisinhService.Getall();
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Thisinh.Count, pageing.offset, pageing.limit, "true"),
-                body = Thisinh.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 
@@ -52,11 +58,17 @@ namespace Thitrachnghiem.Quanlythisinh.Controllers
         [Authorize(Roles = "admin,THISINH_GET")]
         public async Task<ActionResult> GetThisinhs([FromQuery] Pageing pageing, string kithiuuid, string keyword)
         {
-            List<ThisinhGet> Thisinh = thisinhService.GetThisinhbyKithiid(kithiuuid, keyword);
+            List<ThisinhGet> Cauhoi = thisinhService.GetThisinhbyKithiid(kithiuuid, keyword);
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Thisinh.Count, pageing.offset, pageing.limit, "true"),
-                body = Thisinh.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 

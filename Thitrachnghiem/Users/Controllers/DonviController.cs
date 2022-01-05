@@ -31,11 +31,17 @@ namespace Thitrachnghiem.Users.Controllers
         [Authorize(Roles = "admin,DONVI_GET")]
         public async Task<ActionResult> GetDonvis([FromQuery] Pageing pageing, string keyword)
         {
-            List<DonviGet> Donvi = donviService.GetDonvis(keyword);
+            List<DonviGet> Cauhoi = donviService.GetDonvis(keyword);
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Donvi.Count, pageing.offset, pageing.limit, "true"),
-                body = Donvi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 

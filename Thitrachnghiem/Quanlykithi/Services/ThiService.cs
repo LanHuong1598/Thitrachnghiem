@@ -93,44 +93,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             Guid uuid = new Guid(phienthi_thisinh.Dethiuuid);
             var dethi = thitracnghiemContext.Dethis.Where(x => x.Uuid == uuid).FirstOrDefault();
 
-            var listcauhoi = thitracnghiemContext.Chitietdethis.Where(x => x.Dethiid == dethi.Id).ToList();
-            int diem = 0;
-            foreach (var i in listcauhoi)
-            {
-                var cauhoi = thitracnghiemContext.Cauhois.Where(x => x.Id == i.Cauhoiid).FirstOrDefault();
-                if (cauhoi != null)
-                {
-                    int cauhoinhieudapan = 0;
-                    var cautl = thitracnghiemContext.ThisinhTralois.Where(x =>
-            x.Cauhoiid == cauhoi.Id && x.Dethiid == dethi.Id && x.Thisinhid == dethi.Thisinhid).ToList();
-
-                    var listctl = thitracnghiemContext.Cautralois.Where(x => x.Cauhoiid == cauhoi.Id && x.Status == true).ToList();
-                    if (listctl != null)
-                    {
-                        var l = listctl.Where(x => x.Trangthai == true).ToList();
-                        if (l != null)
-                        cauhoinhieudapan = l.Count();
-                    }
-                    var cautraloithisinh = 0;
-
-                    if (cautl != null)
-                        foreach (var uu in cautl)
-                        {
-                            //var u = new Cautraloi();
-                            //foreach (var item in listctl)
-                            //{
-                            //    if (item.)
-                            //}
-                            var u = thitracnghiemContext.Cautralois.Where(x => x.Cauhoiid == cauhoi.Id && x.Id == uu.Cautraloiid && x.Status == true).FirstOrDefault();
-                            if (u.Trangthai == true)
-                                cautraloithisinh = cautraloithisinh + 1;
-                        }
-
-                    if (cautraloithisinh == cauhoinhieudapan)
-                        diem = diem + 1;
-                }
-            }
-
+            int diem = new KithiService().Getcautraloidethi((Guid)dethi.Uuid).Diem;
 
             var ptts = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Dethiuuid == uuid.ToString()).FirstOrDefault();
             if (ptts != null)

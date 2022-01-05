@@ -32,10 +32,16 @@ namespace Thitrachnghiem.Quanlycauhoi.Controllers
         public async Task<ActionResult> GetChuyennganhs([FromQuery] Pageing pageing, string trinhdodaotao)
         {
             List<ChuyennganhGet> Chuyennganh = chuyennganhService.GetChuyennganhByTrinhdodaotaos(trinhdodaotao);
+            if (Chuyennganh != null)
+                return Ok(new
+                {
+                    header = new Header(Chuyennganh.Count, pageing.offset, pageing.limit, "true"),
+                    body = Chuyennganh.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Chuyennganh.Count, pageing.offset, pageing.limit, "true"),
-                body = Chuyennganh.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 

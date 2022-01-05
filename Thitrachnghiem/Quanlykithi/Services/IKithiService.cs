@@ -12,7 +12,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
 {
     public interface IKithiService
     {
-        public List<KithiGet> GetkithibyChuyennganh(string he, string chuyennganhuuid, int bac, string keyword);
+        public List<KithiGet> GetkithibyChuyennganh(string he, string chuyennganhuuid, int? bac, string keyword);
         public KithiDetail GetkithiByUuid(Guid guid);
 
         public KithiDetail Createkithi(KithiCreate kithiCreate);

@@ -33,29 +33,44 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         [Authorize(Roles = "admin")]
         public async Task<ActionResult> GetKithis([FromQuery] Pageing pageing)
         {
-            List<KithiGet> Kithi = KithiService.Getall();
+            List<KithiGet> Cauhoi = KithiService.Getall();
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
-                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 
-        // GET: api/Kithi
         /// <summary>
-        /// Get  Kithi  theo yeu cau
+        /// Get ki thi theo yeu cau 
         /// </summary>
         /// <param name="pageing"></param>
+        /// <param name="he"></param>
+        /// <param name="chuyennganhuuid"></param>
+        /// <param name="bac"></param>
+        /// <param name="keyword"></param>
         /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "admin,KITHI_GET")]
-        public async Task<ActionResult> GetKithis([FromQuery] Pageing pageing, string he, string chuyennganhuuid, int bac, string keyword)
+        public async Task<ActionResult> GetKithis([FromQuery] Pageing pageing, string he, string chuyennganhuuid, int? bac, string nam)
         {
-            List<KithiGet> Kithi = KithiService.GetkithibyChuyennganh(he, chuyennganhuuid, bac, keyword);
+            List<KithiGet> Cauhoi = KithiService.GetkithibyChuyennganh(he, chuyennganhuuid, bac, nam);
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
-                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 
@@ -173,11 +188,17 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         [Authorize(Roles = "admin,KITHI_GET")]
         public async Task<ActionResult> Getphienthis([FromQuery] Pageing pageing)
         {
-            List<PhienthiGet> Kithi = KithiService.GetPhienthiGetsisOpen();
+            List<PhienthiGet> Cauhoi = KithiService.GetPhienthiGetsisOpen();
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
-                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 
@@ -191,11 +212,17 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         [Authorize(Roles = "admin,KITHI_GET")]
         public async Task<ActionResult> GetAllphienthis([FromQuery] Pageing pageing)
         {
-            List<PhienthiGet> Kithi = KithiService.GetPhienthis();
+            List<PhienthiGet> Cauhoi = KithiService.GetPhienthis();
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
-                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 
@@ -209,11 +236,17 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         [Authorize(Roles = "admin,KITHI_GET")]
         public async Task<ActionResult> GetAllthisinhphienthis(Guid uuid, [FromQuery] Pageing pageing)
         {
-            var Kithi = KithiService.GetPhienthiThisinhs(uuid);
+            var Cauhoi = KithiService.GetPhienthiThisinhs(uuid);
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
-                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 
@@ -246,11 +279,17 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
         [Authorize(Roles = "admin,KITHI_GET")]
         public async Task<ActionResult> GetAllthisinhKithis(Guid uuid, [FromQuery] Pageing pageing)
         {
-            var Kithi = KithiService.GetKithiThisinhs(uuid);
+            var Cauhoi = KithiService.GetKithiThisinhs(uuid);
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Kithi.Count, pageing.offset, pageing.limit, "true"),
-                body = Kithi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 

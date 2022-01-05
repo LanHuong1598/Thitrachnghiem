@@ -95,6 +95,59 @@ namespace Thitrachnghiem.Quanlycauhoi.Services
             }
         }
 
+
+        public bool DeleteCauhoisbyChuyennganh(string chuyennganhuuid, int bac)
+        {
+            if (chuyennganhuuid != null && chuyennganhuuid != "")
+            {
+                F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
+                Chuyennganh chuyennganh = f_Chuyennganh.GetChuyennganhsByUuid(new Guid(chuyennganhuuid));
+                F_Cauhoi f_Cauhoi = new F_Cauhoi();
+                if (chuyennganh == null)
+                    throw new Exception("uuid chuyen nganh khong hop le");
+                if (bac != 0)
+                {
+                    List<Cauhoi> cauhois = f_Cauhoi.GetCauhois(chuyennganh.Trinhdodaotao, chuyennganh.Id, bac, "");
+                    if (cauhois != null)
+                    {
+                        try
+                        {
+                            foreach (var u in cauhois)
+                            {
+                                f_Cauhoi.Delete((Guid)u.Uuid);
+                            }
+                            return true;
+                        }
+                        catch
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                        return true;
+                }
+                else
+                {
+                    List<Cauhoi> cauhois = new F_Cauhoi().GetCauhois(chuyennganh.Trinhdodaotao, chuyennganh.Id, "");
+                    try
+                    {
+                        foreach (var u in cauhois)
+                        {
+                            f_Cauhoi.Delete((Guid)u.Uuid);
+                        }
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+
+            }
+            return true;
+        }
+
+
         public CauhoiGet GetCauhoiByUuid(Guid guid)
         {
             return convert(new F_Cauhoi().GetCauhoisByUuid(guid));

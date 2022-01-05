@@ -62,7 +62,7 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
 
         public List<Cautraloi> GetCautraloiWithCauhoiid(int? id)
         {
-            return thitracnghiemContext.Cautralois.Where(x => x.Status == true && x.Cauhoiid == id).OrderByDescending(x => x.Id).ToList();
+            return thitracnghiemContext.Cautralois.Where(x => x.Status == true && x.Cauhoiid == id).OrderBy(x => x.Id).ToList();
         }
 
     }

@@ -33,11 +33,17 @@ namespace Thitrachnghiem.QuanlyDethi.Controllers
         [Authorize(Roles = "admin")]
         public async Task<ActionResult> GetDethis([FromQuery] Pageing pageing)
         {
-            List<DethiGet> Dethi = DethiService.Getall();
+            List<DethiGet> Cauhoi = DethiService.Getall();
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Dethi.Count, pageing.offset, pageing.limit, "true"),
-                body = Dethi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 
@@ -52,11 +58,17 @@ namespace Thitrachnghiem.QuanlyDethi.Controllers
         public async Task<ActionResult> GetDethis([FromQuery] Pageing pageing, string he, 
             string chuyennganhuuid, int bac, string keyword)
         {
-            List<DethiGet> Dethi = DethiService.getDethiByChuyennganh(he, chuyennganhuuid, bac, keyword);
+            List<DethiGet> Cauhoi = DethiService.getDethiByChuyennganh(he, chuyennganhuuid, bac, keyword);
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count, pageing.offset, pageing.limit, "true"),
+                    body = Cauhoi.ToPagedList(pageing.offset, pageing.limit)
+                });
             return Ok(new
             {
-                header = new Header(Dethi.Count, pageing.offset, pageing.limit, "true"),
-                body = Dethi.ToPagedList(pageing.offset, pageing.limit)
+                header = new Header(0, pageing.offset, pageing.limit, "true"),
+                body = ""
             });
         }
 
@@ -71,6 +83,23 @@ namespace Thitrachnghiem.QuanlyDethi.Controllers
         public async Task<ActionResult> GetDethi(Guid uuid)
         {
             DethiGet Dethi = DethiService.GetDethiByUuid(uuid);
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = Dethi
+            });
+        }
+
+        /// <summary>
+        /// Xoa de thi by uuid
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        [HttpDelete("{uuid}")]
+        [Authorize(Roles = "admin,Dethi_DELETE")]
+        public async Task<ActionResult> XoaDethi(Guid uuid)
+        {
+            bool Dethi = DethiService.DeleteDethiByUuid(uuid);
             return Ok(new
             {
                 header = new Header(1, 0, 1, "true"),

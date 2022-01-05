@@ -29,6 +29,8 @@ namespace Thitrachnghiem.Quanlycauhoi.Services
         }
         public List<ChuyennganhGet> GetChuyennganhByTrinhdodaotaos(string trinhdodaotao)
         {
+            if (trinhdodaotao == null || trinhdodaotao == "")
+                trinhdodaotao = "";
             List<Chuyennganh> chuyennganhs = new F_Chuyennganh().GetChuyennganhWithTrinhdodaotao(trinhdodaotao);
             if (chuyennganhs != null)
             {

@@ -18,5 +18,6 @@ namespace Thitrachnghiem.Quanlykithi.Models.Schemas
         public List<CauhoiGet> Cauhois { get; set; }
         public string Thoigian { get; set; }
 
+
     }
 }

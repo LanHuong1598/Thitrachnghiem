@@ -58,7 +58,7 @@ namespace Thitrachnghiem.Quanlycauhoi.Models.Functions
 
         public List<Chuyennganh> GetChuyennganhWithTrinhdodaotao(String trinhdo)
         {
-            return thitracnghiemContext.Chuyennganhs.Where(x => x.Status == true && x.Trinhdodaotao.Equals(trinhdo)).OrderByDescending(x => x.Id).ToList();
+            return thitracnghiemContext.Chuyennganhs.Where(x => x.Status == true && x.Trinhdodaotao.Contains(trinhdo)).OrderByDescending(x => x.Id).ToList();
         }
 
     }
