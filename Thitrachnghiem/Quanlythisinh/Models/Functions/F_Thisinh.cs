@@ -37,6 +37,13 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Functions
             return thitracnghiemContext.Thisinhs.Where(x => x.Email == gmail && x.Status == true)
                 .OrderByDescending(x=> x.Id).FirstOrDefault();
         }
+
+        public Thisinh GetThisinhsByGmailandSBD(string gmail, string sbd)
+        {
+            return thitracnghiemContext.Thisinhs.Where(x => x.Email == gmail && x.Sobaodanh == sbd && x.Status == true)
+                .OrderByDescending(x => x.Id).FirstOrDefault();
+        }
+
         public Thisinh GetThisinhsById(int id)
         {
             return thitracnghiemContext.Thisinhs.Where(x => x.Id == id && x.Status == true).FirstOrDefault();
@@ -55,6 +62,7 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Functions
         }
         public Thisinh Create(Thisinh user)
         {
+            user.Thixong = false;
             thitracnghiemContext.Thisinhs.Add(user);
             thitracnghiemContext.SaveChanges();
             return user;

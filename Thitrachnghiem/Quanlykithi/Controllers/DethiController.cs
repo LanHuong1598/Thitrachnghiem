@@ -106,5 +106,20 @@ namespace Thitrachnghiem.QuanlyDethi.Controllers
                 body = Dethi
             });
         }
+
+
+
+        [HttpGet("Thongkedethi/Theochuyennganh")]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> Gethongke([FromQuery] string nam, string trinhdodaotao, string chuyennganhuuid)
+        {
+            var cauhoi = DethiService.thongkedethitheochuyennganh(nam, trinhdodaotao, chuyennganhuuid);
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = cauhoi
+            });
+        }
+
     }
 }

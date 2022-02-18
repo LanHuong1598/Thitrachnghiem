@@ -25,7 +25,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
         }
         public List<Dethi> GetDethis()
         {
-            return thitracnghiemContext.Dethis.Where(x => x.Status == true).ToList();
+            return thitracnghiemContext.Dethis.Where(x => x.Status == true).OrderByDescending(x=> x.Id).ToList();
         }
 
         public Dethi GetDethisByUuid(Guid uuid)
@@ -75,11 +75,14 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             // tao de thi
             Dethi dethi = new Dethi();
             dethi.Kithiid = kithi.Id;
+
+            Thisinh ts = thitracnghiemContext.Thisinhs.Where(x => x.Id == thisinhid).FirstOrDefault();
+
             var count = GetDethiWithKithiid(kithi.Id);
             if (count == null)
-                dethi.Madethi = "001";
+                dethi.Madethi = ts.Sobaodanh + "_001";
             else
-                dethi.Madethi = count.Count.ToString().PadLeft(3, '0');
+                dethi.Madethi = ts.Sobaodanh + "_" + count.Count.ToString().PadLeft(3, '0');
             dethi.Status = true;
             dethi.Thisinhid = thisinhid;
             dethi.Thoigian = DateTime.Now.ToString("yyyy");
@@ -121,6 +124,8 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
                         chitietdethi.Cauhoiid = u.Id;
                         chitietdethi.Dethiid = dethi.Id;
                         thitracnghiemContext.Chitietdethis.Add(chitietdethi);
+
+
                     }
                     thitracnghiemContext.SaveChanges();
                 }

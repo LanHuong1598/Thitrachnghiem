@@ -74,6 +74,28 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
             });
         }
 
+        /// <summary>
+        /// Get ki thi theo yeu cau 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Kithicothemo")]
+        [Authorize(Roles = "admin,KITHI_GET")]
+        public async Task<ActionResult> GetKithiCotheMo()
+        {
+            List<KithiGet> Cauhoi = KithiService.GetkithiCotheMo();
+            if (Cauhoi != null)
+                return Ok(new
+                {
+                    header = new Header(Cauhoi.Count,1, 1000, "true"),
+                    body = Cauhoi
+                });
+            return Ok(new
+            {
+                header = new Header(0, 1, 1000, "true"),
+                body = ""
+            });
+        }
+
         // GET: api/Kithi/5
         /// <summary>
         /// get Kithi by uuid cua Kithi

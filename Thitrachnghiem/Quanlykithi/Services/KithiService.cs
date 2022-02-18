@@ -69,7 +69,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 {
                     var u = GetKithiThisinhs((Guid)kithi.Uuid);
                     result.Sothisinh = u.Count;
-                    result.Sothisinhdat = u.Where(x => x.Diem != null && x.Diem >= 15).Count();
+                    result.Sothisinhdat = u.Where(x => x.Diemthi != null && x.Diemthi >= 15).Count();
                     result.Sothisinhtruot = result.Sothisinh - result.Sothisinhdat;
                 }
                 else
@@ -185,6 +185,22 @@ namespace Thitrachnghiem.Quanlykithi.Services
                     return null;
             }
         }
+
+        public List<KithiGet> GetkithiCotheMo()
+        {
+            List<Kithi> kithis = new F_Kithi().GetKithis(DateTime.Now.Year.ToString()).ToList();
+            List<Kithi> result = new List<Kithi>();
+            foreach (var u in kithis)
+            {
+                DateTime starttimedate = DateTime.ParseExact(u.Thoigianbatdau, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime endtimedate = DateTime.ParseExact(u.Thoigianketthuc, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                if (starttimedate <= DateTime.Now && endtimedate.AddHours(23) >= DateTime.Now)
+                    result.Add(u);
+
+            }
+            return result.ConvertAll(x => convert(x));
+        }
+
 
         public KithiDetail GetkithiByUuid(Guid guid)
         {
@@ -516,8 +532,19 @@ namespace Thitrachnghiem.Quanlykithi.Services
                 var cauhoi = f_Cauhoi.GetCauhoiByidWithFalse(i.Cauhoiid);
                 if (cauhoi != null)
                 {
+                    
                     var listcautlcuathisinh = f_Phienthi.GetListThisinhTraloiWithDethiidandCauhoiidandThisinhid(cauhoi.Id, dethi.Id, (int)dethi.Thisinhid);
-                    var listcautl = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id);
+
+                    F_ChitietdethiCautraloi f_ChitietdethiCautraloi = new F_ChitietdethiCautraloi();
+                    var listctlid = f_ChitietdethiCautraloi.GetChitietdethiCautraloiWithCauhoiid(cauhoi.Id, dethi.Id);
+                    var listcautl = new List<Cautraloi>();
+
+                    foreach (var ii in listctlid)
+                    {
+                        var ctl = f_Cautraloi.GetCautraloisById((int)ii.Cautraloiid);
+                        listcautl.Add(ctl);
+                    }
+
                     ThisinhTraloiGet thisinhTraloiGet = new ThisinhTraloiGet();
 
                     if (cauhoi != null)

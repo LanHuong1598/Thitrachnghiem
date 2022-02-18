@@ -70,7 +70,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
         }
 
         public ThisinhTraloi GetThisinhTraloiWithDethiidandCauhoiidandThisinhidandCautlid(
-           int cauhoiid, int? dethiid, int thisinhid, int cautlid)
+           int dethiid, int? cauhoiid, int thisinhid, int cautlid)
         {
             return thitracnghiemContext.ThisinhTralois.Where(x =>
             x.Cauhoiid == cauhoiid && x.Dethiid == dethiid && x.Thisinhid == thisinhid && x.Cautraloiid == cautlid).FirstOrDefault();

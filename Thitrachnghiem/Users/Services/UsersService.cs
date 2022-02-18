@@ -97,13 +97,13 @@ namespace Thitrachnghiem.Users.Services
             return us;
         }
 
-        public UserGet Login(UserLogin userLogin)
+        public UserGet Login(UserLogin userLogin, string remoteIpAddress)
         {
 
             F_Users f_users = new F_Users();
 
 
-            User user = f_users.Login(userLogin.Username, userLogin.Password);
+            User user = f_users.Login(userLogin.Username, userLogin.Password, remoteIpAddress);
             if (user != null)
             {
                 return GetRoleForUser(user);
@@ -112,13 +112,13 @@ namespace Thitrachnghiem.Users.Services
             return null;
         }
 
-        public UserGet LoginThisinh(UserLogin userLogin)
+        public UserGet LoginThisinh(UserLogin userLogin, string remoteIpAddress)
         {
 
             F_Users f_users = new F_Users();
 
 
-            User user = f_users.Login(userLogin.Username, userLogin.Password);
+            User user = f_users.Login(userLogin.Username, userLogin.Password, remoteIpAddress);
             if (user != null)
             {
                 return GetRoleForUser(user);
@@ -184,7 +184,7 @@ namespace Thitrachnghiem.Users.Services
                 throw new InvalidDataException("Username đã tồn tại");
 
             user = entity.convert();
-            if (entity.Madonvi != "null")
+            if (entity.Madonvi != null && entity.Madonvi != "null")
             {
                 F_Donvi f_Donvi = new F_Donvi();
                 Donvi donvi = f_Donvi.GetDonvisByUuid(new Guid(entity.Madonvi));
@@ -206,6 +206,31 @@ namespace Thitrachnghiem.Users.Services
             }
             return convert(user);
         }
+
+        public int CreateList(ListUserCreate entity)
+        {
+            int dem = 0;
+            foreach(var u in entity.Danhsachnguoidungs)
+            {
+                try
+                {
+                    if (u.Roleuuid.Equals("ADMIN"))
+                        u.Roleuuid = "ef30f807-75f8-45dc-8327-548d80b18873";
+                    else
+                        u.Roleuuid = "0eea26a4-c8c7-4bdd-8c48-efc6c0ed08b4";
+
+                    Create(u);
+                    dem = dem + 1;
+                }
+                catch
+                {
+                    
+                }
+            }
+            return dem;
+        }
+
+
         public UserGet Update(UserUpdate entity)
         {
             F_Users f_users = new F_Users();

@@ -8,6 +8,7 @@ using Thitrachnghiem.Quanlythisinh.Models.Entities;
 using Thitrachnghiem.Commons;
 using System.Linq;
 using Thitrachnghiem.Quanlycauhoi.Models.Entities;
+using Thitrachnghiem.Quanlykithi.Models.Schemas;
 
 namespace Thitrachnghiem.Quanlykithi.Services
 {
@@ -79,8 +80,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
             return convert(ts);
 
         }
-
-        public int Layketqua(int id)
+        public Bailamthisinh Layketqua(int id)
         {
             thitracnghiemContext thitracnghiemContext = new thitracnghiemContext();
             var user = thitracnghiemContext.Users.Where(x => x.Id == id && x.Status == true).FirstOrDefault();
@@ -93,13 +93,14 @@ namespace Thitrachnghiem.Quanlykithi.Services
             Guid uuid = new Guid(phienthi_thisinh.Dethiuuid);
             var dethi = thitracnghiemContext.Dethis.Where(x => x.Uuid == uuid).FirstOrDefault();
 
-            int diem = new KithiService().Getcautraloidethi((Guid)dethi.Uuid).Diem;
+            Bailamthisinh diem = new KithiService().Getcautraloidethi((Guid)dethi.Uuid);
 
             var ptts = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Dethiuuid == uuid.ToString()).FirstOrDefault();
             if (ptts != null)
-                ptts.Diem = diem;
-            thitracnghiemContext.SaveChanges();
+                ptts.Diem = diem.Diem;
 
+            ts.Thixong = true;
+            thitracnghiemContext.SaveChanges();
 
             return diem;
         }

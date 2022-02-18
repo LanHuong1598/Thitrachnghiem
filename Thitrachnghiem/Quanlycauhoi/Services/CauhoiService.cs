@@ -5,6 +5,7 @@ using Thitrachnghiem.Quanlycauhoi.Models.Entities;
 using Thitrachnghiem.Quanlycauhoi.Models.Functions;
 using Thitrachnghiem.Quanlycauhoi.Models.Schemas;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace Thitrachnghiem.Quanlycauhoi.Services
 {
@@ -315,5 +316,84 @@ namespace Thitrachnghiem.Quanlycauhoi.Services
             else
                 return null;
         }
+
+        public List<ThongkecauhoiGet> ThongkeTheoChuyennganh()
+        {
+            List<ThongkecauhoiGet> result = new List<ThongkecauhoiGet>();
+
+            F_Cauhoi f_Cauhoi = new F_Cauhoi();
+            F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
+            F_Cautraloi f_Cautraloi = new F_Cautraloi();
+            var chuyennganh = f_Chuyennganh.GetChuyennganhs();
+            foreach (var u in chuyennganh)
+            {
+                var cauhois = f_Cauhoi.GetCauhoiWithChuyennganhid(u.Id);
+                ThongkecauhoiGet thongkecauhoiGet = new ThongkecauhoiGet();
+                if (u.Trinhdodaotao.Trim() == "DAIHOC")
+                    thongkecauhoiGet.Ten = u.Ten + "- Đại học";
+                else
+                    thongkecauhoiGet.Ten = u.Ten + "- Cao đẳng";
+
+                thongkecauhoiGet.Tongsocau = cauhois.Count;
+
+                var nhieudapan = 0;
+                
+               
+                foreach (var cauhoi in cauhois)
+                {
+                    var cautl = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id);
+                    if (cautl.Where(x => x.Trangthai == true).Count() > 1)
+                        nhieudapan = nhieudapan + 1;
+                                        
+                }
+
+                thongkecauhoiGet.Nhieudapan = nhieudapan;
+                thongkecauhoiGet.Motdapan = thongkecauhoiGet.Tongsocau - nhieudapan;
+                result.Add(thongkecauhoiGet);
+            }
+
+            return result;
+
+        }
+        public List<ThongkecauhoiGet> ThongkeTheoBac()
+        {
+            List<ThongkecauhoiGet> result = new List<ThongkecauhoiGet>();
+
+            F_Cauhoi f_Cauhoi = new F_Cauhoi();
+            F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
+            F_Cautraloi f_Cautraloi = new F_Cautraloi();
+            var chuyennganh = f_Chuyennganh.GetChuyennganhs();
+            var tongcauhois = f_Cauhoi.GetCauhois("");
+
+            for (int i = 1; i <= 12; i++)
+            {
+                ThongkecauhoiGet thongkecauhoiGet = new ThongkecauhoiGet();
+
+                var cauhois = tongcauhois.Where(x => x.Bac == i).ToList();
+
+                thongkecauhoiGet.Tongsocau = cauhois.Count;
+                thongkecauhoiGet.Ten = "Bậc " + i.ToString();
+
+                var nhieudapan = 0;
+                                
+                foreach (var cauhoi in cauhois)
+                {
+                    var cautl = f_Cautraloi.GetCautraloiWithCauhoiid(cauhoi.Id);
+                    if (cautl.Where(x => x.Trangthai == true).Count() > 1)
+                        nhieudapan = nhieudapan + 1;
+
+                }
+
+                thongkecauhoiGet.Nhieudapan = nhieudapan;
+                thongkecauhoiGet.Motdapan = thongkecauhoiGet.Tongsocau - nhieudapan;
+                thongkecauhoiGet.Ten = "Bậc " + i.ToString();
+                result.Add(thongkecauhoiGet);
+            }
+
+            return result;
+
+        }
+
     }
+
 }

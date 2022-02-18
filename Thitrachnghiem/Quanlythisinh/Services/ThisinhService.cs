@@ -36,6 +36,7 @@ namespace Thitrachnghiem.Quanlythisinh.Services
             result.Bacluong = thisinh.Bacluong;
             result.Trinhdo = thisinh.Trinhdo;
             result.Namsinh = thisinh.Namsinh;
+            result.Sobaodanh = thisinh.Sobaodanh;
             try
             {
                 F_Chuyennganh f_Chuyennganh = new F_Chuyennganh();
@@ -116,6 +117,7 @@ namespace Thitrachnghiem.Quanlythisinh.Services
             thisinh.Namsinh = thisinhCreate.Namsinh;
             thisinh.Trinhdo = thisinhCreate.Trinhdo;
             thisinh.Bacluong = thisinhCreate.Bacluong;
+            thisinh.Sobaodanh = thisinhCreate.Sobaodanh;
 
             thisinh.Status = true;
             if (thisinhCreate.Kithiuuid != null && thisinhCreate.Kithiuuid != "null")
@@ -177,6 +179,8 @@ namespace Thitrachnghiem.Quanlythisinh.Services
             thisinh.Namsinh = thisinhUpdate.Namsinh;
             thisinh.Trinhdo = thisinhUpdate.Trinhdo;
             thisinh.Bacluong = thisinhUpdate.Bacluong;
+            thisinh.Sobaodanh = thisinhUpdate.Sobaodanh;
+
             if (thisinhUpdate.Kithiuuid != null && thisinhUpdate.Kithiuuid != "null")
             {
                 F_Kithi f_Kithi = new F_Kithi();

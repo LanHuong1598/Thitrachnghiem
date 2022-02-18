@@ -80,6 +80,24 @@ namespace Thitrachnghiem.Users.Controllers
             });
         }
 
+
+        /// <summary>
+        /// Them danh sach nguoi dung
+        /// </summary>
+        /// <param name="userCreate"></param>
+        /// <returns></returns>
+        [HttpPost("Themdanhsachnguoidung")]
+        [Authorize(Roles = "admin,USER_ADD")]
+        public async Task<ActionResult<UserGet>> ThemListUser([FromBody] ListUserCreate userCreate)
+        {
+            int user = usersService.CreateList(userCreate);
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = user
+            });
+        }
+
         /// <summary>
         /// sua 1 user 
         /// </summary>

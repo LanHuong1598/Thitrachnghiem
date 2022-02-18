@@ -27,7 +27,10 @@ namespace Thitrachnghiem.Controllers
             try
             {
                 UsersService usersService = new UsersService();
-                var user = usersService.Login(userlogin);
+
+                var remoteIpAddress = HttpContext.Connection.RemoteIpAddress;
+
+                var user = usersService.Login(userlogin, remoteIpAddress.ToString());
 
                 if (user == null)
                     return NotFound(new { message = "User or password invalid" });

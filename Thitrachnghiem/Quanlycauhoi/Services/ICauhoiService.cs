@@ -25,6 +25,7 @@ namespace Thitrachnghiem.Quanlycauhoi.Services
         public CauhoiGet UpdateCauhoi(CauhoiUpdate cauhoiUpdate);
         public CauhoiGet DeleteCauhoi(Guid guid);
         public bool DeleteCauhoisbyChuyennganh(string chuyennganhuuid, int bac);
-
+        public List<ThongkecauhoiGet> ThongkeTheoChuyennganh();
+        public List<ThongkecauhoiGet> ThongkeTheoBac();
     }
 }

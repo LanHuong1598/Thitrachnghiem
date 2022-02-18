@@ -155,6 +155,12 @@
             <param name="keyword"></param>
             <returns></returns>
         </member>
+        <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithiCotheMo">
+            <summary>
+            Get ki thi theo yeu cau 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Thitrachnghiem.Quanlykithi.Controllers.KithiController.GetKithi(System.Guid)">
             <summary>
             get Kithi by uuid cua Kithi
@@ -365,6 +371,13 @@
         <member name="M:Thitrachnghiem.Users.Controllers.UsersController.ThemUser(Thitrachnghiem.Users.Models.Schema.UserCreate)">
             <summary>
             them 1 user 
+            </summary>
+            <param name="userCreate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Thitrachnghiem.Users.Controllers.UsersController.ThemListUser(Thitrachnghiem.Users.Models.Schema.ListUserCreate)">
+            <summary>
+            Them danh sach nguoi dung
             </summary>
             <param name="userCreate"></param>
             <returns></returns>

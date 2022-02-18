@@ -108,6 +108,30 @@ namespace Thitrachnghiem.Quanlycauhoi.Controllers
             });
         }
 
+        [HttpGet("Thongkecauhoi/Theochuyennganh")]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> Gethongke()
+        {
+            var cauhoi = cauhoiService.ThongkeTheoChuyennganh();
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = cauhoi
+            });
+        }
+
+        [HttpGet("Thongkecauhoi/Theobac")]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> GethongkeTheobac()
+        {
+            var cauhoi = cauhoiService.ThongkeTheoBac();
+            return Ok(new
+            {
+                header = new Header(1, 0, 1, "true"),
+                body = cauhoi
+            });
+        }
+
         /// <summary>
         /// them 1 Cauhoi
         /// </summary>

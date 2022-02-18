@@ -10,6 +10,7 @@ using Thitrachnghiem.Quanlykithi.Models.Schemas;
 using Thitrachnghiem.Quanlykithi.Models.Functions;
 using Thitrachnghiem.Quanlythisinh.Models.Functions;
 using Thitrachnghiem.Users.Models.Functions;
+using Thitrachnghiem.QuanlyDethi.Models.Schemas;
 
 namespace Thitrachnghiem.Quanlykithi.Services
 {
@@ -26,6 +27,7 @@ namespace Thitrachnghiem.Quanlykithi.Services
         public bool Kiemtraphienthidamohaychua(string user);
         public List<DethiGet> getDethiByKithiuuid(Guid kithiuuid);
         public List<DethiGet> getDethiByChuyennganh(string he, string chuyennganhuuid, int bac, string keyword);
+        public List<ThongkedethiGet> thongkedethitheochuyennganh(string nam, string trinhdodaotao, string chuyennganhuuuid);
 
     }
 }

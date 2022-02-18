@@ -26,6 +26,7 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Schemas
         public string Namsinh { get; set; }
         public string Trinhdo { get; set; }
         public string Bacluong { get; set; }
+        public string Sobaodanh { get; set; }
 
 
     }

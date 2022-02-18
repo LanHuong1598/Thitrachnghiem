@@ -13,6 +13,8 @@ using System.Security.Claims;
 using Thitrachnghiem.Users.Models.Schema;
 using Thitrachnghiem.Users.Services;
 using Thitrachnghiem.Services;
+using Thitrachnghiem.Quanlythisinh.Services;
+using Thitrachnghiem.Quanlythisinh.Models.Functions;
 
 namespace Thitrachnghiem.Quanlykithi.Controllers
 {
@@ -64,15 +66,30 @@ namespace Thitrachnghiem.Quanlykithi.Controllers
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticatethisinh([FromBody] UserLogin userlogin)
+        public async Task<ActionResult<dynamic>> Authenticatethisinh([FromBody] ThisinhLogin thisinhLogin)
         {
             try
             {
+                UserLogin userlogin = new UserLogin();
+                userlogin.Username = thisinhLogin.Username;
+                userlogin.Password = thisinhLogin.Password;
+
                 UsersService usersService = new UsersService();
-                var user = usersService.LoginThisinh(userlogin);
+                var remoteIpAddress = HttpContext.Connection.RemoteIpAddress;
+
+                var user = usersService.LoginThisinh(userlogin, remoteIpAddress.ToString());
 
                 if (user == null)
                     return NotFound(new { message = "User or password invalid" });
+
+                F_Thisinh f_Thisinh = new F_Thisinh();
+                var ts = f_Thisinh.GetThisinhsByGmailandSBD(user.Username, thisinhLogin.Sobaodanh);
+                if (ts == null)
+                    throw new Exception("Sai sbd");
+
+                if (ts.Thixong == true)
+                    throw new Exception("Da thi xong");
+
 
                 var token = TokenService.CreateToken(user);
                 return new

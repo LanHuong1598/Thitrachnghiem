@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Thitrachnghiem.Thongke;
 
 namespace Thitrachnghiem.Users.Models.Functions
 {
@@ -17,12 +18,20 @@ namespace Thitrachnghiem.Users.Models.Functions
             thitracnghiemContext = new thitracnghiemContext();
         }
 
-        public User Login(string username, string password)
+        public User Login(string username, string password, string ip)
         {
-            User user = thitracnghiemContext.Users.Where(
-                x => x.Username == username && x.Password == password && x.Status == true).FirstOrDefault();
+            User user = thitracnghiemContext.Users.Where(x => x.Username == username && x.Password == password && x.Status == true).FirstOrDefault();
             if (user != null)
             {
+                Nhatki nk = new Nhatki();
+                nk.Ip = ip;
+                nk.Noidung = username + " đã đăng nhập";
+                nk.Ten = user.Name;
+                nk.Thoigian = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                nk.Username = username;
+                nk.Userid = user.Id;
+                thitracnghiemContext.Nhatkis.Add(nk);
+                thitracnghiemContext.SaveChanges();
                 return user;
             }
 

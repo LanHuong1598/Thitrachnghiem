@@ -25,40 +25,40 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
         public List<Kithi> GetKithis(string keyword)
         {
             if (keyword == null || keyword == "")
-                return thitracnghiemContext.Kithis.Where(x => x.Status == true).ToList();
+                return thitracnghiemContext.Kithis.Where(x => x.Status == true).OrderByDescending(x=> x.Id).ToList();
             else
-                return thitracnghiemContext.Kithis.Where(x => x.Status == true  && x.Thoigianbatdau.Contains(keyword)).ToList();
+                return thitracnghiemContext.Kithis.Where(x => x.Status == true  && x.Thoigianbatdau.Contains(keyword)).OrderByDescending(x=> x.Id).ToList();
         }
         public List<Kithi> GetKithis(string he, string keyword)
         {
             if (keyword == null || keyword == "")
-                return thitracnghiemContext.Kithis.Where(x => x.Trinhdodaotao == he && x.Status == true).ToList();
+                return thitracnghiemContext.Kithis.Where(x => x.Trinhdodaotao == he && x.Status == true).OrderByDescending(x=> x.Id).ToList();
             else
-                return thitracnghiemContext.Kithis.Where(x => x.Status == true && x.Trinhdodaotao == he && x.Thoigianbatdau.Contains(keyword)).ToList();
+                return thitracnghiemContext.Kithis.Where(x => x.Status == true && x.Trinhdodaotao == he && x.Thoigianbatdau.Contains(keyword)).OrderByDescending(x=> x.Id).ToList();
         }
         public List<Kithi> GetKithis(string he, int chuyennganhid, string keyword)
         {
             if (keyword == null || keyword == "")
-                return thitracnghiemContext.Kithis.Where(x => x.Chuyennganhid == chuyennganhid && x.Trinhdodaotao == he && x.Status == true).ToList();
+                return thitracnghiemContext.Kithis.Where(x => x.Chuyennganhid == chuyennganhid && x.Trinhdodaotao == he && x.Status == true).OrderByDescending(x=> x.Id).ToList();
             else
-                return thitracnghiemContext.Kithis.Where(x => x.Chuyennganhid == chuyennganhid && x.Status == true && x.Trinhdodaotao == he && x.Thoigianbatdau.Contains(keyword)).ToList();
+                return thitracnghiemContext.Kithis.Where(x => x.Chuyennganhid == chuyennganhid && x.Status == true && x.Trinhdodaotao == he && x.Thoigianbatdau.Contains(keyword)).OrderByDescending(x=> x.Id).ToList();
         }
         public List<Kithi> GetKithis(string he, int chuyennganhid, int bac, string keyword)
         {
             if (keyword == null || keyword == "")
-                return thitracnghiemContext.Kithis.Where(x => x.Bac == bac && x.Chuyennganhid == chuyennganhid && x.Trinhdodaotao == he && x.Status == true).ToList();
+                return thitracnghiemContext.Kithis.Where(x => x.Bac == bac && x.Chuyennganhid == chuyennganhid && x.Trinhdodaotao == he && x.Status == true).OrderByDescending(x=> x.Id).ToList();
             else
                 return thitracnghiemContext.Kithis.Where(x => x.Bac == bac && x.Chuyennganhid == chuyennganhid && x.Status == true && x.Trinhdodaotao == he 
-                && x.Thoigianbatdau.Contains(keyword)).ToList();
+                && x.Thoigianbatdau.Contains(keyword)).OrderByDescending(x=> x.Id).ToList();
         }
 
         public List<Kithi> GetKithiWithHeAndBacs(string he, int bac, string keyword)
         {
             if (keyword == null || keyword == "")
-                return thitracnghiemContext.Kithis.Where(x => x.Bac == bac && x.Trinhdodaotao == he && x.Status == true).ToList();
+                return thitracnghiemContext.Kithis.Where(x => x.Bac == bac && x.Trinhdodaotao == he && x.Status == true).OrderByDescending(x=> x.Id).ToList();
             else
                 return thitracnghiemContext.Kithis.Where(x => x.Bac == bac && x.Status == true && x.Trinhdodaotao == he
-                && x.Thoigianbatdau.Contains(keyword)).ToList();
+                && x.Thoigianbatdau.Contains(keyword)).OrderByDescending(x=> x.Id).ToList();
         }
 
         public Kithi GetKithisByUuid(Guid uuid)
@@ -91,6 +91,43 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             thitracnghiemContext.SaveChanges();
             return kithi1;
         }
+        //public List<KithiThisinhGet> GetKithiThisinhs(Guid Kithiuuid)
+        //{
+        //    List<KithiThisinhGet> rs = new List<KithiThisinhGet>();
+        //    var kithi = GetKithiByUuidWithFalse(Kithiuuid);
+        //    if (kithi == null)
+        //        throw new Exception("Khong co ki thi");
+
+        //    var ts = thitracnghiemContext.Thisinhs.Where(x => x.Status == true && x.Kithiid == kithi.Id).ToList();
+
+        //    var phienthis = thitracnghiemContext.Phienthis.Where(x => x.Kithiid == kithi.Id).Select(p => p.Id).ToList();
+
+        //    foreach (var i in ts)
+        //    {
+        //        KithiThisinhGet kithiThisinhGet = new KithiThisinhGet();
+        //        kithiThisinhGet.Tenthisinh = i.Name;
+        //        kithiThisinhGet.Email = i.Email;
+        //        var u = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Thisinhid == i.Id).ToList();
+        //        if (u != null && u.Count() != 0)
+        //        {
+        //            var v = u.Where(u => phienthis.Contains((int)u.Phienthiid)).OrderByDescending(x => x.Thoigianketthuc).First();
+        //            if (v != null)
+        //            {
+        //                kithiThisinhGet.Diem = v.Diem;
+        //                kithiThisinhGet.Thoigianbatdau = v.Thoigianbatdau;
+        //                kithiThisinhGet.Thoigianketthuc = v.Thoigianketthuc;
+        //                kithiThisinhGet.Made = v.Made;
+        //                kithiThisinhGet.Dethiuuid = v.Dethiuuid;
+        //            }
+
+        //        }
+        //        rs.Add(kithiThisinhGet);
+
+
+        //    }
+        //    return rs;
+        //}
+
         public List<KithiThisinhGet> GetKithiThisinhs(Guid Kithiuuid)
         {
             List<KithiThisinhGet> rs = new List<KithiThisinhGet>();
@@ -98,27 +135,75 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             if (kithi == null)
                 throw new Exception("Khong co ki thi");
 
-            var ts = thitracnghiemContext.Thisinhs.Where(x => x.Status == true && x.Kithiid == kithi.Id).ToList();
+            var ts = thitracnghiemContext.Thisinhs.Where(x => x.Status == true && x.Kithiid == kithi.Id).OrderByDescending(x=> x.Id).ToList();
 
             var phienthis = thitracnghiemContext.Phienthis.Where(x => x.Kithiid == kithi.Id).Select(p => p.Id).ToList();
 
             foreach (var i in ts)
             {
                 KithiThisinhGet kithiThisinhGet = new KithiThisinhGet();
-                kithiThisinhGet.Tenthisinh = i.Name;
+
+                kithiThisinhGet.Bacdanggiu = i.Bacdanggiu;
+                kithiThisinhGet.Bacthi = i.Bacthi;
+                kithiThisinhGet.Chuyennganhhoc = i.Chuyennganhhoc;
+                kithiThisinhGet.Chucvu = i.Chucvu;
+                kithiThisinhGet.Capbac = i.Capbac;
                 kithiThisinhGet.Email = i.Email;
-                var u = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Thisinhid == i.Id).ToList();
+                kithiThisinhGet.Name = i.Name;
+                kithiThisinhGet.Donvi = i.Donvi;
+                kithiThisinhGet.Bacluong = i.Bacluong;
+                kithiThisinhGet.Trinhdo = i.Trinhdo;
+                kithiThisinhGet.Namsinh = i.Namsinh;
+                kithiThisinhGet.Sobaodanh = i.Sobaodanh;
+                try
+                {
+                    var chuyennganh = thitracnghiemContext.Chuyennganhs.Where(x => x.Id == i.Chuyennganhthiid).FirstOrDefault();
+                    //kithiThisinhGet.Chuyennganhuuid = chuyennganh.Uuid.ToString();
+                    kithiThisinhGet.Chuyennganhthi = chuyennganh.Ten;
+                    kithiThisinhGet.Trinhdodaotao = chuyennganh.Trinhdodaotao;
+                }
+                catch
+                {
+                }
+                try
+                {
+                   
+                    kithiThisinhGet.Trinhdodaotao = kithi.Trinhdodaotao;
+                    kithiThisinhGet.Bacthi = kithi.Bac;
+                    try
+                    {
+                        var chuyennganh = thitracnghiemContext.Chuyennganhs.Where(x => x.Id == i.Chuyennganhthiid).FirstOrDefault();
+                        //kithiThisinhGet.Chuyennganhuuid = chuyennganh.Uuid.ToString();
+                        kithiThisinhGet.Chuyennganhthi = chuyennganh.Ten;
+                    }
+                    catch
+                    {
+                    }
+
+
+
+                }
+                catch
+                {
+                }
+
+                var u = thitracnghiemContext.PhienthiThisinhs.Where(x => x.Thisinhid == i.Id).OrderByDescending(x=> x.Id).ToList();
+                kithiThisinhGet.Diem = "0";
+                kithiThisinhGet.Diemthi = 0;
+
                 if (u != null && u.Count() != 0)
                 {
-                    var v = u.Where(u => phienthis.Contains((int)u.Phienthiid)).OrderByDescending(x => x.Thoigianketthuc).First();
-                    if (v != null)
+                    var v = u.Where(u => phienthis.Contains((int)u.Phienthiid)).OrderByDescending(x => x.Diem).First();
+                    if (v != null && v.Diem != null)
                     {
-                        kithiThisinhGet.Diem = v.Diem;
-                        kithiThisinhGet.Thoigianbatdau = v.Thoigianbatdau;
-                        kithiThisinhGet.Thoigianketthuc = v.Thoigianketthuc;
+                        kithiThisinhGet.Diem = (Math.Round((float)v.Diem/25*10, 2)).ToString();
+                        kithiThisinhGet.Diemthi = v.Diem;
+                        //kithiThisinhGet.Thoigianbatdau = v.Thoigianbatdau;
+                        //kithiThisinhGet.Thoigianketthuc = v.Thoigianketthuc;
                         kithiThisinhGet.Made = v.Made;
-                        kithiThisinhGet.Dethiuuid = v.Dethiuuid;
+                        //kithiThisinhGet.Dethiuuid = v.Dethiuuid;
                     }
+                    
 
                 }
                 rs.Add(kithiThisinhGet);
@@ -127,5 +212,6 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
             }
             return rs;
         }
+
     }
 }

@@ -38,6 +38,9 @@ namespace Thitrachnghiem
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Settings.conStr = ConfigurationExtensions.GetConnectionString(this.Configuration, "conStr");
+            Settings.backupStr = ConfigurationExtensions.GetConnectionString(this.Configuration, "BackupString");
+
         }
 
         public IConfiguration Configuration { get; }
@@ -45,7 +48,6 @@ namespace Thitrachnghiem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IDonviService, DonviService>();
@@ -54,9 +56,6 @@ namespace Thitrachnghiem
             services.AddTransient<IKithiService, KithiService>();
             services.AddTransient<IThisinhService, ThisinhService>();
             services.AddTransient<IDethiService, DethiService>();
-
-
-
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services.AddAuthentication(x =>
@@ -86,6 +85,9 @@ namespace Thitrachnghiem
                 c.IncludeXmlComments(XmlCommentsFilePath);
 
             });
+
+            services.AddSingleton<IConfiguration>(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

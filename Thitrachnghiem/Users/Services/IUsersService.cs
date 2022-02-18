@@ -15,12 +15,14 @@ namespace Thitrachnghiem.Users.Services
         public UserView converttoUserChung(User user);
 
         public UserGet GetRoleForUser(User user);
-        public UserGet Login(UserLogin userLogin);
+        public UserGet Login(UserLogin userLogin, string remoteIpAddress);
         public Pair<List<UserGet>, int> GetUsers(string keyword, Pageing pageing);
         public List<UserView> GetUsersChung(string keyword, Pageing pageing);
         public UserGet GetUsersByid(int id);
         public UserGet GetUsersByUuid(string uuid);
         public UserGet Create(UserCreate entity);
+        public int CreateList(ListUserCreate entity);
+
         public UserGet Update(UserUpdate entity);
         public UserGet Delete(string uuid);
         public List<RoleGet> GetRoles();

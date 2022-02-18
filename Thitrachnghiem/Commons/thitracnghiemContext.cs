@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Thitrachnghiem.Quanlycauhoi.Models.Entities;
-using Thitrachnghiem.Quanlykithi.Models.Schemas;
+using Thitrachnghiem.QuanlyDethi.Models;
 using Thitrachnghiem.Quanlykithi.Models.Entities;
-using Thitrachnghiem.Users.Models.Entities;
 using Thitrachnghiem.Quanlythisinh.Models.Entities;
-using Thitrachnghiem.Quanlykithi.Models;
+using Thitrachnghiem.Thongke;
+using Thitrachnghiem.Users.Models.Entities;
+
 
 #nullable disable
 
@@ -27,11 +28,13 @@ namespace Thitrachnghiem.Commons
         public virtual DbSet<Cauhoi> Cauhois { get; set; }
         public virtual DbSet<Cautraloi> Cautralois { get; set; }
         public virtual DbSet<Chitietdethi> Chitietdethis { get; set; }
+        public virtual DbSet<ChitietdethiCautraloi> ChitietdethiCautralois { get; set; }
         public virtual DbSet<Chuyennganh> Chuyennganhs { get; set; }
         public virtual DbSet<Dethi> Dethis { get; set; }
         public virtual DbSet<Donvi> Donvis { get; set; }
         public virtual DbSet<Kithi> Kithis { get; set; }
         public virtual DbSet<Matrandethi> Matrandethis { get; set; }
+        public virtual DbSet<Nhatki> Nhatkis { get; set; }
         public virtual DbSet<Phienthi> Phienthis { get; set; }
         public virtual DbSet<PhienthiThisinh> PhienthiThisinhs { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -44,8 +47,9 @@ namespace Thitrachnghiem.Commons
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=;Database=thitracnghiem;Trusted_Connection=True;");
+                string constr = Settings.conStr;
+                optionsBuilder.UseSqlServer(constr);
+                //optionsBuilder.UseSqlServer("Server=;Database=thitracnghiem;Trusted_Connection=True;");            }
             }
         }
 
@@ -75,9 +79,6 @@ namespace Thitrachnghiem.Commons
             {
                 entity.ToTable("cauhoi");
 
-                entity.HasIndex(e => e.Uuid, "UQ__cauhoi__7F427931373803B4")
-                    .IsUnique();
-
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Bac).HasColumnName("bac");
@@ -102,7 +103,10 @@ namespace Thitrachnghiem.Commons
             {
                 entity.ToTable("cautraloi");
 
-                entity.HasIndex(e => e.Uuid, "UQ__cautralo__7F4279311C463F65")
+                entity.HasIndex(e => e.Uuid, "UQ__cautralo__7F4279314ECCC14D")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Uuid, "UQ__cautralo__7F42793169FC4F8B")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -126,10 +130,33 @@ namespace Thitrachnghiem.Commons
             {
                 entity.ToTable("chitietdethi");
 
-                entity.HasIndex(e => e.Uuid, "UQ__chitietd__7F42793120B2D655")
+                entity.HasIndex(e => e.Uuid, "UQ__chitietd__7F427931124D8AD2")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Uuid, "UQ__chitietd__7F427931DF7E6AF6")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Cauhoiid).HasColumnName("cauhoiid");
+
+                entity.Property(e => e.Dethiid).HasColumnName("dethiid");
+
+                entity.Property(e => e.Uuid)
+                    .HasColumnName("uuid")
+                    .HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<ChitietdethiCautraloi>(entity =>
+            {
+                entity.ToTable("chitietdethi_cautraloi");
+
+                entity.HasIndex(e => e.Uuid, "UQ__chitietd__7F4279311636A26D")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Cautraloiid).HasColumnName("cautraloiid");
 
                 entity.Property(e => e.Cauhoiid).HasColumnName("cauhoiid");
 
@@ -199,10 +226,16 @@ namespace Thitrachnghiem.Commons
             {
                 entity.ToTable("donvi");
 
-                entity.HasIndex(e => e.Uuid, "UQ__donvi__7F427931CE8DF151")
+                entity.HasIndex(e => e.Uuid, "UQ__donvi__7F42793120426E44")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Uuid, "UQ__donvi__7F427931CF98D6F6")
+                entity.HasIndex(e => e.Uuid, "UQ__donvi__7F427931345E62E7")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Uuid, "UQ__donvi__7F4279314DA4A13D")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Uuid, "UQ__donvi__7F427931BEF17E8A")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -259,7 +292,10 @@ namespace Thitrachnghiem.Commons
             {
                 entity.ToTable("matrandethi");
 
-                entity.HasIndex(e => e.Uuid, "UQ__matrande__7F4279313CB4E186")
+                entity.HasIndex(e => e.Uuid, "UQ__matrande__7F42793163CF7A7A")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Uuid, "UQ__matrande__7F427931A6E15C59")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -279,17 +315,47 @@ namespace Thitrachnghiem.Commons
                     .HasDefaultValueSql("(newid())");
             });
 
+            modelBuilder.Entity<Nhatki>(entity =>
+            {
+                entity.ToTable("nhatki");
+
+                entity.HasIndex(e => e.Uuid, "UQ__nhatki__7F42793121EBAB4A")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Ip).HasColumnName("ip");
+
+                entity.Property(e => e.Noidung).HasColumnName("noidung");
+
+                entity.Property(e => e.Ten).HasColumnName("ten");
+
+                entity.Property(e => e.Thoigian)
+                    .HasMaxLength(50)
+                    .HasColumnName("thoigian");
+
+                entity.Property(e => e.Userid).HasColumnName("userid");
+
+                entity.Property(e => e.Username).HasColumnName("username");
+
+                entity.Property(e => e.Uuid)
+                    .HasColumnName("uuid")
+                    .HasDefaultValueSql("(newid())");
+            });
+
             modelBuilder.Entity<Phienthi>(entity =>
             {
                 entity.ToTable("phienthi");
 
-                entity.HasIndex(e => e.Uuid, "UQ__phienthi__7F427931C8954D71")
+                entity.HasIndex(e => e.Uuid, "UQ__phienthi__7F4279311BEBA109")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Uuid, "UQ__phienthi__7F427931E6D40CB3")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Kithiid).HasColumnName("kithiid");
-
 
                 entity.Property(e => e.Thoigianbatdau)
                     .HasMaxLength(100)
@@ -313,13 +379,15 @@ namespace Thitrachnghiem.Commons
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Made)
-                    .IsUnicode(false)
-                    .HasColumnName("made");
-
                 entity.Property(e => e.Dethiuuid)
                     .IsUnicode(false)
                     .HasColumnName("dethiuuid");
+
+                entity.Property(e => e.Diem).HasColumnName("diem");
+
+                entity.Property(e => e.Made)
+                    .IsUnicode(false)
+                    .HasColumnName("made");
 
                 entity.Property(e => e.Phienthiid).HasColumnName("phienthiid");
 
@@ -332,8 +400,6 @@ namespace Thitrachnghiem.Commons
                 entity.Property(e => e.Thoigianketthuc)
                     .IsUnicode(false)
                     .HasColumnName("thoigianketthuc");
-                entity.Property(e => e.Diem).HasColumnName("diem");
-
 
                 entity.Property(e => e.Uuid)
                     .HasColumnName("uuid")
@@ -344,10 +410,16 @@ namespace Thitrachnghiem.Commons
             {
                 entity.ToTable("role");
 
-                entity.HasIndex(e => e.Uuid, "UQ__role__7F4279316B45FD35")
+                entity.HasIndex(e => e.Uuid, "UQ__role__7F4279312A1AA1F4")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Uuid, "UQ__role__7F427931C4373AAA")
+                entity.HasIndex(e => e.Uuid, "UQ__role__7F427931826FFC79")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Uuid, "UQ__role__7F427931CAF86B76")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Uuid, "UQ__role__7F427931D0514445")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -376,7 +448,10 @@ namespace Thitrachnghiem.Commons
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Bacdanggiu).HasColumnName("bacdanggiu");
+                entity.Property(e => e.Bacdanggiu)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("bacdanggiu");
 
                 entity.Property(e => e.Bacluong)
                     .HasMaxLength(50)
@@ -384,9 +459,13 @@ namespace Thitrachnghiem.Commons
 
                 entity.Property(e => e.Bacthi).HasColumnName("bacthi");
 
-                entity.Property(e => e.Capbac).HasColumnName("capbac");
+                entity.Property(e => e.Capbac)
+                    .HasMaxLength(50)
+                    .HasColumnName("capbac");
 
-                entity.Property(e => e.Chucvu).HasColumnName("chucvu");
+                entity.Property(e => e.Chucvu)
+                    .HasMaxLength(50)
+                    .HasColumnName("chucvu");
 
                 entity.Property(e => e.Chuyennganhhoc).HasColumnName("chuyennganhhoc");
 
@@ -394,7 +473,9 @@ namespace Thitrachnghiem.Commons
 
                 entity.Property(e => e.Donvi).HasColumnName("donvi");
 
-                entity.Property(e => e.Email).HasColumnName("email");
+                entity.Property(e => e.Email)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
 
                 entity.Property(e => e.Kithiid).HasColumnName("kithiid");
 
@@ -404,7 +485,14 @@ namespace Thitrachnghiem.Commons
                     .HasMaxLength(50)
                     .HasColumnName("namsinh");
 
+                entity.Property(e => e.Sobaodanh)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("sobaodanh");
+
                 entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.Thixong).HasColumnName("thixong");
 
                 entity.Property(e => e.Trinhdo)
                     .HasMaxLength(50)
@@ -493,7 +581,7 @@ namespace Thitrachnghiem.Commons
 
                 entity.Property(e => e.Userid).HasColumnName("userid");
 
-               
+              
             });
 
             OnModelCreatingPartial(modelBuilder);

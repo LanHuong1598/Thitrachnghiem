@@ -24,5 +24,8 @@ namespace Thitrachnghiem.Quanlythisinh.Models.Entities
         public string Namsinh { get; set; }
         public string Trinhdo { get; set; }
         public string Bacluong { get; set; }
+        public bool? Thixong { get; set; }
+        public string Sobaodanh { get; set; }
+
     }
 }

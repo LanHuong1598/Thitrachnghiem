@@ -19,12 +19,12 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
 
         public List<Phienthi> GetPhienthis()
         {
-            return thitracnghiemContext.Phienthis.ToList();
+            return thitracnghiemContext.Phienthis.OrderByDescending(x=> x.Id).ToList();
         }
         public List<Phienthi> GetPhienthisIsOpen()
         {
             string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            return thitracnghiemContext.Phienthis.Where( x=> x.Thoigianketthuc.CompareTo(now) > 0).ToList();
+            return thitracnghiemContext.Phienthis.Where( x=> x.Thoigianketthuc.CompareTo(now) > 0).OrderByDescending(x=> x.Id).ToList();
         }
 
         public Phienthi GetPhienthisByUuid(Guid uuid)
@@ -65,7 +65,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
 
         public List<Phienthi> GetPhienthiWithKithiid(int? id)
         {
-            return thitracnghiemContext.Phienthis.Where(x =>x.Kithiid == id).ToList();
+            return thitracnghiemContext.Phienthis.Where(x =>x.Kithiid == id).OrderByDescending(x=> x.Id).ToList();
         }
 
         public PhienthiThisinh CreateThisinhphienthi(PhienthiThisinh phienthiThisinh)
@@ -77,7 +77,7 @@ namespace Thitrachnghiem.Quanlykithi.Models.Functions
 
         public List<PhienthiThisinh> GetThisinhsByPhienthiid(int? id)
         {
-            return thitracnghiemContext.PhienthiThisinhs.Where(x => x.Phienthiid == id).ToList();
+            return thitracnghiemContext.PhienthiThisinhs.Where(x => x.Phienthiid == id).OrderByDescending(x=> x.Id).ToList();
         }
 
 
